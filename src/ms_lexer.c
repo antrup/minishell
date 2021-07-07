@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:49:05 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/07 19:29:20 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/07 20:17:09 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,10 @@ static int	ms_ctoken_var(char *line, int *i)
 	}
 	while (line[y])
 	{
-		if (ms_isparen
 		y++;
-
+	}
+	return (0);
+}
 
 static int	ms_ctoken_qt(char *line, t_tlist **tlist, int *i, int type)
 {
