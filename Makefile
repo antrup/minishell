@@ -6,7 +6,11 @@ INC = ms_minishell.h
 
 SRCS = ms_minishell.c \
 	   ms_utils.c \
-	   ms_lexer.c
+	   ms_lexer.c \
+	   ms_lexer_utils.c
+
+#TO BE REMOVED
+SRCS += tester.c
 
 SRCDIR = src
 OBJDIR = objs

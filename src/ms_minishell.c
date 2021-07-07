@@ -6,13 +6,13 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/06 20:03:36 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/07 15:05:09 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
 
-static void ms_leak(void)
+static void	ms_leak(void)
 {
 	system("leaks minishell");
 }
@@ -32,14 +32,13 @@ int	main(int argc, char **argv, char **env)
 	{
 		ms_init(&data);
 		str = readline("Myshell: ");
-		printf("%s\n", str);
 		ms_lexer(str, &(data.tlist));
-		printf("%s\n", data.tlist[0].tk.value);
+		print_token(&data);
 		add_history(str);
 		free(str);
 		if (!inte)
 			return (0);
-	//	ms_clean(&data);
+		ms_clean(&data);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 12:17:18 by sshakya           #+#    #+#             */
-/*   Updated: 2021/03/04 08:21:09 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/07 14:45:27 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int					get_next_line(int fd, char **line);
 char				*gnl_join(char *s1, char *s2);
 int					gnl_find(char *str);
 char				*gnl_sub(const char *s, unsigned int start, size_t len,
-							int n);
+						int n);
 size_t				gnl_len(const char *s);
 char				*gnl_dup(const char *src, const char *srcfree);
 
