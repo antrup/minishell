@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 14:36:33 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/07 19:16:39 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/07 20:46:03 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ms_isredirection(char c)
 	return (0);
 }
 
-static int ms_isparen(char c)
+int ms_isparen(char c)
 {
 	if (c == '(')
 		return (1);

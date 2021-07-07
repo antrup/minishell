@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:49:05 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/07 20:17:09 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/07 21:28:10 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,34 +23,46 @@ static int	ms_ctoken_str(char *line, t_tlist **tlist, int *i)
 	new->tk.type = STRING;
 	y = *i + 1;
 	while (line[y] && !ms_isquote(line[y]) && !ms_isop_pipe(line[y])
-			&& !ms_isop_and(line[y], line[y + 1]))
+			&& !ms_isop_and(line[y], line[y + 1]) && !ms_isvariable(&line[y]))
 		y++;
 	new->tk.value = ft_substr(line, *i, y - *i);
 	*i = y;
 	return (0);
 }
 
-static int	ms_ctoken_var(char *line, int *i)
+static int	ms_ctoken_var(char *line, int *i, t_tlist **tlist)
 {
 	t_tlist	*new;
 	int		y;
-	int		flag;
+	int		paren;
 
-	flag = 0;
 	new = ms_create_token(tlist);
 	if (!new)
 		return(1);
 	new->tk.type = VARIABLE;
 	y = *i + 1;
-	if (ms_isparen(line[y] == 1))
-	{
-		flag += 1;
-		y++;
-	}
-	while (line[y])
+	paren = ms_isparen(line[y]);
+	if (paren == 1)
 	{
 		y++;
+		while (line[y] && paren)
+		{
+			if (ms_isparen(line[y] == 1))
+				paren += 1;
+			if (ms_isparen(line[y]) == 2)
+				paren -= 1;
+			y++;
+		}
 	}
+	else 
+	{
+		while (line[y] && !ft_isspace(line[y]))
+			y++;
+	}
+	if (!line[y])
+		return (1);
+	new->tk.value = ft_substr(line, *i + 1, y - *i);
+	*i = y;
 	return (0);
 }
 
@@ -95,14 +107,14 @@ static int	ms_ctoken_pipe(char *line, t_tlist **tlist, int *i)
 		return (1);
 	new->tk.type = OPERATOR;
 	if (ms_isop_pipe(line[*i]) == OP_PIPE 
-		&& ms_isop_pipe(line[*i + 1]) == OP_PIPE)
+			&& ms_isop_pipe(line[*i + 1]) == OP_PIPE)
 	{	
 		new->tk.op = OP_OR;
 		*i = *i + 1;
 	}
 	else
 		new->tk.op = OP_PIPE;
-			*i = *i + 1;
+	*i = *i + 1;
 	return (0);
 }
 
@@ -139,7 +151,9 @@ int	ms_lexer(char *line, t_tlist **tlist)
 	i = 0;
 	while (line[i])
 	{
-		if (ms_isquote(line[i]))
+		if (ft_isspace(line[i]))
+			i++;
+		else if (ms_isquote(line[i]))
 			ms_ctoken_qt(line, tlist, &i, ms_isquote(line[i]));
 		else if (ms_isop_pipe(line[i]))
 			ms_ctoken_pipe(line, tlist, &i);
@@ -148,7 +162,7 @@ int	ms_lexer(char *line, t_tlist **tlist)
 		else if (ms_isop_and(line[i], line[i + 1]))
 			ms_ctoken_and(tlist, &i);
 		else if (ms_isvariable(&(line[i])))
-			ms_ctoken_and(tlist, &i);
+			ms_ctoken_var(line, &i, tlist);
 		else
 			ms_ctoken_str(line, tlist, &i);
 	}
