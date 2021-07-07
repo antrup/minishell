@@ -2,7 +2,9 @@ NAME = minishell
 
 LIBFT = inc/libft/libft.a
 
-INC = ms_minishell.h
+INC = ms_minishell.h \
+	  ms_define.h \
+	  ms_structs.h
 
 SRCS = ms_minishell.c \
 	   ms_utils.c \
