@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:03:04 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/08 11:54:26 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/08 12:54:32 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 enum e_node_type
 {
-	COMMAND = 0,
-	OP_PIPE = 1,
-	OP_AND = 2,
-	OP_OR = 3
-}
+	NO_CMD = 0,
+	NO_PIPE = 1,
+	NO_AND = 2,
+	NO_OR = 3
+};
 
 typedef	struct	s_command
 {
