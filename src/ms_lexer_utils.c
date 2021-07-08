@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 14:36:33 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/08 10:05:41 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/08 10:58:18 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,16 @@ t_tlist	*ms_create_token(t_tlist **tlist)
 	new->tk.type = ERROR;
 	current = tlist[0];
 	if (!current)
+	{	
 		tlist[0] = new;
+		new->previous = NULL;
+	}
 	else
 	{	
 		while (current->next)
 			current = current->next;
 		current->next = new;
+		new->previous = current;
 	}
 	new->next = NULL;
 	return (new);

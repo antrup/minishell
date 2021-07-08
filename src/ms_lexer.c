@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:49:05 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/08 10:05:43 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/08 10:42:51 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,37 +16,30 @@ static int	ms_ctoken_word(char *line, t_tlist **tlist, int *i)
 {
 	t_tlist		*new;
 	int			y;
+	int			type;
 
 	new = ms_create_token(tlist);
 	if (!new)
 		return (1);
 	new->tk.type = WORD;
 	y = *i + 1;
-	while (line[y] && !ms_isquote(line[y]) && !ms_isop_pipe(line[y])
+	while (line[y] && !ms_isop_pipe(line[y])
 			&& !ms_isop_and(line[y], line[y + 1]) && !ft_isspace(line[y]))
+	{	
+		type = ms_isquote(line[y]);
+		if (type)
+		{	
+			y++;
+			while (line[y] && ms_isquote(line[y]) != type)
+				y++;
+			if (!line[y])
+				return (1);
+		}
 		y++;
+	}
 	new->tk.value = ft_substr(line, *i, y - *i);
 	*i = y;
 	return (0);
-}
-
-static int	ms_ctoken_qt(char *line, t_tlist **tlist, int *i, int type)
-{
-	t_tlist		*new;
-	int			y;
-
-	new = ms_create_token(tlist);
-	if (!new)
-		return (1);
-	new->tk.type = STRING_DQ;
-	y = *i + 1;
-	while (ms_isquote(line[y]) != type && line[y])
-		y++;
-	if (!line[y])
-		return (1);
-	new->tk.value = ft_substr(line, *i + 1, y - *i - 1);
-	*i = y + 1;
-	retur (0);
 }
 
 static int	ms_ctoken_and(t_tlist **tlist, int *i)
@@ -114,8 +107,6 @@ int	ms_lexer(char *line, t_tlist **tlist)
 	{
 		if (ft_isspace(line[i]))
 			i++;
-		else if (ms_isquote(line[i]))
-			ms_ctoken_qt(line, tlist, &i, ms_isquote(line[i]));
 		else if (ms_isop_pipe(line[i]))
 			ms_ctoken_pipe(line, tlist, &i);
 		else if (ms_isredirection(line[i]))

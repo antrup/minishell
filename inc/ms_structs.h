@@ -6,12 +6,20 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:03:04 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/08 09:40:01 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/08 11:54:26 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MS_STRUCTS_H
 # define MS_STRUCTS_H
+
+enum e_node_type
+{
+	COMMAND = 0,
+	OP_PIPE = 1,
+	OP_AND = 2,
+	OP_OR = 3
+}
 
 typedef	struct	s_command
 {
@@ -19,18 +27,20 @@ typedef	struct	s_command
 	int		buidin;
 	char	*path;
 	char	**args;
-	int		redirectIN;
-	int		redirectOUT;
-	FILE	*redirIN;
-	FILE	*redirOUT;
+	int		redirIN;
+	int		redirOUT;
+	int		INfd;
+	int		OUTfd;
+	
 }	t_command;
 
-typedef	struct	s_operator
+typedef	struct	s_node
 {
-	int		type;
-	void	*left;
-	void	*right;
-}	t_operator;
+	enum e_node_type	type;
+	t_command			*data;
+	void				*left;
+	void				*right;
+}	t_node;
 
 enum e_token_type
 {
@@ -39,8 +49,6 @@ enum e_token_type
 	OP_PIPE = 1,
 	OP_AND = 2,
 	OP_OR = 3,
-	STRING_DQ = 2,
-	STRING_SQ = 3,
 	REDIR_IN = 4,
 	REDIR_OUT = 5,
 	REDIR_IN_A = 6,
@@ -58,6 +66,7 @@ typedef struct s_tlist
 {	
 	t_token				tk;
 	struct s_tlist		*next;
+	struct s_tlist		*previous;
 }	t_tlist;
 
 typedef struct s_ms

@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 09:41:43 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/08 09:53:58 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/08 10:48:15 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,23 @@ int	ms_isvariable(char *str)
 {
 	if (str[0] == '$' && (ft_isalnum(str[1]) || ms_isparen(str[1]) == 1))
 		return (1);
+	return (0);
+}
+static int	ms_ctoken_qt(char *line, t_tlist **tlist, int *i, int type)
+{
+	t_tlist		*new;
+	int			y;
+
+	new = ms_create_token(tlist);
+	if (!new)
+		return (1);
+	new->tk.type = STRING_DQ;
+	y = *i + 1;
+	while (ms_isquote(line[y]) != type && line[y])
+		y++;
+	if (!line[y])
+		return (1);
+	new->tk.value = ft_substr(line, *i + 1, y - *i - 1);
+	*i = y + 1;
 	return (0);
 }
