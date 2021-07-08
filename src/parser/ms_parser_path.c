@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 16:27:04 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/08 16:36:12 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/08 17:45:36 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ms_find_cmd_path(char	*cmd_name, char ***t_path, int size_n)
 		size = ft_strlen(cmd_name) + ft_strlen(t_path[0][i]) + 1;
 		cmd_path = malloc(sizeof(char) * size);
 		if (!cmd_path)
-			return (clean_tab_path(t_path, NULL));
+			return (ms_clean_tab_path(t_path, NULL));
 		ft_strlcpy(cmd_path, t_path[0][i], ft_strlen(t_path[0][i]) + 1);
 		ft_strlcpy(cmd_path + ft_strlen(t_path[0][i]), cmd_name, size_n + 1);
 		if (stat(file, &sf) == 0 && sf.st_mode & S_IXUSR)
@@ -33,15 +33,15 @@ char	*ms_find_cmd_path(char	*cmd_name, char ***t_path, int size_n)
 			if (ft_strlen(cmd_name) > (unsigned long)size_n)
 				ft_strlcpy(cmd_path + ft_strlen(t_path[0][i]) + size_n, cmd_name
 					+ size_n, ft_strlen(cmd_name) - size_n + 1);
-			return (clean_tab_path(t_path, cmd_path));
+			return (ms_clean_tab_path(t_path, cmd_path));
 		}
 		free(cmd_path);
 		i++;
 	}
-	return (clean_tab_path(t_path, NULL));
+	return (ms_clean_tab_path(t_path, NULL));
 }
 
-char	*ms_find_path(char **argve, char *file_name)
+char	*ms_find_path(char *file_name)
 {
 	int		level;
 	char	*pwd;

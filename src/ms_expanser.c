@@ -6,14 +6,14 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 09:41:43 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/08 10:48:15 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/08 18:20:48 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "ms_minishell.h"
 
-static int	ms_ctoken_var(char *line, int *i, t_tlist **tlist)
+static int	ms_ctoken_var(char *word)
 {
 	t_tlist	*new;
 	int		y;
@@ -82,3 +82,10 @@ static int	ms_ctoken_qt(char *line, t_tlist **tlist, int *i, int type)
 	*i = y + 1;
 	return (0);
 }
+
+char	*ms_expanser(char *word)
+{
+	char	*ret;
+
+	
+

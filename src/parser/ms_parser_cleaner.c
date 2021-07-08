@@ -1,44 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_minishell.c                                     :+:      :+:    :+:   */
+/*   ms_parser_cleaner.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/08 18:09:15 by atruphem         ###   ########.fr       */
+/*   Created: 2021/07/08 17:38:14 by atruphem          #+#    #+#             */
+/*   Updated: 2021/07/08 17:39:07 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
 
-static void	ms_leak(void)
+char	*ms_clean_tab_path(char ***tab_path, char *ret)
 {
-	system("leaks minishell");
+	int	i;
+
+	i = 0;
+	while (tab_path[0][i])
+	{
+		free(tab_path[0][i]);
+		i++;
+	}
+	free(tab_path[0]);
+	return (ret);
 }
 
-int	main(int argc, char **argv, char **env)
+char	**ms_clean_tab_path_b(char ***tab_path, char **ret)
 {
-	char	*str;
-	int		inte;
-	t_ms	data;
+	int	i;
 
-	inte = is_interactive();
-	(void)argc;
-	(void)argv;
-	(void)env;
-	atexit(ms_leak);
-	while (1)
+	i = 0;
+	while (tab_path[0][i])
 	{
-		ms_init(&data);
-		str = readline("Myshell: ");
-		ms_lexer(str, &(data.tlist));
-		print_token(&data);
-		add_history(str);
-		free(str);
-		ms_clean(&data);
-		if (!inte)
-			return (0);
+		free(tab_path[0][i]);
+		i++;
 	}
-	return (0);
+	free(tab_path[0]);
+	return (ret);
 }
