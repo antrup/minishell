@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/08 17:42:26 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/09 00:21:40 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@
 # include "libft/inc/libft.h"
 
 /*
+** TEST
+*/
+# ifndef TEST
+#  define TEST 0
+# endif
+
+/*
 ** LEXER FUNCTIONS
 */
 
@@ -59,5 +66,6 @@ void	ms_clean(t_ms *data);
 */
 
 void	print_token(t_ms *data);
+void	ms_leak(int sig, siginfo_t *var, void *param);
 
 #endif
