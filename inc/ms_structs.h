@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:03:04 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/08 12:54:32 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/08 14:44:57 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ typedef	struct	s_command
 {
 	char	*cmd;
 	int		buidin;
-	char	*path;
 	char	**args;
 	int		redirIN;
 	int		redirOUT;

@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:52:09 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/08 11:54:24 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/08 13:40:29 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ms_parser(t_ms *data)
 {
 	t_tlist		*current;
 	int			count;
-	t_node		*head
+	t_node		*head;
 
 	current = data->tlist;
 	if (current.tk.type != WORD && current.tk.type != REDIR_IN 

@@ -7,9 +7,9 @@ INC = ms_minishell.h \
 	  ms_structs.h
 
 SRCS = ms_minishell.c \
-	   ms_utils.c \
-	   ms_lexer.c \
-	   ms_lexer_utils.c
+	   utils/ms_utils.c \
+	   lexer/ms_lexer.c \
+	   lexer/ms_lexer_utils.c
 
 #TO BE REMOVED
 SRCS += tester.c
