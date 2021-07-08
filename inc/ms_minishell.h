@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/09 00:21:40 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/09 01:30:03 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,15 @@
 # endif
 
 /*
-** LEXER FUNCTIONS
+** MAIN FUNCTIONS
 */
 
-int		ms_lexer(char *line, t_tlist **tlist);
+int		ms_lexer(t_ms *data);
+
+/*
+** LEXER UTILS
+*/
+
 int		ms_isop_pipe(char c);
 int		ms_isop_and(char c, char b);
 int		ms_isquote(char c);
@@ -54,7 +59,7 @@ int		ms_isvariable(char *str);
 t_tlist	*ms_create_token(t_tlist **tlist);
 
 /*
-** MAIN FUNCTIONS
+** UTILS
 */
 
 int		is_interactive(void);

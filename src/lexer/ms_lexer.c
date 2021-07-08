@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:49:05 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/08 13:33:00 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/09 01:30:55 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,23 +97,23 @@ static int	ms_ctoken_re(char *line, t_tlist **tlist, int *i)
 	return (0);
 }
 
-int	ms_lexer(char *line, t_tlist **tlist)
+int	ms_lexer(t_ms *data)
 {
 	int		i;
 
 	i = 0;
-	while (line[i])
+	while (data->history[i])
 	{
-		if (ft_isspace(line[i]))
+		if (ft_isspace(data->history[i]))
 			i++;
-		else if (ms_isop_pipe(line[i]))
-			ms_ctoken_pipe(line, tlist, &i);
-		else if (ms_isredirection(line[i]))
-			ms_ctoken_re(line, tlist, &i);
-		else if (ms_isop_and(line[i], line[i + 1]))
-			ms_ctoken_and(tlist, &i);
+		else if (ms_isop_pipe(data->history[i]))
+			ms_ctoken_pipe(data->history, &data->tlist, &i);
+		else if (ms_isredirection(data->history[i]))
+			ms_ctoken_re(data->history, &data->tlist, &i);
+		else if (ms_isop_and(data->history[i], data->history[i + 1]))
+			ms_ctoken_and(&data->tlist, &i);
 		else
-			ms_ctoken_word(line, tlist, &i);
+			ms_ctoken_word(data->history, &data->tlist, &i);
 	}
 	return (0);
 }

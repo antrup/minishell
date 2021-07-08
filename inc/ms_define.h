@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 17:32:12 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/08 09:56:29 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/09 01:21:30 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,11 @@
 # define REDIR_OUT 5
 # define REDIR_IN_A 6
 # define REDIR_OUT_A 7
+
+/*
+** ERRORS
+*/
+# define ERR_SYN 1
+# define ERR_TK 2
+
 #endif
