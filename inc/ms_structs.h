@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:03:04 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/07 19:00:29 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/08 09:40:01 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,21 @@ typedef	struct	s_operator
 enum e_token_type
 {
 	ERROR = -1,
-	STRING = 0,
-	OPERATOR = 1,
+	WORD = 0,
+	OP_PIPE = 1,
+	OP_AND = 2,
+	OP_OR = 3,
 	STRING_DQ = 2,
 	STRING_SQ = 3,
-	REDIRECTION = 4,
-	VARIABLE = 5,
-	NEWLINE = 6
+	REDIR_IN = 4,
+	REDIR_OUT = 5,
+	REDIR_IN_A = 6,
+	REDIR_OUT_A = 7
 };
 
 typedef struct s_token
 {
 	enum e_token_type	type;
-	int					op;
 	char				*value;
 
 }	t_token;
