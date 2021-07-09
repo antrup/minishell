@@ -6,19 +6,28 @@
 /*   By: sshakya <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 17:29:25 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/09 17:33:03 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/09 18:38:08 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "ms_minishell.h"
 
-int main(void)
+char	*ms_expanser(char *word, t_ms *data);
+
+int main(int argc, char **argv)
 {
 	t_ms data;
 	char *ret;
 	
-	ft_memset(data, 0, sizeof(t_ms));
-	ret = ms_expanser("this is a $USER", &data);
-
-	printf("%s\n", ret);
+	(void)argc;
+	(void)argv;
+	while (1)
+	{
+		ms_init(&data);
+		data.history = readline("Myshell: ");
+		ret = ms_expanser(data.history, &data);
+		add_history(data.history);
+		printf("%s\n", ret);
+		ms_clean(&data);
+	}
 }
