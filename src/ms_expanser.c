@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 09:41:43 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/09 16:38:25 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/09 17:14:42 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,21 @@ t_word	*ms_create_part(t_word **wlist)
 
 static int ms_exp_dqt(char *word, int *i, t_word **wlist)
 {
+	int		ret;
+
+	(*i)++;
+	ret = 0;
+	while (word[*i] && ms_isquote(word[*i]) != STRING_DQ)
+	{	
+		if (ms_isvariable(&word[*i]))
+			ret = ms_exp_var(word, i, wlist);
+		else
+			ret = ms_exp_oth(word, i, wlist);
+		if (ret == 1)
+			return (1);
+	}
+	return (0);
+}
 
 static int	ms_exp_oth(char *word, int *i, t_word **wlist)
 {
@@ -112,23 +127,53 @@ static int	ms_exp_oth(char *word, int *i, t_word **wlist)
 	return (0);
 }
 
+char	*ms_concat(t_word *wlist)
+{
+	char		*temp;
+	char		*str;
+	t_word		*current;
+	int			flag;
+
+	current = wlist;
+	if (!current->next)
+		return (wlist->part);
+	else
+	{
+		str = current->part;
+		flag = 0;
+		while (current->next)
+		{
+			temp = ft_strjoin(str, current->next->part);
+			if (flag)
+				free(str);
+			flag = 1;
+			str = temp;
+			current = current->next;
+		}
+	}
+	return (str);
+}
+
 char	*ms_expanser(char *word, t_ms *data)
 {
 	t_word		*wlist;
 	int			i;
+	char		*ret;
 
 	i = 0;
 	while (word[i])
 	{
 		if (ms_isquote(word[i]) == STRING_SQ)
 			ms_exp_sqt(word, &i, &wlist);
-		else if (ms_isvariable(word))
+		else if (ms_isvariable(&(word[i])))
 			ms_exp_var(word, &i, &wlist);
 		else if (ms_isquote(word[i] == STRING_HQ)
 			ms_exp_dqt(word, &i, &wlist);
 		else
-			ms_exp_oth
-
+			ms_exp_oth(word, &i, &wlist);
+	}
+	return (ms_concat(wlist));
+}
 
 		
 
