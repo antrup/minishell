@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 09:41:43 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/08 18:20:48 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/09 13:43:58 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,15 @@ static int	ms_ctoken_qt(char *line, t_tlist **tlist, int *i, int type)
 	return (0);
 }
 
-char	*ms_expanser(char *word)
+char	*ms_expanser(char *word, t_ms *data)
 {
 	char	*ret;
+	int		i;
+
+	i = 0;
+	while (word[i])
+	{
+		if (word[i] == 
 
 	
 
