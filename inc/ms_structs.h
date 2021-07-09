@@ -6,12 +6,18 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:03:04 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/08 17:40:52 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/09 16:38:28 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MS_STRUCTS_H
 # define MS_STRUCTS_H
+
+typedef struct	s_word
+{
+	char			*part;
+	struct s_word	*next;
+}	t_word;
 
 enum e_node_type
 {

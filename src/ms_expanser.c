@@ -6,45 +6,33 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 09:41:43 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/08 18:20:48 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/09 17:14:42 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "ms_minishell.h"
 
-static int	ms_ctoken_var(char *word)
+static int	ms_exp_var(char *word, int *i, t_word **wlist)
 {
 	t_tlist	*new;
 	int		y;
-	int		paren;
+	char	*var;
 
-	new = ms_create_token(tlist);
+	new = ms_create_part(wlist);
 	if (!new)
-		return(1);
-	new->tk.type = VARIABLE;
+		return (1);
 	y = *i + 1;
-	paren = ms_isparen(line[y]);
-	if (paren == 1)
-	{
-		y++;
-		while (line[y] && paren)
-		{
-			if (ms_isparen(line[y] == 1))
-				paren += 1;
-			if (ms_isparen(line[y]) == 2)
-				paren -= 1;
-			y++;
-		}
-	}
 	else 
 	{
-		while (line[y] && !ft_isspace(line[y]))
+		while (word[y] && ft_isalnum(word[y]))
 			y++;
 	}
-	if (!line[y])
+	var = ft_substr(word, *i + 1, y - *i - 2);
+	new->part = malloc(sizeof(char) * (ft_strlen(getenv(var)) + 1));
+	if (!new->part)
 		return (1);
-	new->tk.value = ft_substr(line, *i + 1, y - *i);
+	ft_strlcpy(new->part, getenv(var), ft_strlen(getenv(var) + 1);
 	*i = y;
 	return (0);
 }
@@ -60,32 +48,134 @@ int ms_isparen(char c)
 
 int	ms_isvariable(char *str)
 {
-	if (str[0] == '$' && (ft_isalnum(str[1]) || ms_isparen(str[1]) == 1))
+	if (str[0] == '$' && (ft_isalnum(str[1]))
 		return (1);
 	return (0);
 }
-static int	ms_ctoken_qt(char *line, t_tlist **tlist, int *i, int type)
-{
-	t_tlist		*new;
-	int			y;
 
-	new = ms_create_token(tlist);
-	if (!new)
-		return (1);
-	new->tk.type = STRING_DQ;
+static int	ms_exp_sqt(char *word, int *i, t_word **wlist)
+{
+	int			y;
+	t_word		*new;
+
+	new = ms_create_part(wlist)
+		if (!new)
+			return (1);
 	y = *i + 1;
-	while (ms_isquote(line[y]) != type && line[y])
+	while (word[y] && ms_isquote(line[y]) !=  STRING_SQ)
 		y++;
 	if (!line[y])
 		return (1);
-	new->tk.value = ft_substr(line, *i + 1, y - *i - 1);
+	new->part = ft_substr(word, *i + 1, y - *i - 2);
 	*i = y + 1;
 	return (0);
 }
 
-char	*ms_expanser(char *word)
+t_word	*ms_create_part(t_word **wlist)
 {
-	char	*ret;
+	t_word		*new;
+	t_word		*current;
+
+	new = malloc(sizeof(t_word));
+	if (!new)
+		return (NULL);
+	new->next = NULL;
+	new->part = NULL;
+	current = wlist[0];
+	if (!current)
+		wlist[0] = new;
+	else
+	{	
+		while (current->next)
+			current = current->next;
+		current->next = new;
+	}
+	return (new);
+}
+
+static int ms_exp_dqt(char *word, int *i, t_word **wlist)
+{
+	int		ret;
+
+	(*i)++;
+	ret = 0;
+	while (word[*i] && ms_isquote(word[*i]) != STRING_DQ)
+	{	
+		if (ms_isvariable(&word[*i]))
+			ret = ms_exp_var(word, i, wlist);
+		else
+			ret = ms_exp_oth(word, i, wlist);
+		if (ret == 1)
+			return (1);
+	}
+	return (0);
+}
+
+static int	ms_exp_oth(char *word, int *i, t_word **wlist)
+{
+	int			y;
+	t_word		*new;
+
+	new = ms_create_part(wlist)
+		if (!new)
+			return (1);
+	y = *i;
+	while (word[y] && !ms_isquote(line[y]) && !ms_isvariable(&(line[y])))
+		y++;
+	new->part = ft_substr(word, *i, y - *i - 1);
+	*i = y;
+	return (0);
+}
+
+char	*ms_concat(t_word *wlist)
+{
+	char		*temp;
+	char		*str;
+	t_word		*current;
+	int			flag;
+
+	current = wlist;
+	if (!current->next)
+		return (wlist->part);
+	else
+	{
+		str = current->part;
+		flag = 0;
+		while (current->next)
+		{
+			temp = ft_strjoin(str, current->next->part);
+			if (flag)
+				free(str);
+			flag = 1;
+			str = temp;
+			current = current->next;
+		}
+	}
+	return (str);
+}
+
+char	*ms_expanser(char *word, t_ms *data)
+{
+	t_word		*wlist;
+	int			i;
+	char		*ret;
+
+	i = 0;
+	while (word[i])
+	{
+		if (ms_isquote(word[i]) == STRING_SQ)
+			ms_exp_sqt(word, &i, &wlist);
+		else if (ms_isvariable(&(word[i])))
+			ms_exp_var(word, &i, &wlist);
+		else if (ms_isquote(word[i] == STRING_HQ)
+			ms_exp_dqt(word, &i, &wlist);
+		else
+			ms_exp_oth(word, &i, &wlist);
+	}
+	return (ms_concat(wlist));
+}
+
+		
 
 	
 
