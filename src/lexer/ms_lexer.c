@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:49:05 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/09 01:30:55 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/09 12:57:28 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static int	ms_ctoken_re(char *line, t_tlist **tlist, int *i)
 		*i = *i + 1;
 	}
 	else
-		new->tk.type = ms_isop_pipe(line[*i]);
+		new->tk.type = ms_isredirection(line[*i]);
 	*i = *i + 1;
 	return (0);
 }
