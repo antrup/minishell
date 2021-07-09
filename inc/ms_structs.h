@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:03:04 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/08 14:44:57 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/08 17:40:52 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,10 @@ typedef struct s_tlist
 
 typedef struct s_ms
 {
-	t_tlist		*tlist;
+	struct sigaction	sig;
+	t_tlist				*tlist;
+	int					inte;
+	char				*history;
 }	t_ms;
 
 #endif

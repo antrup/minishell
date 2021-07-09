@@ -1,38 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mn_utils.c                                         :+:      :+:    :+:   */
+/*   ms_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:14:09 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/07 15:15:16 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/09 00:43:32 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
 
+#if TEST
 void	ms_init(t_ms *data)
 {
 	ft_memset(data, 0, sizeof(t_ms));
 	data->tlist = NULL;
+	data->inte = is_interactive();
+	data->sig.sa_flags = SA_SIGINFO;
+	data->sig.sa_sigaction = ms_leak;
 }
+#endif
 
-void	ms_clean(t_ms *data)
+#if !TEST
+void	ms_init(t_ms *data)
 {
-	t_tlist	*temp;
-	t_tlist	*head;
-
-	head = data->tlist;
-	while (head)
-	{
-		temp = head->next;
-		if (head->tk.type != 1)
-			free(head->tk.value);
-		free(head);
-		head = temp;
-	}
+	ft_memset(data, 0, sizeof(t_ms));
+	data->tlist = NULL;
+	data->inte = is_interactive();
 }
+#endif
 
 int	is_interactive(void)
 {

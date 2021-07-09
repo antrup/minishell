@@ -8,10 +8,11 @@ INC = ms_minishell.h \
 
 SRCS = ms_minishell.c \
 	   utils/ms_utils.c \
+	   utils/ms_clean.c \
 	   lexer/ms_lexer.c \
 	   lexer/ms_lexer_utils.c
 
-#TO BE REMOVED
+#TO BE REMOVED - TEST
 SRCS += tester.c
 
 SRCDIR = src
@@ -28,25 +29,31 @@ OBJS = $(addprefix ${OBJDIR}/,${SRCS:.c=.o})
 all: ${NAME}
 
 $(LIBFT) :
-	make -s -C inc/libft
+	@make -s -C inc/libft
 
 $(NAME): ${OBJS} ${LIBFT}
 	${CC} ${CFLAGS} ${MEM} ${OBJS} ${LIBFT} -o $@ ${LIBINC}
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p ${@D}
-	${CC} ${CFLAGS} -I./inc -c $< -o $@
+	${CC} ${CFLAGS} ${TFLAG} -I./inc -c $< -o $@
+
+test: TFLAG = -D TEST=1
+
+test: fclean ${NAME}
 
 re: fclean all
 
 clean:
 	@echo  "Cleaning objects\c"
 	@rm -rf ${OBJDIR}
+	@make clean -s -C inc/libft > /dev/null
 	@echo "\033[32m\t[OK]\033[0m"
 
 fclean: clean
 	@echo  "Removing minishell\c"
 	@rm -rf ${NAME}
+	@make fclean -s -C inc/libft > /dev/null
 	@echo "\033[32m\t[OK]\033[0m"
 
 .PHONY : all clean re fclean 

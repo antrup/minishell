@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/08 12:53:19 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/09 01:30:03 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <signal.h>
 /*
 ** MINISHELL HEADERS
 */
@@ -33,10 +34,22 @@
 # include "libft/inc/libft.h"
 
 /*
-** LEXER FUNCTIONS
+** TEST
+*/
+# ifndef TEST
+#  define TEST 0
+# endif
+
+/*
+** MAIN FUNCTIONS
 */
 
-int		ms_lexer(char *line, t_tlist **tlist);
+int		ms_lexer(t_ms *data);
+
+/*
+** LEXER UTILS
+*/
+
 int		ms_isop_pipe(char c);
 int		ms_isop_and(char c, char b);
 int		ms_isquote(char c);
@@ -46,7 +59,7 @@ int		ms_isvariable(char *str);
 t_tlist	*ms_create_token(t_tlist **tlist);
 
 /*
-** MAIN FUNCTIONS
+** UTILS
 */
 
 int		is_interactive(void);
@@ -58,5 +71,6 @@ void	ms_clean(t_ms *data);
 */
 
 void	print_token(t_ms *data);
+void	ms_leak(int sig, siginfo_t *var, void *param);
 
 #endif
