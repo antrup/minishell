@@ -1,0 +1,13 @@
+.gitmessage.txt
+.gitignore
+*.swp
+*.swo
+*.o
+*.txt
+objs/
+*.out
+*.gch
+*.a
+*.vim
+minishell
+*.a
