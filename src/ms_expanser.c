@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 09:41:43 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/12 11:39:15 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/12 16:12:30 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	ms_exp_var(char *word, int *i, t_word **wlist)
 	new->part = malloc(sizeof(char) * (ft_strlen(getenv(var)) + 1));
 	if (!new->part)
 		return (1);
-	ft_strlcpy(new->part, getenv(var), ft_strlen(getenv(var) + 1));
+	ft_strlcpy(new->part, getenv(var), ft_strlen(getenv(var)) + 1);
 	return (0);
 }
 
