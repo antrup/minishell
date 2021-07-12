@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 09:41:43 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/12 16:12:30 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/12 18:04:17 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static int	ms_exp_var(char *word, int *i, t_word **wlist)
 	if (!new->part)
 		return (1);
 	ft_strlcpy(new->part, getenv(var), ft_strlen(getenv(var)) + 1);
+	free(var);
 	return (0);
 }
 
@@ -91,13 +92,15 @@ static int ms_exp_dqt(char *word, int *i, t_word **wlist)
 	return (0);
 }
 
-char	*ms_expanser(char *word, t_ms *data)
+//char	*ms_expanser(char *word, t_ms *data)
+char	*ms_expanser(char *word)
 {
 	t_word		*wlist;
+	char		*ret;
 	int			i;
 	
 	wlist = NULL;
-	(void)data;
+	//(void)data;
 	i = 0;
 	while (word[i])
 	{
@@ -110,5 +113,7 @@ char	*ms_expanser(char *word, t_ms *data)
 		else
 			ms_exp_oth(word, &i, &wlist);
 	}
-	return (ms_concat(wlist));
+	free(word);
+	ret = ms_concat(wlist);
+	return (ret);
 }

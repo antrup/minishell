@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/12 13:49:48 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/12 16:44:02 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,10 @@ void	ms_clean(t_ms *data);
 ** EXPANSER
 */
 
+char	*ms_expanser(char *word);
 char	*ms_concat(t_word *wlist);
 int		ms_isparen(char c);
-int	ms_isvariable(char *str);
+int		ms_isvariable(char *str);
 t_word	*ms_create_part(t_word **wlist);
 /*
 ** DEBUG -- TEST                                                |~

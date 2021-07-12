@@ -28,6 +28,8 @@ void	print_token(t_ms *data)
 			printf("<<");
 		if (current->tk.type == 7)
 			printf(">>");
+		if (current->tk.type == 8)
+			printf("EXP");
 		printf("     %s\n", current->tk.value);
 		i++;
 		current = current->next;
@@ -40,7 +42,8 @@ void	ms_leak(int sig, siginfo_t *var, void *param)
 	(void)sig;
 	(void)var;
 	(void)param;
-	system("leaks minishell");
+	//system("leaks minishell");
+	//system("leaks test-exp");
 	exit (0);
 }
 #endif
