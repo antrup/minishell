@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/09 01:30:03 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/12 13:49:48 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,14 @@ t_tlist	*ms_create_token(t_tlist **tlist);
 int		is_interactive(void);
 void	ms_init(t_ms *data);
 void	ms_clean(t_ms *data);
+/*
+** EXPANSER
+*/
 
+char	*ms_concat(t_word *wlist);
+int		ms_isparen(char c);
+int	ms_isvariable(char *str);
+t_word	*ms_create_part(t_word **wlist);
 /*
 ** DEBUG -- TEST                                                |~
 */

@@ -42,6 +42,9 @@ test: TFLAG = -D TEST=1
 
 test: fclean ${NAME}
 
+test-exp: ${LIBFT}
+	${CC} ${CFLAGS} -I./inc src/tester_expanser.c src/ms_expanser.c src/ms_expanser_utils.c src/lexer/ms_lexer_utils.c src/utils/*.c ${LIBFT} ${LIBINC} -o $@
+
 re: fclean all
 
 clean:

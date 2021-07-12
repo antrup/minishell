@@ -6,34 +6,12 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 09:41:43 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/09 19:05:02 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/12 11:39:15 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "ms_minishell.h"
-
-t_word	*ms_create_part(t_word **wlist)
-{
-	t_word		*new;
-	t_word		*current;
-
-	new = malloc(sizeof(t_word));
-	if (!new)
-		return (NULL);
-	new->next = NULL;
-	new->part = NULL;
-	current = wlist[0];
-	if (!current)
-		wlist[0] = new;
-	else
-	{	
-		while (current->next)
-			current = current->next;
-		current->next = new;
-	}
-	return (new);
-}
 
 static int	ms_exp_var(char *word, int *i, t_word **wlist)
 {
@@ -55,22 +33,6 @@ static int	ms_exp_var(char *word, int *i, t_word **wlist)
 	if (!new->part)
 		return (1);
 	ft_strlcpy(new->part, getenv(var), ft_strlen(getenv(var) + 1));
-	return (0);
-}
-
-int ms_isparen(char c)
-{
-	if (c == '(')
-		return (1);
-	if (c == ')')
-		return (2);
-	return (0);
-}
-
-int	ms_isvariable(char *str)
-{
-	if (str[0] == '$' && (ft_isalnum(str[1])))
-		return (1);
 	return (0);
 }
 
@@ -127,34 +89,6 @@ static int ms_exp_dqt(char *word, int *i, t_word **wlist)
 		return (1);
 	(*i)++;
 	return (0);
-}
-
-
-char	*ms_concat(t_word *wlist)
-{
-	char		*temp;
-	char		*str;
-	t_word		*current;
-	int			flag;
-
-	current = wlist;
-	if (!current->next)
-		return (wlist->part);
-	else
-	{
-		str = current->part;
-		flag = 0;
-		while (current->next)
-		{
-			temp = ft_strjoin(str, current->next->part);
-			if (flag)
-				free(str);
-			flag = 1;
-			str = temp;
-			current = current->next;
-		}
-	}
-	return (str);
 }
 
 char	*ms_expanser(char *word, t_ms *data)
