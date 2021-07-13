@@ -129,6 +129,20 @@ static int ms_exp_dqt(char *word, int *i, t_word **wlist)
 	return (0);
 }
 
+void	ms_wlist_cleaner(t_word *wlist)
+{
+	t_word	*current;
+	t_word	*temp;
+
+	current = wlist;
+	while (current)
+	{
+		temp = current->next;
+		free(current->part);
+		free(current);
+		current = temp;
+	}
+}
 
 char	*ms_concat(t_word *wlist)
 {
@@ -154,6 +168,7 @@ char	*ms_concat(t_word *wlist)
 			current = current->next;
 		}
 	}
+	ms_wlist_cleaner(wlist);
 	return (str);
 }
 
