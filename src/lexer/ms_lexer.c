@@ -6,18 +6,11 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:49:05 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/12 17:06:30 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/14 12:35:40 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
-
-static int	ms_isexpand(char *word)
-{
-	if (ms_isquote(*word) || ms_isvariable(word))
-		return (1);
-	return (0);
-}
 
 static int	ms_ctoken_word(char *line, t_tlist **tlist, int *i)
 {
@@ -29,8 +22,6 @@ static int	ms_ctoken_word(char *line, t_tlist **tlist, int *i)
 	if (!new)
 		return (1);
 	new->tk.type = WORD;
-	if (ms_isexpand(&line[*i]))
-		new->tk.type = VAR;
 	y = *i;
 	while (line[y] && !ms_isop_pipe(line[y]) && !ms_isop_and(line[y], line[y + 1]) && !ft_isspace(line[y]))
 	{	
@@ -46,8 +37,6 @@ static int	ms_ctoken_word(char *line, t_tlist **tlist, int *i)
 		y++;
 	}
 	new->tk.value = ft_substr(line, *i, y - *i);
-	if (new->tk.type == VAR)
-		new->tk.value = ms_expanser(new->tk.value);
 	*i = y;
 	return (0);
 }

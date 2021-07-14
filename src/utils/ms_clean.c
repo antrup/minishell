@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 00:17:37 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/12 18:02:10 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/14 12:59:00 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,19 @@ static void	ms_clean_tlist(t_tlist *list)
 		if (list->tk.value)
 			free(list->tk.value);
 		free(list);
+		list = temp;
+	}
+}
+
+void	ms_clean_wlist(t_word *list)
+{
+	t_word *temp;
+
+	while (list)
+	{
+		temp = list->next;
+		if (list)
+			free(list);
 		list = temp;
 	}
 }

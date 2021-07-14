@@ -6,10 +6,9 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 09:41:43 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/12 18:04:17 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/14 13:11:44 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "ms_minishell.h"
 
@@ -43,8 +42,8 @@ static int	ms_exp_sqt(char *word, int *i, t_word **wlist)
 	t_word		*new;
 
 	new = ms_create_part(wlist);
-		if (!new)
-			return (1);
+	if (!new)
+		return (1);
 	y = *i + 1;
 	while (word[y] && ms_isquote(word[y]) !=  STRING_SQ)
 		y++;
@@ -61,8 +60,8 @@ static int	ms_exp_oth(char *word, int *i, t_word **wlist)
 	t_word		*new;
 
 	new = ms_create_part(wlist);
-		if (!new)
-			return (1);
+	if (!new)
+		return (1);
 	y = *i;
 	while (word[y] && !ms_isquote(word[y]) && !ms_isvariable(&(word[y])))
 		y++;
@@ -92,28 +91,34 @@ static int ms_exp_dqt(char *word, int *i, t_word **wlist)
 	return (0);
 }
 
-//char	*ms_expanser(char *word, t_ms *data)
-char	*ms_expanser(char *word)
+void	ms_expanser(t_ms *data)
 {
 	t_word		*wlist;
-	char		*ret;
+	t_tlist		*token;
 	int			i;
-	
-	wlist = NULL;
-	//(void)data;
-	i = 0;
-	while (word[i])
+
+	token = data->tlist;
+	while (token)
 	{
-		if (ms_isquote(word[i]) == STRING_SQ)
-			ms_exp_sqt(word, &i, &wlist);
-		else if (ms_isvariable(&(word[i])))
-			ms_exp_var(word, &i, &wlist);
-		else if (ms_isquote(word[i]) == STRING_DQ)
-			ms_exp_dqt(word, &i, &wlist);
-		else
-			ms_exp_oth(word, &i, &wlist);
+		wlist = NULL;
+		if (token->tk.type == WORD)
+		{
+			i = 0;
+			while (token->tk.value[i])
+			{
+				if (ms_isquote(token->tk.value[i]) == STRING_SQ)
+					ms_exp_sqt(token->tk.value, &i, &wlist);
+				else if (ms_isvariable(&(token->tk.value[i])))
+					ms_exp_var(token->tk.value, &i, &wlist);
+				else if (ms_isquote(token->tk.value[i]) == STRING_DQ)
+					ms_exp_dqt(token->tk.value, &i, &wlist);
+				else
+					ms_exp_oth(token->tk.value, &i, &wlist);
+			}
+			free(token->tk.value);
+			token->tk.value	= ms_concat(wlist);
+			ms_clean_wlist(wlist);
+		}
+		token = token->next;
 	}
-	free(word);
-	ret = ms_concat(wlist);
-	return (ret);
 }
