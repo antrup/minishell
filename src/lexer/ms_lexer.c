@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:49:05 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/14 12:35:40 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/14 14:32:11 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static int	ms_ctoken_word(char *line, t_tlist **tlist, int *i)
 	if (!new)
 		return (1);
 	new->tk.type = WORD;
+	if (ms_isvariable(&line[*i]))
+		new->tk.type = VAR;
 	y = *i;
 	while (line[y] && !ms_isop_pipe(line[y]) && !ms_isop_and(line[y], line[y + 1]) && !ft_isspace(line[y]))
 	{	

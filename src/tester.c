@@ -13,23 +13,23 @@ void	print_token(t_ms *data)
 	{
 		printf("%2d\t", i);
 		if (current->tk.type == 0)
-			printf("W");
+			printf(" W");
 		if (current->tk.type == 1)
-			printf("|");
+			printf(" |");
 		if (current->tk.type == 2)
 			printf("&&");
 		if (current->tk.type == 3)
 			printf("||");
 		if (current->tk.type == 4)
-			printf("<");
+			printf(" <");
 		if (current->tk.type == 5)
-			printf(">");
+			printf(" >");
 		if (current->tk.type == 6)
 			printf("<<");
 		if (current->tk.type == 7)
 			printf(">>");
 		if (current->tk.type == 8)
-			printf("EXP");
+			printf("VR");
 		printf("     %s\n", current->tk.value);
 		i++;
 		current = current->next;

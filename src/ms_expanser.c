@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 09:41:43 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/14 13:41:53 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/14 14:33:43 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	ms_expanser(t_ms *data)
 	while (token)
 	{
 		wlist = NULL;
-		if (token->tk.type == WORD)
+		if (token->tk.type == WORD || token->tk.type == VAR)
 		{
 			i = 0;
 			while (token->tk.value[i])
