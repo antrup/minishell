@@ -10,12 +10,12 @@ SRCS = ms_minishell.c \
 	   utils/ms_utils.c \
 	   utils/ms_clean.c \
 	   lexer/ms_lexer.c \
-	   ms_expanser.c \
-	   ms_expanser_utils.c \
+	   expanser/ms_expanser.c \
+	   expanser/ms_expanser_utils.c \
 	   lexer/ms_lexer_utils.c
 
 #TO BE REMOVED - TEST
-SRCS += tester.c
+SRCS += ms_test/tester.c
 
 SRCDIR = src
 OBJDIR = objs
@@ -43,9 +43,6 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 test: TFLAG = -D TEST=1
 
 test: fclean ${NAME}
-
-test-exp: ${LIBFT}
-	${CC} ${CFLAGS} -D TEST=1  -I./inc src/tester_expanser.c src/ms_expanser.c src/ms_expanser_utils.c src/lexer/ms_lexer_utils.c src/utils/*.c src/tester.c ${LIBFT} ${LIBINC} -o $@
 
 re: fclean all
 
