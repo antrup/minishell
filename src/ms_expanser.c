@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 09:41:43 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/14 13:11:44 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/14 13:41:53 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,26 +32,7 @@ static int	ms_exp_var(char *word, int *i, t_word **wlist)
 	if (!new->part)
 		return (1);
 	ft_strlcpy(new->part, getenv(var), ft_strlen(getenv(var)) + 1);
-<<<<<<< HEAD
 	free(var);
-=======
-	return (0);
-}
-
-int ms_isparen(char c)
-{
-	if (c == '(')
-		return (1);
-	if (c == ')')
-		return (2);
-	return (0);
-}
-
-int	ms_isvariable(char *str)
-{
-	if (str[0] == '$' && (ft_isalnum(str[1])))
-		return (1);
->>>>>>> 68d85feb4882683deb76670ea993f3857fa1ca4d
 	return (0);
 }
 
@@ -110,26 +91,7 @@ static int ms_exp_dqt(char *word, int *i, t_word **wlist)
 	return (0);
 }
 
-<<<<<<< HEAD
 void	ms_expanser(t_ms *data)
-=======
-void	ms_wlist_cleaner(t_word *wlist)
-{
-	t_word	*current;
-	t_word	*temp;
-
-	current = wlist;
-	while (current)
-	{
-		temp = current->next;
-		free(current->part);
-		free(current);
-		current = temp;
-	}
-}
-
-char	*ms_concat(t_word *wlist)
->>>>>>> 68d85feb4882683deb76670ea993f3857fa1ca4d
 {
 	t_word		*wlist;
 	t_tlist		*token;
@@ -159,31 +121,4 @@ char	*ms_concat(t_word *wlist)
 		}
 		token = token->next;
 	}
-<<<<<<< HEAD
-=======
-	ms_wlist_cleaner(wlist);
-	return (str);
-}
-
-char	*ms_expanser(char *word, t_ms *data)
-{
-	t_word		*wlist;
-	int			i;
-	
-	wlist = NULL;
-	(void)data;
-	i = 0;
-	while (word[i])
-	{
-		if (ms_isquote(word[i]) == STRING_SQ)
-			ms_exp_sqt(word, &i, &wlist);
-		else if (ms_isvariable(&(word[i])))
-			ms_exp_var(word, &i, &wlist);
-		else if (ms_isquote(word[i]) == STRING_DQ)
-			ms_exp_dqt(word, &i, &wlist);
-		else
-			ms_exp_oth(word, &i, &wlist);
-	}
-	return (ms_concat(wlist));
->>>>>>> 68d85feb4882683deb76670ea993f3857fa1ca4d
 }
