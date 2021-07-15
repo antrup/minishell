@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/14 12:54:00 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/15 01:17:52 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ int	main(int argc, char **argv, char **env)
 		ms_init(&data);
 		data.history = readline("Myshell: ");
 		ms_lexer(&data);
-#if TEST		
-		print_token(&data);
-#endif
 		ms_expanser(&data);
 #if TEST		
 		print_token(&data);

@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 09:41:43 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/14 14:33:43 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/15 01:55:27 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ void	ms_expanser(t_ms *data)
 			token->tk.value	= ms_concat(wlist);
 			ms_clean_wlist(wlist);
 		}
+		if (token->tk.type == VAR)
+			ms_var_tokens(token->tk.value, &data->tlist);
 		token = token->next;
 	}
 }

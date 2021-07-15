@@ -6,13 +6,13 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:49:05 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/14 14:32:11 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/15 02:17:34 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
 
-static int	ms_ctoken_word(char *line, t_tlist **tlist, int *i)
+int	ms_ctoken_word(char *line, t_tlist **tlist, int *i)
 {
 	t_tlist		*new;
 	int			y;
@@ -43,7 +43,7 @@ static int	ms_ctoken_word(char *line, t_tlist **tlist, int *i)
 	return (0);
 }
 
-static int	ms_ctoken_and(t_tlist **tlist, int *i)
+int	ms_ctoken_and(t_tlist **tlist, int *i)
 {
 	t_tlist		*new;
 
@@ -55,7 +55,7 @@ static int	ms_ctoken_and(t_tlist **tlist, int *i)
 	return (0);
 }
 
-static int	ms_ctoken_pipe(char *line, t_tlist **tlist, int *i)
+int	ms_ctoken_pipe(char *line, t_tlist **tlist, int *i)
 {
 	t_tlist		*new;
 
@@ -74,7 +74,7 @@ static int	ms_ctoken_pipe(char *line, t_tlist **tlist, int *i)
 	return (0);
 }
 
-static int	ms_ctoken_re(char *line, t_tlist **tlist, int *i)
+int	ms_ctoken_re(char *line, t_tlist **tlist, int *i)
 {
 	t_tlist		*new;
 

@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/14 12:59:24 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/15 02:19:10 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,10 @@ int		ms_isredirection(char c);
 int		ms_isparen(char c);
 int		ms_isvariable(char *str);
 t_tlist	*ms_create_token(t_tlist **tlist);
+int		ms_ctoken_word(char *line, t_tlist **tlist, int *i);
+int		ms_ctoken_re(char *line, t_tlist **tlist, int *i);
+int		ms_ctoken_and(t_tlist **tlist, int *i);
+int		ms_ctoken_pipe(char *line, t_tlist **tlist, int *i);
 
 /*
 ** UTILS
@@ -75,6 +79,7 @@ int		ms_isparen(char c);
 int		ms_isvariable(char *str);
 t_word	*ms_create_part(t_word **wlist);
 void	ms_clean_wlist(t_word *list);
+void	ms_var_tokens(char *var, t_tlist **tokens);
 /*
 ** DEBUG -- TEST                                                |~
 */

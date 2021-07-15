@@ -10,9 +10,10 @@ SRCS = ms_minishell.c \
 	   utils/ms_utils.c \
 	   utils/ms_clean.c \
 	   lexer/ms_lexer.c \
+	   lexer/ms_lexer_var.c \
+	   lexer/ms_lexer_utils.c \
 	   expanser/ms_expanser.c \
-	   expanser/ms_expanser_utils.c \
-	   lexer/ms_lexer_utils.c
+	   expanser/ms_expanser_utils.c
 
 #TO BE REMOVED - TEST
 SRCS += ms_test/tester.c
@@ -24,7 +25,7 @@ INCDIR = inc
 CC = clang
 CFLAGS = -Wall -Wextra -Werror -g
 LIBINC = -lreadline
-#MEM = -fsanitize=address
+MEM = -fsanitize=address
 
 OBJS = $(addprefix ${OBJDIR}/,${SRCS:.c=.o})
 
