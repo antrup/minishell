@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 09:41:43 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/15 01:55:27 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/16 08:08:29 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ static int	ms_exp_var(char *word, int *i, t_word **wlist)
 	var = ft_substr(word, *i + 1, y - *i - 1);
 	*i = y;
 	if (getenv(var) == NULL)
+	{
+		free(var);
 		return (0);
+	}
 	new = ms_create_part(wlist);
 	if (!new)
 		return (1);
