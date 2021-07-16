@@ -57,7 +57,7 @@ static int	ms_exp_sqt(char *word, int *i, t_word **wlist)
 	return (0);
 }
 
-static int	ms_exp_oth(char *word, int *i, t_word **wlist)
+static int	ms_exp_oth(char *word, int *i, t_word **wlist, int type)
 {
 	int			y;
 	t_word		*new;
@@ -66,7 +66,7 @@ static int	ms_exp_oth(char *word, int *i, t_word **wlist)
 	if (!new)
 		return (1);
 	y = *i;
-	while (word[y] && !ms_isquote(word[y]) && !ms_isvariable(&(word[y])))
+	while (word[y] && ms_isquote(word[y]) != type && !ms_isvariable(&(word[y])))
 		y++;
 	new->part = ft_substr(word, *i, y - *i);
 	*i = y;
@@ -84,7 +84,7 @@ static int	ms_exp_dqt(char *word, int *i, t_word **wlist)
 		if (ms_isvariable(&word[*i]))
 			ret = ms_exp_var(word, i, wlist);
 		else
-			ret = ms_exp_oth(word, i, wlist);
+			ret = ms_exp_oth(word, i, wlist, STRING_DQ);
 		if (ret == 1)
 			return (1);
 	}
@@ -116,7 +116,7 @@ void	ms_expanser(t_ms *data)
 				else if (ms_isquote(token->tk.value[i]) == STRING_DQ)
 					ms_exp_dqt(token->tk.value, &i, &wlist);
 				else
-					ms_exp_oth(token->tk.value, &i, &wlist);
+					ms_exp_oth(token->tk.value, &i, &wlist, -1);
 			}
 			free(token->tk.value);
 			token->tk.value = ms_concat(wlist);
