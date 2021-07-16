@@ -12,6 +12,7 @@ SRCS = ms_minishell.c \
 	   lexer/ms_lexer.c \
 	   lexer/ms_lexer_var.c \
 	   lexer/ms_lexer_utils.c \
+	   lexer/ms_lexer_utils_2.c \
 	   expanser/ms_expanser.c \
 	   expanser/ms_expanser_utils.c
 

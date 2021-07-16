@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 09:41:43 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/16 08:08:29 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/16 09:29:04 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	ms_exp_sqt(char *word, int *i, t_word **wlist)
 	if (!new)
 		return (1);
 	y = *i + 1;
-	while (word[y] && ms_isquote(word[y]) !=  STRING_SQ)
+	while (word[y] && ms_isquote(word[y]) != STRING_SQ)
 		y++;
 	if (!word[y])
 		return (1);
@@ -73,7 +73,7 @@ static int	ms_exp_oth(char *word, int *i, t_word **wlist)
 	return (0);
 }
 
-static int ms_exp_dqt(char *word, int *i, t_word **wlist)
+static int	ms_exp_dqt(char *word, int *i, t_word **wlist)
 {
 	int		ret;
 
@@ -119,7 +119,7 @@ void	ms_expanser(t_ms *data)
 					ms_exp_oth(token->tk.value, &i, &wlist);
 			}
 			free(token->tk.value);
-			token->tk.value	= ms_concat(wlist);
+			token->tk.value = ms_concat(wlist);
 			ms_clean_wlist(wlist);
 		}
 		if (token->tk.type == VAR)

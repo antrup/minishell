@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 02:16:27 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/15 02:18:06 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/16 09:26:16 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	ms_add_token(t_tlist *vtoken, t_tlist **token)
 	}
 	else
 		*token = vtoken;
-	if (isvar)	
+	if (isvar)
 		next = isvar->next;
 	while (vtoken->next)
 		vtoken = vtoken->next;
@@ -41,9 +41,9 @@ static void	ms_add_token(t_tlist *vtoken, t_tlist **token)
 
 static void	ms_clear_var(t_tlist **tokens)
 {
-	t_tlist *temp;
+	t_tlist	*temp;
 	t_tlist	*next;
-	t_tlist *prev;
+	t_tlist	*prev;
 
 	temp = *tokens;
 	while (temp)

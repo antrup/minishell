@@ -6,45 +6,11 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:49:05 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/16 09:06:55 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/16 09:49:15 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
-
-int	ms_ctoken_word(char *line, t_tlist **tlist, int *i)
-{
-	t_tlist		*new;
-	int			y;
-	int			type;
-
-	new = ms_create_token(tlist);
-	if (!new)
-		return (errno);
-	new->tk.type = WORD;
-	if (ms_isvariable(&line[*i]))
-		new->tk.type = VAR;
-	y = *i;
-	while (line[y] && !ms_isop_pipe(line[y])
-			&& !ms_isop_and(line[y], line[y + 1]) && !ft_isspace(line[y]))
-	{	
-		type = ms_isquote(line[y]);
-		if (type)
-		{	
-			y++;
-			while (line[y] && ms_isquote(line[y]) != type)
-				y++;
-			if (!line[y] && type == STRING_DQ)
-				return (ERR_DQUT);
-			if (!line[y] && type == STRING_SQ)
-				return (ERR_SQUT);
-		}
-		y++;
-	}
-	new->tk.value = ft_substr(line, *i, y - *i);
-	*i = y;
-	return (0);
-}
 
 int	ms_ctoken_and(t_tlist **tlist, int *i)
 {
@@ -65,8 +31,8 @@ int	ms_ctoken_pipe(char *line, t_tlist **tlist, int *i)
 	new = ms_create_token(tlist);
 	if (!new)
 		return (errno);
-	if (ms_isop_pipe(line[*i]) == OP_PIPE 
-			&& ms_isop_pipe(line[*i + 1]) == OP_PIPE)
+	if (ms_isop_pipe(line[*i]) == OP_PIPE
+		&& ms_isop_pipe(line[*i + 1]) == OP_PIPE)
 	{	
 		new->tk.type = OP_OR;
 		*i = *i + 1;
@@ -85,13 +51,13 @@ int	ms_ctoken_re(char *line, t_tlist **tlist, int *i)
 	if (!new)
 		return (errno);
 	if (ms_isredirection(line[*i]) == REDIR_IN
-			&& ms_isredirection(line[*i + 1]) == REDIR_IN)
+		&& ms_isredirection(line[*i + 1]) == REDIR_IN)
 	{	
 		new->tk.type = REDIR_IN_A;
 		*i = *i + 1;
 	}
-	else if (ms_isredirection(line[*i]) == REDIR_OUT 
-			&& ms_isredirection(line[*i + 1]) == REDIR_OUT)
+	else if (ms_isredirection(line[*i]) == REDIR_OUT
+		&& ms_isredirection(line[*i + 1]) == REDIR_OUT)
 	{	
 		new->tk.type = REDIR_OUT_A;
 		*i = *i + 1;
