@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 17:32:12 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/09 01:21:30 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/16 09:03:50 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@
 /*
 ** ERRORS
 */
-# define ERR_SYN 1
-# define ERR_TK 2
+# define ERR_SYN -1
+# define ERR_TK -2
+# define ERR_DQUT -3
+# define ERR_SQUT -4
 
 #endif

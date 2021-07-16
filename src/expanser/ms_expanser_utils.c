@@ -6,27 +6,11 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 11:38:09 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/14 13:07:55 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/16 09:50:50 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
-
-int ms_isparen(char c)
-{
-	if (c == '(')
-		return (1);
-	if (c == ')')
-		return (2);
-	return (0);
-}
-
-int	ms_isvariable(char *str)
-{
-	if (str[0] == '$' && (ft_isalnum(str[1])))
-		return (1);
-	return (0);
-}
 
 t_word	*ms_create_part(t_word **wlist)
 {
@@ -78,4 +62,3 @@ char	*ms_concat(t_word *wlist)
 	}
 	return (str);
 }
-

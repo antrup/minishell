@@ -1,46 +1,52 @@
 /* ************************************************************************** */
-/*                 :                                                           */
+/*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ms_lexer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 14:36:33 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/09 19:01:03 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/16 09:49:12 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
 
-int	ms_isredirection(char c)
+static int	ms_tk_quote(int y, int type, char *line)
 {
-	if (c == '<')
-		return (REDIR_IN);
-	if (c == '>')
-		return (REDIR_OUT);
-	return (0);
+	y++;
+	while (line[y] && ms_isquote(line[y]) != type)
+		y++;
+	if (!line[y] && type == STRING_DQ)
+		return (ERR_DQUT);
+	if (!line[y] && type == STRING_SQ)
+		return (ERR_SQUT);
+	return (y);
 }
 
-int	ms_isop_pipe(char c)
+int	ms_ctoken_word(char *line, t_tlist **tlist, int *i)
 {
-	if (c == '|')
-		return (OP_PIPE);
-	return (0);
-}
+	t_tlist		*new;
+	int			y;
+	int			type;
 
-int	ms_isop_and(char c, char b)
-{
-	if (c == '&' && b == '&')
-		return (OP_AND);
-	return (0);
-}
-
-int	ms_isquote(char c)
-{
-	if (c == '"')
-		return (STRING_DQ);
-	if (c == '\'')
-		return (STRING_SQ);
+	new = ms_create_token(tlist);
+	if (!new)
+		return (errno);
+	new->tk.type = WORD;
+	if (ms_isvariable(&line[*i]))
+		new->tk.type = VAR;
+	y = *i;
+	while (line[y] && !ms_isop_pipe(line[y])
+		&& !ms_isop_and(line[y], line[y + 1]) && !ft_isspace(line[y]))
+	{	
+		type = ms_isquote(line[y]);
+		if (type)
+			y = ms_tk_quote(y, type, line);
+		y++;
+	}
+	new->tk.value = ft_substr(line, *i, y - *i);
+	*i = y;
 	return (0);
 }
 
