@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 00:17:37 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/14 12:59:00 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/16 11:42:25 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	ms_clean_wlist(t_word *list)
 	while (list)
 	{
 		temp = list->next;
+		if (list->part)
+			free (list->part);
 		if (list)
 			free(list);
 		list = temp;
