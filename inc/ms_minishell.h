@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/15 02:19:10 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/16 09:13:58 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <signal.h>
+# include <errno.h>
+# include <string.h>
 /*
 ** MINISHELL HEADERS
 */
@@ -56,11 +58,11 @@ int		ms_isquote(char c);
 int		ms_isredirection(char c);
 int		ms_isparen(char c);
 int		ms_isvariable(char *str);
-t_tlist	*ms_create_token(t_tlist **tlist);
 int		ms_ctoken_word(char *line, t_tlist **tlist, int *i);
 int		ms_ctoken_re(char *line, t_tlist **tlist, int *i);
 int		ms_ctoken_and(t_tlist **tlist, int *i);
 int		ms_ctoken_pipe(char *line, t_tlist **tlist, int *i);
+t_tlist	*ms_create_token(t_tlist **tlist);
 
 /*
 ** UTILS
@@ -73,13 +75,13 @@ void	ms_clean(t_ms *data);
 ** EXPANSER
 */
 
-void	ms_expanser(t_ms *data);
-char	*ms_concat(t_word *wlist);
 int		ms_isparen(char c);
 int		ms_isvariable(char *str);
-t_word	*ms_create_part(t_word **wlist);
+char	*ms_concat(t_word *wlist);
+void	ms_expanser(t_ms *data);
 void	ms_clean_wlist(t_word *list);
 void	ms_var_tokens(char *var, t_tlist **tokens);
+t_word	*ms_create_part(t_word **wlist);
 /*
 ** DEBUG -- TEST                                                |~
 */

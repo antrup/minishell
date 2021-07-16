@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:49:05 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/15 02:17:34 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/16 09:06:55 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@ int	ms_ctoken_word(char *line, t_tlist **tlist, int *i)
 
 	new = ms_create_token(tlist);
 	if (!new)
-		return (1);
+		return (errno);
 	new->tk.type = WORD;
 	if (ms_isvariable(&line[*i]))
 		new->tk.type = VAR;
 	y = *i;
-	while (line[y] && !ms_isop_pipe(line[y]) && !ms_isop_and(line[y], line[y + 1]) && !ft_isspace(line[y]))
+	while (line[y] && !ms_isop_pipe(line[y])
+			&& !ms_isop_and(line[y], line[y + 1]) && !ft_isspace(line[y]))
 	{	
 		type = ms_isquote(line[y]);
 		if (type)
@@ -33,8 +34,10 @@ int	ms_ctoken_word(char *line, t_tlist **tlist, int *i)
 			y++;
 			while (line[y] && ms_isquote(line[y]) != type)
 				y++;
-			if (!line[y])
-				return (1);
+			if (!line[y] && type == STRING_DQ)
+				return (ERR_DQUT);
+			if (!line[y] && type == STRING_SQ)
+				return (ERR_SQUT);
 		}
 		y++;
 	}
@@ -49,7 +52,7 @@ int	ms_ctoken_and(t_tlist **tlist, int *i)
 
 	new = ms_create_token(tlist);
 	if (!new)
-		return (1);
+		return (errno);
 	new->tk.type = OP_AND;
 	*i = *i + 2;
 	return (0);
@@ -61,7 +64,7 @@ int	ms_ctoken_pipe(char *line, t_tlist **tlist, int *i)
 
 	new = ms_create_token(tlist);
 	if (!new)
-		return (1);
+		return (errno);
 	if (ms_isop_pipe(line[*i]) == OP_PIPE 
 			&& ms_isop_pipe(line[*i + 1]) == OP_PIPE)
 	{	
@@ -80,7 +83,7 @@ int	ms_ctoken_re(char *line, t_tlist **tlist, int *i)
 
 	new = ms_create_token(tlist);
 	if (!new)
-		return (1);
+		return (errno);
 	if (ms_isredirection(line[*i]) == REDIR_IN
 			&& ms_isredirection(line[*i + 1]) == REDIR_IN)
 	{	
@@ -102,20 +105,22 @@ int	ms_ctoken_re(char *line, t_tlist **tlist, int *i)
 int	ms_lexer(t_ms *data)
 {
 	int		i;
+	int		err;
 
 	i = 0;
-	while (data->history[i])
+	err = 0;
+	while (data->history[i] && !err)
 	{
 		if (ft_isspace(data->history[i]))
 			i++;
 		else if (ms_isop_pipe(data->history[i]))
-			ms_ctoken_pipe(data->history, &data->tlist, &i);
-		else if (ms_isredirection(data->history[i]))
-			ms_ctoken_re(data->history, &data->tlist, &i);
-		else if (ms_isop_and(data->history[i], data->history[i + 1]))
-			ms_ctoken_and(&data->tlist, &i);
+			err = ms_ctoken_pipe(data->history, &data->tlist, &i);
+		else if (ms_isredirection(data->history[i]) && !err)
+			err = ms_ctoken_re(data->history, &data->tlist, &i);
+		else if (ms_isop_and(data->history[i], data->history[i + 1]) && !err)
+			err = ms_ctoken_and(&data->tlist, &i);
 		else
-			ms_ctoken_word(data->history, &data->tlist, &i);
+			err = ms_ctoken_word(data->history, &data->tlist, &i);
 	}
-	return (0);
+	return (err);
 }
