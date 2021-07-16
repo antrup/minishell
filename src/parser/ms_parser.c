@@ -16,6 +16,8 @@ t_node	*create_command(t_tlist *tlist)
 {
 	t_node		*new_node;
 	t_command	*new_command;
+	char		*file;
+	int		buildin;
 
 	new_node = malloc(sizeof(t_node));
 	if (!new_node)
@@ -30,15 +32,48 @@ t_node	*create_command(t_tlist *tlist)
 	new_node->left = NULL;
 	new_node->right = NULL;
 	new_node->data = new_command;
-	
-	if (tlist->tk.type == REDIR_IN)
+	new_command->cmd = NULL;
+	new_command->buildin = 0;
+	new_command->args = NULL;
+	new_command->redirIN = 0;
+	new_command->redirOUT = 0;
+	new_command->INfd = 0;
+	new_command->delimiter = NULL;
+	new_command->OUTfd = 1;
+
+	while (tlist)
 	{
-		if (tlist->next->tk.type != WORD)
-			return (error_syntax_NULL(tlist->next, &new_node));
-		
-		new_command->redirIN = 1;
-
-
+		if (tlist->tk.type == REDIR_IN)
+		{
+			if (tlist->next->tk.type != WORD)
+				return (error_syntax_NULL(tlist->next, &new_node));
+			new_command->redirIN = 1;
+			file = ms_format_file(tlist->next->tk.value);
+			new_command->INfd = open(file, O_RDONLY);
+			free(file);
+			if (INfd < 0)
+			{
+				free(new_command);
+				free(new_node);
+				return (error_open(tlist->next));
+			}		
+			tlist = tlist->next->next;
+		}
+	//	if (tlist->tk.type == REDIR_IN_A)
+	//	{
+	//		if (tlist->next->tk.type != WORD)
+	//			return (error_syntax_NULL(tlist->next, &new_node));
+	//		new_command->redirIN = 2;
+	//		new_command->delimiter = tlist->next->
+		if (tlist->tk.type == WORD)
+		{
+			if (new_command->cmd == NULL)
+			{
+				buildin = ms_check_buildin(tlist->tk.value)
+				if (buildin)
+				{
+					new_command->buildin = buildin;
+					new_command->cmd = tlist->tk.value;
 
 int	ms_parser(t_ms *data)
 {

@@ -35,6 +35,7 @@ typedef	struct	s_command
 	int		redirIN;
 	int		redirOUT;
 	int		INfd;
+	char		*delimiter;
 	int		OUTfd;
 	
 }	t_command;
