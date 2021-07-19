@@ -23,6 +23,13 @@
 # define REDIR_OUT 5
 # define REDIR_IN_A 6
 # define REDIR_OUT_A 7
+# define BI_ECHO 1
+# define BI_CD 2
+# define BI_PWD 3
+# define BI_EXPORT 4
+# define BI_UNSET 5
+# define BI_ENV 6
+# define BI_EXIT 7
 
 /*
 ** ERRORS

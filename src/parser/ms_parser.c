@@ -12,6 +12,35 @@
 
 #include "ms_minishell.h"
 
+int	ms_check_buildin(char *cmd)
+{
+	int ret;
+
+	ret = 0;
+	ret = ft_strcmp(cmd, "echo");
+	if (ret)
+		return (BI_ECHO);	
+	ft_strcmp(cmd, "cd");
+	if (ret)
+		return (BI_CD);
+	ft_strcmp(cmd, "pwd");
+	if (ret)
+		return (BI_PWD);	
+	ft_strcmp(cmd, "export");
+	if (ret)
+		return (BI_EXPORT);	
+	ft_strcmp(cmd, "unset");
+	if (ret)
+		return (BI_UNSET);	
+	ft_strcmp(cmd, "env");
+	if (ret)
+		return (BI_ENV);	
+	ft_strcmp(cmd, "exit");
+	if (ret)
+		return (BI_EXIT);
+	return (0);
+}
+
 t_node	*create_command(t_tlist *tlist)
 {
 	t_node		*new_node;
@@ -74,7 +103,10 @@ t_node	*create_command(t_tlist *tlist)
 				{
 					new_command->buildin = buildin;
 					new_command->cmd = tlist->tk.value;
-
+				}
+				else
+				{
+					new_command->cmd = 
 int	ms_parser(t_ms *data)
 {
 	t_tlist		*current;
