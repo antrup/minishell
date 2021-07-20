@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:52:09 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/20 12:09:48 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/20 13:42:52 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,13 +129,39 @@ static int	ms_redir_outa(t_tlist **token, t_node *node, t_command *command)
 	*token = (*token)->next->next;
 }
 
+static int	ms_cmd(t_tlist **token, t_node *node, t_command *command)
+{
+	int		buildin;
+	int		i;
+
+	buildin = 0;
+	i = 0;
+	if (command->cmd == NULL)
+	{
+		buildin = ms_check_buildin((*token)->tk.value);
+		if (buildin)
+		{
+			command->buildin = buildin;
+			command->cmd = current->tk.value;
+		}
+		else
+			command->cmd = ms_format_cmd(current->tk.value);
+		*token = (*token)->next;
+		if ((*token)->tk.type == WORD)
+			command->args(malloc(sizeof(char *) * ms_count_args(*token) + 1));
+		while (*token && (*token)->tk.type == WORD)
+		{
+			command->args[i] = current->tk.value;
+			*token = (*token)->next;
+		}
+	}
+}
+
 t_node	*create_command(t_tlist *tlist)
 {
 	t_node		*new_node;
 	t_command	*new_command;
-	int		buildin;
 	t_tlist	*current;
-	int		i;
 
 	ms_init_parser(&new_node, &new_command);
 	current = tlist;
@@ -159,29 +185,7 @@ t_node	*create_command(t_tlist *tlist)
 		//		new_command->redirIN = 2;
 		//		new_command->delimiter = tlist->next->
 		if (current->tk.type == WORD)
-		{
-			if (new_command->cmd == NULL)
-			{
-				buildin = ms_check_buildin(current->tk.value);
-				if (buildin)
-				{
-					new_command->buildin = buildin;
-					new_command->cmd = current->tk.value;
-				}
-				else
-					new_command->cmd = ms_format_cmd(current->tk.value);
-				current = current->next;
-				i = 0;
-				if (current->tk.type == WORD)
-					new_command->args(malloc(sizeof(char *) * ms_count_args(current) + 1));
-				while (current && current->tk.type == WORD)
-				{
-					new_command_args[i] = current->tk.value;
-					current->current->next;
-				}
-			}
-		}
-	}
+			ms_cmd(&current, new_node, new_command);
 	}
 }
 
