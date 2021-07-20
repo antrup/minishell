@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:52:09 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/20 13:46:04 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/20 16:25:20 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ int	ms_init_parser(t_node **node, t_command **command)
 {
 	*node = malloc(sizeof(t_node));
 	if (*node == NULL)
-		return (NULL);
+		return (errno);
 	*command = malloc(sizeof(t_command));
 	if (*command == NULL)
 	{
 		free(*node);
-		return (NULL);
+		return (errno);
 	}
 	node->type = COMMAND;
 	node->left = NULL;

@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:44:45 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/20 13:46:51 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/20 16:25:39 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ static int	ms_redir_out(t_tlist **token, t_node *node, t_command *command)
 		return (ERR_SYN);
 	command->redirOUT = 1;
 	file = ms_format_file((*token)->next->tk.value);
-	new_command->INfd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	command->INfd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	free(file);
-	if (INfd < 0)
+	if (command->INfd < 0)
 		return (ERR_OPEN);
 	*token = (*token)->next->next;
 }
@@ -55,7 +55,7 @@ static int	ms_redir_outa(t_tlist **token, t_node *node, t_command *command)
 	file = ms_format_file(current->next->tk.value);
 	command->INfd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	free(file);
-	if (INfd < 0)
+	if (command->INfd < 0)
 		return (ERR_OPEN);
 	*token = (*token)->next->next;
 }
@@ -81,7 +81,7 @@ static int	ms_cmd(t_tlist **token, t_node *node, t_command *command)
 		if ((*token)->tk.type == WORD)
 			command->args(malloc(sizeof(char *) * ms_count_args(*token) + 1));
 		if (command->args == NULL)
-			return (ERR_MEM);
+			return (errno);
 		while (*token && (*token)->tk.type == WORD)
 		{
 			command->args[i] = current->tk.value;
