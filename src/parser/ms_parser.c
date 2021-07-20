@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:52:09 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/20 16:25:20 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/20 16:52:08 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,18 +67,18 @@ int	ms_init_parser(t_node **node, t_command **command)
 		free(*node);
 		return (errno);
 	}
-	node->type = COMMAND;
-	node->left = NULL;
-	node->right = NULL;
-	node->data = new_command;
-	command->cmd = NULL;
-	command->buildin = 0;
-	command->args = NULL;
-	command->redirIN = 0;
-	command->redirOUT = 0;
-	command->INfd = 0;
-	command->delimiter = NULL;
-	command->OUTfd = 1;
+	(*node)->type = COMMAND;
+	(*node)->left = NULL;
+	(*node)->right = NULL;
+	(*node)->data = new_command;
+	(*command)->cmd = NULL;
+	(*command)->buildin = 0;
+	(*command)->args = NULL;
+	(*command)->redirIN = 0;
+	(*command)->redirOUT = 0;
+	(*command)->INfd = 0;
+	(*command)->delimiter = NULL;
+	(*command)->OUTfd = 1;
 }
 
 int	ms_parser(t_ms *data)
