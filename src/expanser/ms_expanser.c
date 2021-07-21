@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 09:41:43 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/16 11:58:30 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/21 18:45:39 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	ms_expanser(t_ms *data)
 	t_tlist		*token;
 	int			i;
 
-	token = data->tlist;
+	token = data->tokens;
 	while (token)
 	{
 		wlist = NULL;
@@ -124,7 +124,7 @@ void	ms_expanser(t_ms *data)
 				ms_clean_wlist(wlist);
 		}
 		if (token->tk.type == VAR)
-			ms_var_tokens(token->tk.value, &data->tlist);
+			ms_var_tokens(token->tk.value, &data->tokens);
 		token = token->next;
 	}
 }

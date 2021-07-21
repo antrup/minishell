@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:14:09 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/09 00:43:32 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/21 18:43:57 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	ms_init(t_ms *data)
 {
 	ft_memset(data, 0, sizeof(t_ms));
-	data->tlist = NULL;
+	data->tokens = NULL;
 	data->inte = is_interactive();
 	data->sig.sa_flags = SA_SIGINFO;
 	data->sig.sa_sigaction = ms_leak;
@@ -27,7 +27,7 @@ void	ms_init(t_ms *data)
 void	ms_init(t_ms *data)
 {
 	ft_memset(data, 0, sizeof(t_ms));
-	data->tlist = NULL;
+	data->tokens = NULL;
 	data->inte = is_interactive();
 }
 #endif

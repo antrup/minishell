@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 17:32:12 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/21 18:38:03 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/21 18:47:10 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 /*
 ** BUILT IN FUNCTIONS
 */
+# define BI_CD 1
+# define BI_ECHO 2
 # define BI_PWD 3
 # define BI_EXPORT 4
 # define BI_UNSET 5

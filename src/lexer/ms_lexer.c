@@ -6,17 +6,17 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:49:05 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/16 09:49:15 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/21 18:45:14 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
 
-int	ms_ctoken_and(t_tlist **tlist, int *i)
+int	ms_ctoken_and(t_tlist **tokens, int *i)
 {
 	t_tlist		*new;
 
-	new = ms_create_token(tlist);
+	new = ms_create_token(tokens);
 	if (!new)
 		return (errno);
 	new->tk.type = OP_AND;
@@ -24,11 +24,11 @@ int	ms_ctoken_and(t_tlist **tlist, int *i)
 	return (0);
 }
 
-int	ms_ctoken_pipe(char *line, t_tlist **tlist, int *i)
+int	ms_ctoken_pipe(char *line, t_tlist **tokens, int *i)
 {
 	t_tlist		*new;
 
-	new = ms_create_token(tlist);
+	new = ms_create_token(tokens);
 	if (!new)
 		return (errno);
 	if (ms_isop_pipe(line[*i]) == OP_PIPE
@@ -43,11 +43,11 @@ int	ms_ctoken_pipe(char *line, t_tlist **tlist, int *i)
 	return (0);
 }
 
-int	ms_ctoken_re(char *line, t_tlist **tlist, int *i)
+int	ms_ctoken_re(char *line, t_tlist **tokens, int *i)
 {
 	t_tlist		*new;
 
-	new = ms_create_token(tlist);
+	new = ms_create_token(tokens);
 	if (!new)
 		return (errno);
 	if (ms_isredirection(line[*i]) == REDIR_IN
@@ -80,13 +80,13 @@ int	ms_lexer(t_ms *data)
 		if (ft_isspace(data->history[i]))
 			i++;
 		else if (ms_isop_pipe(data->history[i]))
-			err = ms_ctoken_pipe(data->history, &data->tlist, &i);
+			err = ms_ctoken_pipe(data->history, &data->tokens, &i);
 		else if (ms_isredirection(data->history[i]) && !err)
-			err = ms_ctoken_re(data->history, &data->tlist, &i);
+			err = ms_ctoken_re(data->history, &data->tokens, &i);
 		else if (ms_isop_and(data->history[i], data->history[i + 1]) && !err)
-			err = ms_ctoken_and(&data->tlist, &i);
+			err = ms_ctoken_and(&data->tokens, &i);
 		else
-			err = ms_ctoken_word(data->history, &data->tlist, &i);
+			err = ms_ctoken_word(data->history, &data->tokens, &i);
 	}
 	return (err);
 }

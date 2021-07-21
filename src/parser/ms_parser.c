@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:52:09 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/21 16:24:12 by toni             ###   ########.fr       */
+/*   Updated: 2021/07/21 18:46:12 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ int	ms_check_buildin(char *cmd)
 	return (0);
 }
 
-int		ms_count_args(t_tlist *tlist)
+int		ms_count_args(t_tlist *tokens)
 {
 	t_tlist	*current;
 	int		i;
 
 	i = 0;
-	current = tlist;
+	current = tokens;
 	while (current && current->tk.type == WORD)
 	{	
 		i++;
@@ -87,7 +87,7 @@ int	ms_parser(t_ms *data)
 	t_tlist		*current;
 	int			count;
 
-	current = data->tlist;
+	current = data->tokens;
 	if (current->tk.type != WORD && current->tk.type != REDIR_IN 
 			&& current->tk.type != REDIR_OUT && current->tk.type != REDIR_IN_A
 			&& current->tk.type != REDIR_OUT_A)
@@ -101,6 +101,6 @@ int	ms_parser(t_ms *data)
 		current = current->next;
 	}
 	if (!count)
-		data->thead = ms_create_cmd(data->tlist);
+		data->thead = ms_create_cmd(data->tokens);
 	return (0);
 }

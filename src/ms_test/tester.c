@@ -37,7 +37,7 @@ void	print_token(t_ms *data)
 	int			i;
 
 	i = 1;
-	current = data->tlist;
+	current = data->tokens;
 	printf("token | OP | string\n");
 	while (current)
 	{
