@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:44:45 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/21 17:33:24 by toni             ###   ########.fr       */
+/*   Updated: 2021/07/21 18:36:19 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,15 +116,8 @@ t_node	*ms_create_cmd(t_tlist *tlist)
 			ms_redir_out(&current, new_command);
 		else if (current->tk.type == REDIR_OUT_A)
 			ms_redir_outa(&current, new_command);
-		//	
 		//	if (tlist->tk.type == REDIR_IN_A)
-		//	if (tlist->tk.type == REDIR_IN_A)
-		//	if (tlist->tk.type == REDIR_IN_A)
-		//	{
-		//		if (tlist->next->tk.type != WORD)
-		//			return (error_syntax_NULL(tlist->next, &new_node));
-		//		new_command->redirIN = 2;
-		//		new_command->delimiter = tlist->next->
+		// DO COOL STUFF
 		else if (current->tk.type == WORD)
 			ms_cmd(&current, new_command);
 	}

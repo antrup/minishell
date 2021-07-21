@@ -6,13 +6,16 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 17:32:12 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/21 16:22:25 by toni             ###   ########.fr       */
+/*   Updated: 2021/07/21 18:38:03 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MS_DEFINE_H
 # define MS_DEFINE_H
 
+/*
+** TOKEN TYPES
+*/
 # define WORD 0
 # define OP_PIPE 1
 # define OP_AND 2
@@ -23,16 +26,14 @@
 # define REDIR_OUT 5
 # define REDIR_IN_A 6
 # define REDIR_OUT_A 7
-# define BI_ECHO 1
-# define BI_CD 2
+/*
+** BUILT IN FUNCTIONS
+*/
 # define BI_PWD 3
 # define BI_EXPORT 4
 # define BI_UNSET 5
 # define BI_ENV 6
 # define BI_EXIT 7
-# define ERR_OPEN -1
-# define ERR_SYM -2
-
 /*
 ** ERRORS
 */
@@ -40,5 +41,6 @@
 # define ERR_TK -2
 # define ERR_DQUT -3
 # define ERR_SQUT -4
+# define ERR_OPEN -5
 
 #endif
