@@ -6,12 +6,16 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:03:04 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/21 18:43:23 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/21 18:51:25 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MS_STRUCTS_H
 # define MS_STRUCTS_H
+
+/*
+** WORD LIST / TOKEN
+*/
 
 typedef struct	s_word
 {
@@ -19,13 +23,9 @@ typedef struct	s_word
 	struct s_word	*next;
 }	t_word;
 
-enum e_node_type
-{
-	NO_CMD = 0,
-	NO_PIPE = 1,
-	NO_AND = 2,
-	NO_OR = 3
-};
+/*
+** COMMANDS
+*/
 
 typedef	struct	s_command
 {
@@ -41,13 +41,29 @@ typedef	struct	s_command
 	
 }	t_command;
 
+/*
+** NODES
+*/
+
+enum e_node_type
+{
+	NO_CMD = 0,
+	NO_PIPE = 1,
+	NO_AND = 2,
+	NO_OR = 3
+};
+
 typedef	struct	s_node
 {
 	enum e_node_type	type;
-	t_command			*data;
+	struct s_command	*data;
 	void				*left;
 	void				*right;
 }	t_node;
+
+/*
+** TOKENS
+*/
 
 enum e_token_type
 {
@@ -76,6 +92,10 @@ typedef struct s_tlist
 	struct s_tlist		*next;
 	struct s_tlist		*previous;
 }	t_tlist;
+
+/*
+** GLOBAL STRUCTURE
+*/
 
 typedef struct s_ms
 {
