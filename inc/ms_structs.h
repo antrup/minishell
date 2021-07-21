@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:03:04 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/21 18:51:25 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/21 23:27:42 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef	struct	s_command
 	int		redirIN;
 	int		redirOUT;
 	int		INfd;
-	char		*delimiter;
+	char	*delimiter;
 	int		OUTfd;
 	
 }	t_command;
