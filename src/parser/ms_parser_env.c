@@ -6,11 +6,11 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 12:04:53 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/08 17:53:26 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/21 09:58:13 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "ms_minishell.h"
 
 void	ms_check_path(int *count, int *j, char *path)
 {
@@ -32,10 +32,10 @@ char	**ms_ext_path_loader(char *path, char ***tab_path)
 	j = 0;
 	while (path[j] != '\0')
 	{
-		check_path(&count, &j, path);
+		ms_check_path(&count, &j, path);
 		tab_path[0][k] = malloc(sizeof(char) * (count + 2));
 		if (!tab_path[0][k])
-			return (clean_tab_path_b(tab_path, NULL));
+			return (ms_clean_tab_path_b(tab_path, NULL));
 		ft_strlcpy(tab_path[0][k], &(path[j - count]), count + 1);
 		tab_path[0][k][count] = '/';
 		tab_path[0][k][count + 1] = '\0';

@@ -14,7 +14,15 @@ SRCS = ms_minishell.c \
 	   lexer/ms_lexer_utils.c \
 	   lexer/ms_lexer_utils_2.c \
 	   expanser/ms_expanser.c \
-	   expanser/ms_expanser_utils.c
+	   expanser/ms_expanser_utils.c \
+	   parser/ms_create_cmd.c \
+	   parser/ms_parser.c \
+	   parser/ms_parser_cleaner.c \
+	   parser/ms_parser_env.c \
+	   parser/ms_parser_format.c \
+	   parser/ms_parser_format2.c \
+	   parser/ms_parser_path.c \
+	   parser/ms_parser_utils.c
 
 #TO BE REMOVED - TEST
 SRCS += ms_test/tester.c

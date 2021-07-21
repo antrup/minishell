@@ -6,11 +6,11 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 11:55:38 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/08 17:46:18 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/21 09:58:36 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "ms_minishell.h"
 
 char	*ms_format_cmd(char *file_name)
 {

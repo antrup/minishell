@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/16 09:13:58 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/21 09:47:19 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@
 */
 
 int		ms_lexer(t_ms *data);
+int		ms_parser(t_ms *data);
 
 /*
 ** LEXER UTILS
@@ -82,6 +83,27 @@ void	ms_expanser(t_ms *data);
 void	ms_clean_wlist(t_word *list);
 void	ms_var_tokens(char *var, t_tlist **tokens);
 t_word	*ms_create_part(t_word **wlist);
+
+/*
+** PARSER
+*/
+t_node  *ms_create_cmd(t_tlist *tlist);
+char	**ms_clean_tab_path_b(char ***tab_path, char **ret);
+char	*ms_clean_tab_path(char ***tab_path, char *ret);
+char	**ms_ext_path();
+char	*ms_format_file(char *file_name);
+char	*ms_format_cmd(char *file_name);
+char	*ms_format_tile(char *file_name);
+char	*ms_format_ds(char *file_name);
+char	*ms_format_dd(char *file_name);
+char	*ms_format_sl(char *file_name);
+char	*ms_find_path(char *file_name);
+char	*ms_find_cmd_path(char	*cmd_name, char ***t_path, int size_n);
+int		ms_name_sizer(char	*cmd_name);
+int		ms_check_buildin(char *cmd);
+int		ms_count_args(t_tlist *tlist);
+int		ms_init_parser(t_node **node, t_command **command);
+
 /*
 ** DEBUG -- TEST                                                |~
 */

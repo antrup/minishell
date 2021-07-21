@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/16 08:16:26 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/21 09:23:57 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main(int argc, char **argv, char **env)
 #if TEST		
 		print_token(&data);
 #endif
+		ms_parser(&data);
 		add_history(data.history);
 		if (data.inte == 0)
 			return (0);

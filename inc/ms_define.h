@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 17:32:12 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/16 09:03:50 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/21 09:53:09 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define OP_PIPE 1
 # define OP_AND 2
 # define OP_OR 3
+# define COMMAND 4
 # define STRING_DQ 2
 # define STRING_SQ 3
 # define REDIR_IN 4
@@ -30,6 +31,8 @@
 # define BI_UNSET 5
 # define BI_ENV 6
 # define BI_EXIT 7
+# define ERR_OPEN -1
+# define ERR_SYM -2
 
 /*
 ** ERRORS

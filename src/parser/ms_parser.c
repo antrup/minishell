@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:52:09 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/20 16:52:08 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/21 09:56:21 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	ms_init_parser(t_node **node, t_command **command)
 	(*node)->type = COMMAND;
 	(*node)->left = NULL;
 	(*node)->right = NULL;
-	(*node)->data = new_command;
+	(*node)->data = *command;
 	(*command)->cmd = NULL;
 	(*command)->buildin = 0;
 	(*command)->args = NULL;
@@ -79,6 +79,7 @@ int	ms_init_parser(t_node **node, t_command **command)
 	(*command)->INfd = 0;
 	(*command)->delimiter = NULL;
 	(*command)->OUTfd = 1;
+	return (0);
 }
 
 int	ms_parser(t_ms *data)
@@ -88,22 +89,19 @@ int	ms_parser(t_ms *data)
 	t_node		*head;
 
 	current = data->tlist;
-	if (current.tk.type != WORD && current.tk.type != REDIR_IN 
-			&& current.tk.type != REDIR_OUT && current.tk.type != REDIR_IN_A
-			&& current.tk.type != REDIR_OUT_A)
-		return (error_syntax(current));
+	if (current->tk.type != WORD && current->tk.type != REDIR_IN 
+			&& current->tk.type != REDIR_OUT && current->tk.type != REDIR_IN_A
+			&& current->tk.type != REDIR_OUT_A)
+		return (ERR_SYN);
 	count = 0;
 	while (current)
 	{
-		if (current.tk.type == OP_PIPE || current.tk.type == OP_AND
-				|| current.tk.type == OP_OR)
+		if (current->tk.type == OP_PIPE || current->tk.type == OP_AND
+				|| current->tk.type == OP_OR)
 			count++;
 		current = current->next;
 	}
 	if (!count)
 		head = ms_create_cmd(data->tlist);
-	else
-	{
-		head = create_tree(data, count);
-	}
+	return (0);
 }
