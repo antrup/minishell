@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 17:32:12 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/21 09:53:09 by toni             ###   ########.fr       */
+/*   Updated: 2021/07/21 16:22:25 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # define OP_PIPE 1
 # define OP_AND 2
 # define OP_OR 3
-# define COMMAND 4
 # define STRING_DQ 2
 # define STRING_SQ 3
 # define REDIR_IN 4

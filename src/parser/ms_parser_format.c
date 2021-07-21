@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 11:55:38 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/21 09:58:36 by toni             ###   ########.fr       */
+/*   Updated: 2021/07/21 17:13:52 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,9 @@ char	*ms_format_file(char *file_name)
 		size = ft_strlen(file_name) + ft_strlen(pwd) + 1;
 		file_path = malloc(sizeof(char) * size);
 		ft_strlcpy(file_path, pwd, ft_strlen(pwd) + 1);
-		ft_strlcpy(file_path + ft_strlen(pwd), file_name,
+		ft_strlcpy(file_path + ft_strlen(pwd), "/",
+			2);
+		ft_strlcpy(file_path + ft_strlen(pwd) + 1, file_name,
 			ft_strlen(file_name) + 1);
 	}
 	return (file_path);

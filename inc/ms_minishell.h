@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/21 09:47:19 by toni             ###   ########.fr       */
+/*   Updated: 2021/07/21 16:32:43 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,6 @@ int		ms_init_parser(t_node **node, t_command **command);
 
 void	print_token(t_ms *data);
 void	ms_leak(int sig, siginfo_t *var, void *param);
+void	print_tree(t_ms *data);
 
 #endif

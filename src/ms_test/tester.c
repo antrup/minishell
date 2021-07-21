@@ -1,6 +1,36 @@
 #include "ms_minishell.h"
 
 #if TEST
+
+void	print_tree(t_ms *data)
+{
+	t_node		*current;
+	int			i;
+
+	current = data->thead;
+	while (current)
+	{
+		if (current->type == NO_CMD)
+		{
+			printf("Type : COMMAND \n");
+			printf("CMD : %s \n", current->data->cmd);
+			i = 0;
+			while (current->data->args && current->data->args[i])
+			{
+				printf("ARG %d : %s \n", i, current->data->args[i]);
+				i++;
+			}
+			if (current->data->redirIN)
+				printf("RedirIN fd = %d \n", current->data->INfd);
+			if (current->data->redirOUT)
+				printf("RedirOUT fd = %d \n", current->data->OUTfd);
+		}
+		else
+			printf("Type : OP \n");
+		current = NULL;
+	}
+}
+
 void	print_token(t_ms *data)
 {
 	t_tlist		*current;

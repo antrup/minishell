@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:52:09 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/21 09:56:21 by toni             ###   ########.fr       */
+/*   Updated: 2021/07/21 16:24:12 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	ms_init_parser(t_node **node, t_command **command)
 		free(*node);
 		return (errno);
 	}
-	(*node)->type = COMMAND;
+	(*node)->type = NO_CMD;
 	(*node)->left = NULL;
 	(*node)->right = NULL;
 	(*node)->data = *command;
@@ -86,7 +86,6 @@ int	ms_parser(t_ms *data)
 {
 	t_tlist		*current;
 	int			count;
-	t_node		*head;
 
 	current = data->tlist;
 	if (current->tk.type != WORD && current->tk.type != REDIR_IN 
@@ -102,6 +101,6 @@ int	ms_parser(t_ms *data)
 		current = current->next;
 	}
 	if (!count)
-		head = ms_create_cmd(data->tlist);
+		data->thead = ms_create_cmd(data->tlist);
 	return (0);
 }
