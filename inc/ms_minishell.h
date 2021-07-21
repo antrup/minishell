@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/21 16:32:43 by toni             ###   ########.fr       */
+/*   Updated: 2021/07/22 00:30:18 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int		ms_name_sizer(char	*cmd_name);
 int		ms_check_buildin(char *cmd);
 int		ms_count_args(t_tlist *tlist);
 int		ms_init_parser(t_node **node, t_command **command);
+int		ms_redir_ina(t_tlist **token, t_command *command);	
 
 /*
 ** DEBUG -- TEST                                                |~

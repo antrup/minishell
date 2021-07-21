@@ -22,6 +22,7 @@ SRCS = ms_minishell.c \
 	   parser/ms_parser_format.c \
 	   parser/ms_parser_format2.c \
 	   parser/ms_parser_path.c \
+	   parser/ms_redir_ina.c \
 	   parser/ms_parser_utils.c
 
 #TO BE REMOVED - TEST
