@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 00:14:38 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/22 10:49:54 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/22 14:01:51 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,11 @@ int	ms_redir_ina(t_tlist **token, t_command *command)
 	while (flag)
 	{
 		line = readline("> ");
+		if (line == NULL)
+		{
+			*token = (*token)->next;
+			return (ERR_REDIR_IN);
+		}
 		if (ft_strcmp(line, end))
 			flag = 0;
 		buff = ms_strjoin(buff, line);

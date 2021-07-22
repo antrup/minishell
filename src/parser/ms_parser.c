@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:52:09 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/21 18:46:12 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/22 14:59:58 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int	ms_parser(t_ms *data)
 	int			count;
 
 	current = data->tokens;
+	if (current == NULL)
+		return (0);
 	if (current->tk.type != WORD && current->tk.type != REDIR_IN 
 			&& current->tk.type != REDIR_OUT && current->tk.type != REDIR_IN_A
 			&& current->tk.type != REDIR_OUT_A)

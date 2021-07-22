@@ -6,11 +6,22 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/21 16:31:02 by toni             ###   ########.fr       */
+/*   Updated: 2021/07/22 17:51:56 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
+
+void	ms_exit(int sig)
+{
+	if (sig == SIGINT)
+		write(1, "exit\n", 5);
+	if (sig == SIGQUIT)
+		write(1, "exit\n", 5);
+	if (sig == SIGTERM)
+		printf("test\n");
+	exit(0);
+}
 
 int	main(int argc, char **argv, char **env)
 {
@@ -33,10 +44,11 @@ int	main(int argc, char **argv, char **env)
 		print_tree(&data);
 #endif
 		add_history(data.history);
-		if (data.inte == 0)
+		if (data.info.inte == 0)
 			return (0);
 		ms_clean(&data);
-		sigaction(SIGINT, &data.sig, 0);
+		//sigaction(SIGINT, &data.info.sig, 0);
+		signal(SIGINT, &ms_exit);
 	}
 	return (0);
 }
