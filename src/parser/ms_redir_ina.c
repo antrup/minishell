@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 00:14:38 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/22 00:31:28 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/22 10:49:54 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ int	ms_redir_ina(t_tlist **token, t_command *command)
 		return (ERR_SYN);
 	*token = (*token)->next;
 	end = (*token)->tk.value;
-	pipe(fd);
+	if (pipe(fd) == -1)
+		return (ERR_PIPE);
 	command->redirIN = 1;
 	flag = 1;
 	buff = NULL;
