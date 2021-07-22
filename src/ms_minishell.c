@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/22 17:51:56 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/22 20:31:32 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	(void)env;
+	signal(SIGINT, &ms_exit);
 	while (1)
 	{
 		ms_init(&data);
@@ -48,7 +49,7 @@ int	main(int argc, char **argv, char **env)
 			return (0);
 		ms_clean(&data);
 		//sigaction(SIGINT, &data.info.sig, 0);
-		signal(SIGINT, &ms_exit);
+	//	signal(SIGINT, &ms_exit);
 	}
 	return (0);
 }
