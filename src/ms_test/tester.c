@@ -72,7 +72,7 @@ void	ms_leak(int sig, siginfo_t *var, void *param)
 	(void)sig;
 	(void)var;
 	(void)param;
-	//system("leaks minishell");
+	system("leaks minishell");
 	//system("leaks test-exp");
 	exit (0);
 }

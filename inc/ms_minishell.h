@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/22 00:30:18 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/22 17:26:56 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <signal.h>
 # include <errno.h>
 # include <string.h>
+# include <termios.h>
 /*
 ** MINISHELL HEADERS
 */

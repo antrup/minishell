@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:03:04 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/21 23:27:42 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/22 17:29:59 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,15 +93,22 @@ typedef struct s_tlist
 	struct s_tlist		*previous;
 }	t_tlist;
 
+typedef struct s_info
+{
+	int					inte;
+	struct termios		term_ios;
+	struct termios		ms_ios;
+	struct sigaction	sig;
+}	t_info;
+
 /*
 ** GLOBAL STRUCTURE
 */
 
 typedef struct s_ms
 {
-	struct sigaction	sig;
+	t_info				info;
 	t_tlist				*tokens;
-	int					inte;
 	char				*history;
 	t_node				*thead;
 }	t_ms;

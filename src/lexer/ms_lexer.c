@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:49:05 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/21 18:45:14 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/22 14:58:26 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	ms_lexer(t_ms *data)
 
 	i = 0;
 	err = 0;
-	while (data->history[i] && !err)
+	while (data->history && data->history[i] && !err)
 	{
 		if (ft_isspace(data->history[i]))
 			i++;
