@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 17:32:12 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/21 18:47:10 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/22 11:46:36 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,8 @@
 # define ERR_DQUT -3
 # define ERR_SQUT -4
 # define ERR_OPEN -5
+# define ERR_PIPE -6
+# define ERR_WRT -7
+# define ERR_READ -8
 
 #endif
