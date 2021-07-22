@@ -28,6 +28,16 @@ SRCS = ms_minishell.c \
 #TO BE REMOVED - TEST
 SRCS += ms_test/tester.c
 
+UNAME = $(shell uname)
+
+ifeq (${UNAME}, Darwin)
+OS = 1
+endif
+
+ifeq (${UNAME}, Linux)
+	OS = 0
+endif
+
 SRCDIR = src
 OBJDIR = objs
 INCDIR = inc
@@ -51,7 +61,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p ${@D}
 	${CC} ${CFLAGS} ${TFLAG} -I./inc -c $< -o $@
 
-test: TFLAG = -D TEST=1
+test: TFLAG = -D TEST=1 -D OSX=${OS}
 
 test: fclean ${NAME}
 

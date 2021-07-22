@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/22 20:31:32 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/23 00:44:06 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,9 @@ int	main(int argc, char **argv, char **env)
 		if (data.info.inte == 0)
 			return (0);
 		ms_clean(&data);
-		//sigaction(SIGINT, &data.info.sig, 0);
-	//	signal(SIGINT, &ms_exit);
+#if OSX
+		sigaction(SIGINT, &data.info.sig, 0);
+#endif
 	}
 	return (0);
 }

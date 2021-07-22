@@ -38,7 +38,8 @@ void	print_token(t_ms *data)
 
 	i = 1;
 	current = data->tokens;
-	printf("token | OP | string\n");
+	if (current != NULL)
+		printf("token | OP | string\n");
 	while (current)
 	{
 		printf("%2d\t", i);
@@ -67,6 +68,8 @@ void	print_token(t_ms *data)
 	return ;
 }
 
+#if OSX
+
 void	ms_leak(int sig, siginfo_t *var, void *param)
 {
 	(void)sig;
@@ -76,5 +79,6 @@ void	ms_leak(int sig, siginfo_t *var, void *param)
 	//system("leaks test-exp");
 	exit (0);
 }
+#endif
 
 #endif
