@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/23 00:44:06 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/23 01:23:43 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ms_exit(int sig)
 {
 	if (sig == SIGINT)
-		write(1, "exit\n", 5);
+		write(1, "\b\bexit\n", 7);
 	if (sig == SIGQUIT)
 		write(1, "exit\n", 5);
 	if (sig == SIGTERM)
@@ -34,7 +34,7 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		ms_init(&data);
-		data.history = readline("Myshell: ");
+		data.line = readline("Myshell: ");
 		ms_lexer(&data);
 		ms_expanser(&data);
 #if TEST		
@@ -44,7 +44,8 @@ int	main(int argc, char **argv, char **env)
 #if TEST		
 		print_tree(&data);
 #endif
-		add_history(data.history);
+		add_history(data.line);
+		if (data.line)
 		if (data.info.inte == 0)
 			return (0);
 		ms_clean(&data);

@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:49:05 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/22 14:58:26 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/23 01:15:49 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,18 +75,18 @@ int	ms_lexer(t_ms *data)
 
 	i = 0;
 	err = 0;
-	while (data->history && data->history[i] && !err)
+	while (data->line && data->line[i] && !err)
 	{
-		if (ft_isspace(data->history[i]))
+		if (ft_isspace(data->line[i]))
 			i++;
-		else if (ms_isop_pipe(data->history[i]))
-			err = ms_ctoken_pipe(data->history, &data->tokens, &i);
-		else if (ms_isredirection(data->history[i]) && !err)
-			err = ms_ctoken_re(data->history, &data->tokens, &i);
-		else if (ms_isop_and(data->history[i], data->history[i + 1]) && !err)
+		else if (ms_isop_pipe(data->line[i]))
+			err = ms_ctoken_pipe(data->line, &data->tokens, &i);
+		else if (ms_isredirection(data->line[i]) && !err)
+			err = ms_ctoken_re(data->line, &data->tokens, &i);
+		else if (ms_isop_and(data->line[i], data->line[i + 1]) && !err)
 			err = ms_ctoken_and(&data->tokens, &i);
 		else
-			err = ms_ctoken_word(data->history, &data->tokens, &i);
+			err = ms_ctoken_word(data->line, &data->tokens, &i);
 	}
 	return (err);
 }

@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:03:04 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/22 17:29:59 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/23 01:16:21 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,8 @@ typedef struct s_ms
 {
 	t_info				info;
 	t_tlist				*tokens;
-	char				*history;
 	t_node				*thead;
+	char				*line;
 }	t_ms;
 
 #endif
