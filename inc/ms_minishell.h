@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/23 00:06:22 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/23 16:36:24 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@
 ** MAIN FUNCTIONS
 */
 
-int		ms_lexer(t_ms *data);
-int		ms_parser(t_ms *data);
+int		ms_lexer(char *line, t_tlist **tokens);
+void	ms_expanser(t_tlist *tokens);
+int		ms_parser(t_tlist *tokens, t_node **thead);
 
 /*
 ** LEXER UTILS
@@ -75,6 +76,7 @@ t_tlist	*ms_create_token(t_tlist **tlist);
 
 int		is_interactive(void);
 void	ms_init(t_ms *data);
+void	ms_init_shell(t_ms *data);
 void	ms_clean(t_ms *data);
 /*
 ** EXPANSER
@@ -83,7 +85,6 @@ void	ms_clean(t_ms *data);
 int		ms_isparen(char c);
 int		ms_isvariable(char *str);
 char	*ms_concat(t_word *wlist);
-void	ms_expanser(t_ms *data);
 void	ms_clean_wlist(t_word *list);
 void	ms_var_tokens(char *var, t_tlist **tokens);
 t_word	*ms_create_part(t_word **wlist);
@@ -113,8 +114,8 @@ int		ms_redir_ina(t_tlist **token, t_command *command);
 ** DEBUG -- TEST                                                |~
 */
 
-void	print_token(t_ms *data);
+void	print_token(t_tlist *tokens);
 void	ms_leak(int sig, siginfo_t *var, void *param);
-void	print_tree(t_ms *data);
+void	print_tree(t_node *thead);
 
 #endif

@@ -2,12 +2,12 @@
 
 #if TEST
 
-void	print_tree(t_ms *data)
+void	print_tree(t_node *thead)
 {
 	t_node		*current;
 	int			i;
 
-	current = data->thead;
+	current = thead;
 	while (current)
 	{
 		if (current->type == NO_CMD)
@@ -31,13 +31,13 @@ void	print_tree(t_ms *data)
 	}
 }
 
-void	print_token(t_ms *data)
+void	print_token(t_tlist *tokens)
 {
 	t_tlist		*current;
 	int			i;
 
 	i = 1;
-	current = data->tokens;
+	current = tokens;
 	if (current != NULL)
 		printf("token | OP | string\n");
 	while (current)
