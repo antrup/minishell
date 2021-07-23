@@ -7,7 +7,8 @@ INC = ms_minishell.h \
 	  ms_structs.h
 
 SRCS = ms_minishell.c \
-	   utils/ms_utils.c \
+	   utils/ms_utils1.c \
+	   utils/ms_init.c \
 	   utils/ms_clean.c \
 	   lexer/ms_lexer.c \
 	   lexer/ms_lexer_var.c \

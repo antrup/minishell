@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/23 16:36:24 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/23 18:43:49 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ int		is_interactive(void);
 void	ms_init(t_ms *data);
 void	ms_init_shell(t_ms *data);
 void	ms_clean(t_ms *data);
+char	*ms_join_argv(char **argv, int argc);
+void	ms_exit(int sig);
 /*
 ** EXPANSER
 */
