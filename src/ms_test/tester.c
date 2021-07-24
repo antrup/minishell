@@ -12,18 +12,21 @@ void	print_tree(t_node *thead)
 	{
 		if (current->type == NO_CMD)
 		{
-			printf("Type : COMMAND \n");
-			printf("CMD : %s \n", current->data->cmd);
-			i = 0;
-			while (current->data->args && current->data->args[i])
+			if (current->data)
 			{
-				printf("ARG %d : %s \n", i, current->data->args[i]);
-				i++;
+				printf("Type : COMMAND \n");
+				printf("CMD : %s \n", current->data->cmd);
+				i = 0;
+				while (current->data->args && current->data->args[i])
+				{
+					printf("ARG %d : %s \n", i, current->data->args[i]);
+					i++;
+				}
+				if (current->data->redirIN)
+					printf("RedirIN fd = %d \n", current->data->INfd);
+				if (current->data->redirOUT)
+					printf("RedirOUT fd = %d \n", current->data->OUTfd);
 			}
-			if (current->data->redirIN)
-				printf("RedirIN fd = %d \n", current->data->INfd);
-			if (current->data->redirOUT)
-				printf("RedirOUT fd = %d \n", current->data->OUTfd);
 		}
 		else
 			printf("Type : OP \n");

@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 00:17:37 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/24 11:34:22 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/24 12:44:34 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ void	ms_exit(int sig)
 {
 	if (sig == SIGINT)
 		write(1, "exit\n", 5);
-	exit(0);
+	tcsetattr(0, TCSANOW, &g_shell.data->info.term_ios);
+	ms_clean(g_shell.data);
+	g_shell.on = 0;
+	exit (0);
 }
 
 static void	ms_clean_tlist(t_tlist *list)

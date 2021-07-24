@@ -6,12 +6,16 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/24 11:33:59 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/24 12:48:39 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
 
+/*
+** INIT GLOBAL VARIABLE
+*/
+t_shell g_shell = {0, NULL};
 /*
 ** MAIN FUNCTION THAT CREATES COMMANDS AND EXECUTES
 */
@@ -40,12 +44,14 @@ static int	ms_minishell(t_tlist **tokens)
 static int	ms_myshell(t_ms *data, char **env)
 {
 	(void)env;
-	while (1)
+	while (g_shell.on == 1)
 	{
 		ms_init_shell(data);
 		data->line = readline("Myshell: ");
-		ms_lexer(data->line, &data->tokens);
 		tcsetattr(0, TCSANOW, &data->info.term_ios);
+		if (!data->line)
+			write(0, "\n", 1);
+		ms_lexer(data->line, &data->tokens);
 		ms_minishell(&data->tokens);
 	}
 	return (0);

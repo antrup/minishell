@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:03:04 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/23 01:16:21 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/24 12:09:05 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,16 @@ typedef struct s_info
 }	t_info;
 
 /*
+** GLOBAL VARIABLE
+*/
+
+typedef struct s_shell
+{
+	int			on;
+	struct s_ms	*data;
+}	t_shell;
+
+/*
 ** GLOBAL STRUCTURE
 */
 
@@ -109,8 +119,9 @@ typedef struct s_ms
 {
 	t_info				info;
 	t_tlist				*tokens;
-	t_node				*thead;
 	char				*line;
 }	t_ms;
+
+extern t_shell g_shell;
 
 #endif
