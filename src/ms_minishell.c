@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/24 18:28:29 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/25 00:20:40 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static int	ms_minishell(t_tlist **tokens)
 #endif
 	//EXECUTION
 	ms_clean_cmd(thead);
+	ms_clean_tlist(tokens);
 	return (0);
 }
 
@@ -54,7 +55,6 @@ static int	ms_myshell(t_ms *data, char **env)
 			write(0, "\n", 1);
 		ms_lexer(data->line, &data->tokens);
 		ms_minishell(&data->tokens);
-		//ms_clean_tlist(data->tokens);
 	}
 	return (0);
 }

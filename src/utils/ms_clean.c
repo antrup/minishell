@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 00:17:37 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/24 18:26:20 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/25 00:21:13 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@ void	ms_exit(int sig)
 	exit (0);
 }
 
-void	ms_clean_tlist(t_tlist *list)
+void	ms_clean_tlist(t_tlist **list)
 {
 	t_tlist *temp;
 
-	while (list)
+	while (*list)
 	{
-		temp = list->next;
-		if (list->tk.value)
-			free(list->tk.value);
-		free(list);
-		list = temp;
+		temp = (*list)->next;
+		if ((*list)->tk.value)
+			free((*list)->tk.value);
+		free(*list);
+		*list = temp;
 	}
 }
 
@@ -71,7 +71,7 @@ void	ms_clean_wlist(t_word *list)
 void	ms_clean(t_ms *data)
 {
 	if (data->tokens)
-		ms_clean_tlist(data->tokens);
+		ms_clean_tlist(&data->tokens);
 	free(data->line);
 	//clear_history();
 }
