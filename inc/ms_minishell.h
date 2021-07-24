@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/24 12:08:43 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/24 14:21:18 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ void	ms_init_shell(t_ms *data);
 void	ms_clean(t_ms *data);
 char	*ms_join_argv(char **argv, int argc);
 void	ms_exit(int sig);
-void	ms_clean_cmd(t_node **head);
+void	ms_clean_cmd(t_node *head);
+void	ms_clean_tlist(t_tlist *list);
 /*
 ** EXPANSER
 */

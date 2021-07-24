@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 00:17:37 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/24 14:08:40 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/24 18:26:20 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ms_exit(int sig)
 	exit (0);
 }
 
-static void	ms_clean_tlist(t_tlist *list)
+void	ms_clean_tlist(t_tlist *list)
 {
 	t_tlist *temp;
 
@@ -36,22 +36,22 @@ static void	ms_clean_tlist(t_tlist *list)
 	}
 }
 
-void	ms_clean_cmd(t_node **head)
+void	ms_clean_cmd(t_node *head)
 {
 	int	i;
 	i = 0;
-	if (*head)
+	if (head)
 	{
-		free((*head)->data->cmd);
-		free((*head)->data->delimiter);
-		while ((*head)->data->args && (*head)->data->args[i])
+		free((head)->data->cmd);
+		free((head)->data->delimiter);
+		while ((head)->data->args && (head)->data->args[i])
 		{
-			free((*head)->data->args[i]);
+			free((head)->data->args[i]);
 			i++;
 		}
-		free((*head)->data->args);
-		free((*head)->data);
-		free(*head);
+		free((head)->data->args);
+		free((head)->data);
+		free(head);
 	}
 }
 
@@ -70,7 +70,8 @@ void	ms_clean_wlist(t_word *list)
 
 void	ms_clean(t_ms *data)
 {
-	ms_clean_tlist(data->tokens);
+	if (data->tokens)
+		ms_clean_tlist(data->tokens);
 	free(data->line);
 	//clear_history();
 }
