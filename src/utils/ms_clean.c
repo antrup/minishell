@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 00:17:37 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/24 10:53:58 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/24 11:34:22 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,6 @@ void	ms_exit(int sig)
 {
 	if (sig == SIGINT)
 		write(1, "exit\n", 5);
-	if (sig == SIGQUIT)
-		write(1, "exit\n", 5);
-	if (sig == SIGTERM)
-		printf("test\n");
 	exit(0);
 }
 
@@ -35,6 +31,11 @@ static void	ms_clean_tlist(t_tlist *list)
 		free(list);
 		list = temp;
 	}
+}
+
+void	ms_clean_cmd(t_node **head)
+{
+	(void)head;
 }
 
 void	ms_clean_wlist(t_word *list)

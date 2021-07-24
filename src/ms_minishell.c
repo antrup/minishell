@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/24 10:52:49 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/24 11:33:59 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,20 @@
 ** MAIN FUNCTION THAT CREATES COMMANDS AND EXECUTES
 */
 
-static int	ms_minishell(t_tlist *tokens, t_node **thead)
+static int	ms_minishell(t_tlist **tokens)
 {
-	ms_expanser(tokens);
+	t_node *thead;
+
+	ms_expanser(*tokens);
 #if TEST		
-	print_token(tokens);
+	print_token(*tokens);
 #endif
-	ms_parser(tokens, thead);
+	ms_parser(*tokens, &thead);
 #if TEST		
-	print_tree(*thead);
+	print_tree(thead);
 #endif
+	//EXECUTION
+	ms_clean_cmd(&thead);
 	return (0);
 }
 
@@ -42,7 +46,7 @@ static int	ms_myshell(t_ms *data, char **env)
 		data->line = readline("Myshell: ");
 		ms_lexer(data->line, &data->tokens);
 		tcsetattr(0, TCSANOW, &data->info.term_ios);
-		ms_minishell(data->tokens, &data->thead);
+		ms_minishell(&data->tokens);
 	}
 	return (0);
 }
@@ -57,8 +61,7 @@ static int	ms_oneshell(t_ms *data, char **argv, char **env, int argc)
 	if (data->info.inte == 0)
 		data->line = ms_join_argv(argv, argc);
 	ms_lexer(data->line, &data->tokens);
-	ms_expanser(data->tokens);
-	ms_parser(data->tokens, &data->thead);
+	ms_minishell(&data->tokens);
 	return (0);
 }
 
