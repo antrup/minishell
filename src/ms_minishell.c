@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/23 18:43:06 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/24 10:52:49 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static int	ms_myshell(t_ms *data, char **env)
 		ms_init_shell(data);
 		data->line = readline("Myshell: ");
 		ms_lexer(data->line, &data->tokens);
+		tcsetattr(0, TCSANOW, &data->info.term_ios);
 		ms_minishell(data->tokens, &data->thead);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 00:17:37 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/23 18:42:43 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/24 10:53:58 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	ms_clean_wlist(t_word *list)
 void	ms_clean(t_ms *data)
 {
 	ms_clean_tlist(data->tokens);
-	tcsetattr(0, TCSANOW, &data->info.term_ios);
 	free(data->line);
 	//clear_history();
 }

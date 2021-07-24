@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_utils.c                                         :+:      :+:    :+:   */
+/*   ms_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:14:09 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/23 16:38:55 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/24 11:07:33 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ void	ms_init_shell(t_ms *data)
 	tcgetattr(0, &data->info.term_ios);
 	ft_memcpy(&data->info.ms_ios, &data->info.term_ios, sizeof(data->info.ms_ios));
 	// FIX TO SEND NEWLINE
-	data->info.ms_ios.c_cc[VEOF] = 3;
+	data->info.ms_ios.c_cc[VEOL] = 3;
 	data->info.ms_ios.c_cc[VINTR] = 4;
+	data->info.ms_ios.c_cc[VQUIT] = 0;
 	tcsetattr(0, TCSANOW, &data->info.ms_ios);
 #if OSX
 	data->info.sig.sa_flags = SA_SIGINFO;
