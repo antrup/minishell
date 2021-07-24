@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 00:17:37 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/24 12:44:34 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/24 13:52:50 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,21 @@ static void	ms_clean_tlist(t_tlist *list)
 
 void	ms_clean_cmd(t_node **head)
 {
-	(void)head;
+	int	i;
+	i = 0;
+	if (*head)
+	{
+		free((*head)->data->cmd);
+		free((*head)->data->delimiter);
+		while ((*head)->data->args[i])
+		{
+			free((*head)->data->args[i]);
+			i++;
+		}
+		free((*head)->data->args);
+		free((*head)->data);
+		free(*head);
+	}
 }
 
 void	ms_clean_wlist(t_word *list)

@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/24 12:48:39 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/24 13:54:03 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ t_shell g_shell = {0, NULL};
 static int	ms_minishell(t_tlist **tokens)
 {
 	t_node *thead;
-
+	
+	thead = NULL;
 	ms_expanser(*tokens);
 #if TEST		
 	print_token(*tokens);

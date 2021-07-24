@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:44:45 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/22 00:23:14 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/24 13:48:19 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static int	ms_cmd(t_tlist **token, t_command *command)
 			return (errno);
 		while (*token && (*token)->tk.type == WORD)
 		{
-			command->args[i] = (*token)->tk.value;
+			command->args[i] = ft_strdup((*token)->tk.value);
 			*token = (*token)->next;
 			i++;
 		}

@@ -6,7 +6,7 @@
 /*   By: sshakya <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/23 18:15:58 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/23 18:29:07 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/24 13:32:56 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	ms_join(char *buff, char *line, char *str)
 	str[i] = '\0';
 }
 
-static char	*ms_strjoin(char *buff, char *line)
+static char	*ms_strjoin(char *buff, char *line, int i)
 {
 	char	*str;
 	size_t	len;
@@ -59,33 +59,28 @@ static char	*ms_strjoin(char *buff, char *line)
 	if (str == NULL)
 		return (NULL);
 	ms_join(buff, line, str);
-	free(buff);
+	if (i == 1)
+		free(buff);
 	return (str);
 }
 
 char	*ms_join_argv(char **argv, int argc)
 {
 	int		i;
-	int		n;
-	int		flag;
 	char	*buff;
 	char	*ret;
 
-	i = 1;
-	flag = 0;
-	n = argc - 1;
+	i = 3;
 	buff = NULL;
-	if (n > 1)
+	if (argc > 2)
 	{
-		while (i < n)
+		buff = ms_strjoin(argv[1], argv[2], 0);
+		if (argc == 3)
+			return (buff);
+		while (i < argc)
 		{
-			if (flag == 0)
-			{
-				buff = ft_strjoin(argv[i], argv[i + 1]);
-				i++;
-				flag = 1;
-			}
-			ret = ms_strjoin(buff, argv[i + 1]);
+			ret = ms_strjoin(buff, argv[i], 1);
+			buff = ret;
 			i++;
 		}
 	}
