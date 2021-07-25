@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:14:09 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/25 19:15:38 by toni             ###   ########.fr       */
+/*   Updated: 2021/07/25 21:09:23 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	ms_init_shell(t_ms *data)
 #endif
 }
 
+/*
 int	is_interactive(void)
 {
 	int	ret;
@@ -48,3 +49,4 @@ int	is_interactive(void)
 	ret = isatty(0);
 	return (ret);
 }
+*/

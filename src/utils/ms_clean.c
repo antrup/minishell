@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 00:17:37 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/25 19:13:29 by toni             ###   ########.fr       */
+/*   Updated: 2021/07/25 22:15:09 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,25 +51,32 @@ void	ms_clean_tlist(t_tlist **list)
 	*list = temp;
 }
 
-void	ms_clean_cmd(t_node *head)
+void	ms_clean_cmd(t_node *node)
 {
 	int	i;
 	i = 0;
-	if (head)
+	if (node)
 	{
-		if (head->type == NO_CMD)
+		if (node->type == NO_CMD)
 		{
-			free((head)->data->cmd);
-			free((head)->data->delimiter);
-			while ((head)->data->args && (head)->data->args[i])
+			free(node->data->cmd);
+			free(node->data->delimiter);
+			while (node->data->args && node->data->args[i])
 			{
-				free((head)->data->args[i]);
+				free(node->data->args[i]);
 				i++;
 			}
-			free((head)->data->args);
-			free((head)->data);
+			free(node->data->args);
+			free(node->data);
 		}
-		free(head);
+		if (node->type == NO_PIPE)
+		{
+			ms_clean_cmd(node->right);
+			ms_clean_cmd(node->left);
+			free(node);
+		}
+		if (node->right == NULL && node->left == NULL)
+			free(node);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:44:45 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/25 11:44:06 by toni             ###   ########.fr       */
+/*   Updated: 2021/07/25 22:31:38 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static int	ms_cmd(t_tlist **token, t_command *command)
 		if (buildin)
 		{
 			command->buildin = buildin;
-			command->cmd = (*token)->tk.value;
+			command->cmd = ft_strdup((*token)->tk.value);
 		}
 		else
 			command->cmd = ms_format_cmd((*token)->tk.value);
@@ -106,7 +106,7 @@ t_node	*ms_create_cmd(t_tlist *tlist)
 
 	ms_init_parser(&new_node, &new_command);
 	current = tlist;
-	while (current && current->tk.type != OP_PIPE)
+	while (current && current->tk.type != OP_PIPE && current->tk.type != OP_AND)
 	{
 		if (current->tk.type == REDIR_IN)
 			ms_redir_in(&current, new_command);
