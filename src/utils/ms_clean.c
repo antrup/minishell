@@ -6,16 +6,25 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 00:17:37 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/25 16:49:37 by toni             ###   ########.fr       */
+/*   Updated: 2021/07/25 19:13:29 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
 
+void	ms_newline(int sig)
+{
+	(void)sig;
+	write(0, "\n", 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
+
 void	ms_exit(int sig)
 {
-	if (sig == SIGINT)
-		write(1, "exit\n", 5);
+	(void)sig;
+	write(1, "exit\n", 5);
 	tcsetattr(0, TCSANOW, &g_shell.data->info.term_ios);
 	ms_clean(g_shell.data);
 	g_shell.on = 0;
@@ -26,7 +35,7 @@ void	ms_clean_tlist(t_tlist **list)
 {
 	t_tlist *temp;
 
-	while (*list)
+	while (*list && (*list)->tk.type != OP_AND)
 	{
 		temp = (*list)->next;
 		if ((*list)->tk.value)
@@ -34,6 +43,12 @@ void	ms_clean_tlist(t_tlist **list)
 		free(*list);
 		*list = temp;
 	}
+	if (*list && (*list)->tk.type == OP_AND)
+	{
+		temp = (*list)->next;
+		free(*list);
+	}
+	*list = temp;
 }
 
 void	ms_clean_cmd(t_node *head)
