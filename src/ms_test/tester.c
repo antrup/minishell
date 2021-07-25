@@ -5,33 +5,46 @@
 void	print_tree(t_node *thead)
 {
 	t_node		*current;
+	t_node		*temp;
 	int			i;
 
 	current = thead;
-	while (current)
+	if (current->type == NO_CMD)
 	{
-		if (current->type == NO_CMD)
+		if (current->data)
 		{
-			if (current->data)
+			printf("Type : COMMAND \n");
+			printf("CMD : %s \n", current->data->cmd);
+			i = 0;
+			while (current->data->args && current->data->args[i])
 			{
-				printf("Type : COMMAND \n");
-				printf("CMD : %s \n", current->data->cmd);
-				i = 0;
-				while (current->data->args && current->data->args[i])
-				{
-					printf("ARG %d : %s \n", i, current->data->args[i]);
-					i++;
-				}
-				if (current->data->redirIN)
-					printf("RedirIN fd = %d \n", current->data->INfd);
-				if (current->data->redirOUT)
-					printf("RedirOUT fd = %d \n", current->data->OUTfd);
+				printf("ARG %d : %s \n", i, current->data->args[i]);
+				i++;
 			}
+			if (current->data->redirIN)
+				printf("RedirIN fd = %d \n", current->data->INfd);
+			if (current->data->redirOUT)
+				printf("RedirOUT fd = %d \n", current->data->OUTfd);
 		}
-		else
-			printf("Type : OP \n");
 		current = NULL;
 	}
+	else
+	{	
+		printf("Type : PIPE \n");
+		temp = current;
+		current = current->left;
+		if (current)
+		{	
+			printf("LEFT \n");
+			print_tree(current);
+		}
+		current = temp->right;
+		if (current)
+		{	
+			printf("RIGHT \n");
+			print_tree(current);
+		}
+	}	
 }
 
 void	print_token(t_tlist *tokens)

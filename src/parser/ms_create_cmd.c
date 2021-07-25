@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:44:45 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/24 13:48:19 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/25 11:44:06 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,7 @@ t_node	*ms_create_cmd(t_tlist *tlist)
 
 	ms_init_parser(&new_node, &new_command);
 	current = tlist;
-	while (current && current->tk.type != OP_PIPE
-			&& current->tk.type != OP_AND
-			&& current->tk.type != OP_OR)
+	while (current && current->tk.type != OP_PIPE)
 	{
 		if (current->tk.type == REDIR_IN)
 			ms_redir_in(&current, new_command);

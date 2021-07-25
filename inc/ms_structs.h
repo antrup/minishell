@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:03:04 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/24 12:09:05 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/25 13:01:57 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ enum e_node_type
 {
 	NO_CMD = 0,
 	NO_PIPE = 1,
-	NO_AND = 2,
-	NO_OR = 3
 };
 
 typedef	struct	s_node
