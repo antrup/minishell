@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 00:17:37 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/25 22:15:09 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/25 22:54:58 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ms_exit(int sig)
 	tcsetattr(0, TCSANOW, &g_shell.data->info.term_ios);
 	ms_clean(g_shell.data);
 	g_shell.on = 0;
+	rl_clear_history();
 	exit (0);
 }
 
@@ -73,10 +74,8 @@ void	ms_clean_cmd(t_node *node)
 		{
 			ms_clean_cmd(node->right);
 			ms_clean_cmd(node->left);
-			free(node);
 		}
-		if (node->right == NULL && node->left == NULL)
-			free(node);
+		free(node);
 	}
 }
 
