@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:14:09 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/25 17:21:21 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/25 19:15:38 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ms_init(t_ms *data)
 	signal(SIGINT, &ms_newline);
 	signal(SIGQUIT, &ms_exit);
 #if OSX
-	sigaction(SIGINT, &data.info.sig, 0);
+	sigaction(SIGINT, &data->info.sig, 0);
 #endif
 }
 
