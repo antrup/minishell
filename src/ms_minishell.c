@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/25 17:22:15 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/25 21:59:18 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,18 @@ static int	ms_minishell(t_tlist **tokens)
 	print_tree(thead);
 #endif
 	//EXECUTION
+	// cool code here
+	//CLEAN UP
 	ms_clean_cmd(thead);
 	ms_clean_tlist(tokens);
+	if (*tokens != NULL)
+		ms_minishell(tokens);
 	return (0);
 }
 /*
 ** LAUNCH IN INTERACTIVE MODE
 */
-static int	ms_myshell(t_ms *data, char **env)
+static int	ms_interactive(t_ms *data, char **env)
 {
 	(void)env;
 	while (g_shell.on == 1)
@@ -49,18 +53,16 @@ static int	ms_myshell(t_ms *data, char **env)
 		ms_init_shell(data);
 		data->line = readline("Myshell: ");
 		tcsetattr(0, TCSANOW, &data->info.term_ios);
-		if (!data->line)
-		{
-		}
 		ms_lexer(data->line, &data->tokens);
 		ms_minishell(&data->tokens);
+		add_history(data->line);
 	}
 	return (0);
 }
 /*
-** LAUNCHES A SINGLE INSTANCE OF MINISHELL
+** LAUNCHES MINISHELL WITH ARGS
 */
-static int	ms_oneshell(t_ms *data, char **argv, char **env, int argc)
+static int	ms_arg_shell(t_ms *data, char **argv, char **env, int argc)
 {
 	(void)env;
 	if (data->info.inte == 0)
@@ -80,8 +82,8 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	ms_init(&data);
 	if (argc > 1)
-		ms_oneshell(&data, argv, env, argc);
+		ms_arg_shell(&data, argv, env, argc);
 	else
-		ms_myshell(&data, env);
+		ms_interactive(&data, env);
 	return(0);
 }

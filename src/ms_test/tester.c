@@ -9,6 +9,8 @@ void	print_tree(t_node *thead)
 	int			i;
 
 	current = thead;
+	if (!current)
+		return ;
 	if (current->type == NO_CMD)
 	{
 		if (current->data)
