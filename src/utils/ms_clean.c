@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 00:17:37 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/25 22:54:58 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/26 02:02:46 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void	ms_clean_tlist(t_tlist **list)
 {
 	t_tlist *temp;
 
-	while (*list && (*list)->tk.type != OP_AND)
+	while (*list && (*list)->tk.type != OP_AND && (*list)->tk.type != P_OPEN
+			&& (*list)->tk.type != OP_OR)
 	{
 		temp = (*list)->next;
 		if ((*list)->tk.value)
@@ -45,6 +46,16 @@ void	ms_clean_tlist(t_tlist **list)
 		*list = temp;
 	}
 	if (*list && (*list)->tk.type == OP_AND)
+	{
+		temp = (*list)->next;
+		free(*list);
+	}
+	if (*list && (*list)->tk.type == OP_OR)
+	{
+		temp = (*list)->next;
+		free(*list);
+	}
+	if (*list && (*list)->tk.type == P_OPEN)
 	{
 		temp = (*list)->next;
 		free(*list);

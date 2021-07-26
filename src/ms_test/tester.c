@@ -79,6 +79,10 @@ void	print_token(t_tlist *tokens)
 			printf(">>");
 		if (current->tk.type == 8)
 			printf("VR");
+		if (current->tk.type == 9)
+			printf("(");
+		if (current->tk.type == 10)
+			printf(")");
 		printf("     %s\n", current->tk.value);
 		i++;
 		current = current->next;

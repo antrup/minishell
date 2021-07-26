@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/25 17:18:51 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/26 01:54:14 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int		ms_parser(t_tlist *tokens, t_node **thead);
 ** LEXER UTILS
 */
 
+int		ms_isop_or(char c, char b);
 int		ms_isop_pipe(char c);
 int		ms_isop_and(char c, char b);
 int		ms_isquote(char c);
@@ -102,7 +103,7 @@ t_word	*ms_create_part(t_word **wlist);
 /*
 ** PARSER
 */
-t_node  *ms_create_cmd(t_tlist *tlist);
+t_node  *ms_create_cmd(t_tlist *tlist, int *paren);
 char	**ms_clean_tab_path_b(char ***tab_path, char **ret);
 char	*ms_clean_tab_path(char ***tab_path, char *ret);
 char	**ms_ext_path();

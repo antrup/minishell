@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:03:04 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/25 13:01:57 by toni             ###   ########.fr       */
+/*   Updated: 2021/07/26 00:23:01 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ enum e_token_type
 	REDIR_OUT = 5,
 	REDIR_IN_A = 6,
 	REDIR_OUT_A = 7,
+	P_OPEN = 9,
+	P_CLOSE = 10,
 	VAR = 8
 };
 

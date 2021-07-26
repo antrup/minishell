@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:44:45 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/25 22:31:38 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/26 02:00:21 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,24 @@ static int	ms_redir_outa(t_tlist **token, t_command *command)
 	return (0);
 }
 
-static int	ms_cmd(t_tlist **token, t_command *command)
+static int	ms_cmd(t_tlist **token, t_command *command, int *paren)
 {
 	int		buildin;
 	int		i;
 
 	buildin = 0;
 	i = 0;
+	if ((*token)->tk.type == P_OPEN)
+	{
+		*token = (*token)->next;
+		return (0);
+	}
+	if ((*token)->tk.type == P_CLOSE)
+	{
+		*paren -= 1;
+		*token = (*token)->next;
+		return (0);
+	}
 	if (command->cmd == NULL)
 	{
 		buildin = ms_check_buildin((*token)->tk.value);
@@ -98,7 +109,15 @@ static int	ms_cmd(t_tlist **token, t_command *command)
 	return (0);
 }
 
-t_node	*ms_create_cmd(t_tlist *tlist)
+//static int	ms_parenthesis(t_tlist **token, int *n)
+//{
+//	(void)*n;
+//	*token = (*token)->next;
+//	return (0);
+//}
+
+
+t_node	*ms_create_cmd(t_tlist *tlist, int *paren)
 {
 	t_node		*new_node;
 	t_command	*new_command;
@@ -106,7 +125,8 @@ t_node	*ms_create_cmd(t_tlist *tlist)
 
 	ms_init_parser(&new_node, &new_command);
 	current = tlist;
-	while (current && current->tk.type != OP_PIPE && current->tk.type != OP_AND)
+	while (current && current->tk.type != OP_PIPE && current->tk.type != OP_AND
+		&& current->tk.type != OP_OR)
 	{
 		if (current->tk.type == REDIR_IN)
 			ms_redir_in(&current, new_command);
@@ -116,8 +136,11 @@ t_node	*ms_create_cmd(t_tlist *tlist)
 			ms_redir_outa(&current, new_command);
 		else if (current->tk.type == REDIR_IN_A)
 			ms_redir_ina(&current, new_command);
-		else if (current->tk.type == WORD)
-			ms_cmd(&current, new_command);
+		else if (current->tk.type == WORD || (current->tk.type == P_OPEN || current->tk.type == P_CLOSE)
+)
+			ms_cmd(&current, new_command, paren);
+		//else if (current->tk.type == P_OPEN || current->tk.type == P_CLOSE)
+		//	ms_parenthesis(&current, paren);
 	}
 	return (new_node);
 }

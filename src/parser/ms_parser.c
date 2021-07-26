@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:52:09 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/25 21:34:35 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/26 01:35:30 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 //		current = current->next;
 
 
-t_node	*ms_new_tree(t_tlist *tokens, int count)
+t_node	*ms_new_tree(t_tlist *tokens, int count, int *paren)
 {
 	t_tlist		*current;
 	t_node		*head;
@@ -49,19 +49,19 @@ t_node	*ms_new_tree(t_tlist *tokens, int count)
 	if (!head)
 		return (NULL);
 	head->type = NO_PIPE;
-	head->left = ms_create_cmd(tokens);
+	head->left = ms_create_cmd(tokens, paren);
 	current = tokens;
 	while (current->tk.type != OP_PIPE && current->tk.type != OP_AND)
 		current = current->next;
 	current = current->next;
 	if (!current || current->tk.type == OP_PIPE)
 		return (NULL); //ERR_SYN
-	if (count == 1)
-		head->right = ms_create_cmd(current);
+	if (count == 1 || *paren > 0)
+		head->right = ms_create_cmd(current, paren);
 	else
 	{	
 		count--;
-		head->right = ms_new_tree(current, count);
+		head->right = ms_new_tree(current, count, paren);
 	}
 	if (head->right == NULL)
 	{
@@ -76,6 +76,7 @@ int	ms_parser(t_tlist *tokens, t_node **thead)
 {
 	t_tlist		*current;
 	int			count;
+	int			paren;
 
 	current = tokens;
 	if (current == NULL)
@@ -85,15 +86,18 @@ int	ms_parser(t_tlist *tokens, t_node **thead)
 			&& current->tk.type != REDIR_OUT_A)
 		return (ERR_SYN);
 	count = 0;
+	paren = 0;
 	while (current && current->tk.type != OP_AND)
 	{
 		if (current->tk.type == OP_PIPE)
 			count++;
+		if (current->tk.type == P_OPEN)
+			paren++;
 		current = current->next;
 	}
 	if (!count)
-		*thead = ms_create_cmd(tokens);
+		*thead = ms_create_cmd(tokens, &paren);
 	if (count)
-		*thead = ms_new_tree(tokens, count);
+		*thead = ms_new_tree(tokens, count, &paren);
 	return (0);
 }
