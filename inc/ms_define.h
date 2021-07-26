@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 17:32:12 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/22 13:55:22 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/26 16:24:15 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,11 @@
 # define ERR_WRT -7
 # define ERR_READ -8
 # define ERR_REDIR_IN -8
+
+/*
+** MARKERS
+*/
+# define FAIL 0
+# define SUCCESS 1
 
 #endif

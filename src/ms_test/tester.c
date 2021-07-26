@@ -18,10 +18,13 @@ void	print_tree(t_node *thead)
 			printf("Type : COMMAND \n");
 			printf("CMD : %s \n", current->data->cmd);
 			i = 0;
-			while (current->data->args && current->data->args[i])
+			if (current->data->args)
 			{
-				printf("ARG %d : %s \n", i, current->data->args[i]);
-				i++;
+				while (current->data->args[i])
+				{
+					printf("ARG %d : %s \n", i, current->data->args[i]);
+					i++;
+				}
 			}
 			if (current->data->redirIN)
 				printf("RedirIN fd = %d \n", current->data->INfd);

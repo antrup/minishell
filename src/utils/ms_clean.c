@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 00:17:37 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/26 02:02:46 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/26 16:27:35 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ void	ms_exit(int sig)
 
 void	ms_clean_tlist(t_tlist **list)
 {
-	t_tlist *temp;
+	t_tlist	*temp;
 
 	while (*list && (*list)->tk.type != OP_AND && (*list)->tk.type != P_OPEN
-			&& (*list)->tk.type != OP_OR)
+		&& (*list)->tk.type != OP_OR)
 	{
 		temp = (*list)->next;
 		if ((*list)->tk.value)
@@ -66,6 +66,7 @@ void	ms_clean_tlist(t_tlist **list)
 void	ms_clean_cmd(t_node *node)
 {
 	int	i;
+
 	i = 0;
 	if (node)
 	{
@@ -73,10 +74,13 @@ void	ms_clean_cmd(t_node *node)
 		{
 			free(node->data->cmd);
 			free(node->data->delimiter);
-			while (node->data->args && node->data->args[i])
+			if (node->data->args)
 			{
-				free(node->data->args[i]);
-				i++;
+				while (node->data->args[i])
+				{
+					free(node->data->args[i]);
+					i++;
+				}
 			}
 			free(node->data->args);
 			free(node->data);
@@ -92,7 +96,7 @@ void	ms_clean_cmd(t_node *node)
 
 void	ms_clean_wlist(t_word *list)
 {
-	t_word *temp;
+	t_word	*temp;
 
 	while (list)
 	{
@@ -108,5 +112,4 @@ void	ms_clean(t_ms *data)
 	if (data->tokens)
 		ms_clean_tlist(&data->tokens);
 	free(data->line);
-	//clear_history();
 }

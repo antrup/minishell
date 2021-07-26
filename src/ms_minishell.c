@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/26 03:26:11 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/26 16:25:42 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 ** INIT GLOBAL VARIABLE
 */
-t_shell g_shell = {0, NULL};
+t_shell	g_shell = {0, NULL};
 
 /*
 ** MAIN FUNCTION THAT CREATES COMMANDS AND EXECUTES
@@ -34,14 +34,13 @@ static void	ms_markers(t_tlist *tokens, t_markers *op)
 
 static int	ms_minishell(t_tlist **tokens)
 {
-	t_node	*thead;
+	t_node		*thead;
 	t_markers	op;
 
 	thead = NULL;
 	ft_memset(&op, 0, sizeof(op));
 	ms_expanser(*tokens);
 	ms_markers(*tokens, &op);
-	//printf("%d\t%d\t%d\n", op._and, op._or, op.ret);
 #if TEST		
 	print_token(*tokens);
 #endif
@@ -54,14 +53,12 @@ static int	ms_minishell(t_tlist **tokens)
 	// op.ret = ms_execute();
 	//CLEAN UP
 	ms_clean_cmd(thead);
-	/*
 	if (op._or > 0 && op.ret == SUCCESS);
 	// clean all OR tokens
 	else if (op._or > 0 && op.ret == FAIL);
 	//clean to next OR
-	else if (op._and == 0)
+	else
 	// clean all tokens
-	*/
 	ms_clean_tlist(tokens);
 	if (*tokens != NULL)
 		ms_minishell(tokens);
