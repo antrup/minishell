@@ -54,7 +54,7 @@ char	*ms_format_file(char *file_name)
 	else
 	{
 		pwd = getenv("PWD");
-		size = ft_strlen(file_name) + ft_strlen(pwd) + 1;
+		size = ft_strlen(file_name) + ft_strlen(pwd) + 2;
 		file_path = malloc(sizeof(char) * size);
 		ft_strlcpy(file_path, pwd, ft_strlen(pwd) + 1);
 		ft_strlcpy(file_path + ft_strlen(pwd), "/",
