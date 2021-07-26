@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/26 03:22:17 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/26 03:26:11 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,9 @@ static int	ms_minishell(t_tlist **tokens)
 	ms_clean_cmd(thead);
 	/*
 	if (op._or > 0 && op.ret == SUCCESS);
-	// clean OR tokens
+	// clean all OR tokens
+	else if (op._or > 0 && op.ret == FAIL);
+	//clean to next OR
 	else if (op._and == 0)
 	// clean all tokens
 	*/
