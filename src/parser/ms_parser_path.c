@@ -65,6 +65,6 @@ char	*ms_find_path(char *file_name)
 		i--;
 	}
 	path = malloc(sizeof(char) * (i + 2));
-	ft_strlcpy(pwd, path, i + 2);
+	ft_strlcpy(path, pwd, i + 2);
 	return (path);
 }

@@ -31,6 +31,7 @@ typedef	struct	s_command
 {
 	char	*cmd;
 	char	**args;
+	char	**argve;
 	char	flag;
 	int		buildin;
 	int		redirIN;
@@ -55,8 +56,8 @@ typedef	struct	s_node
 {
 	enum e_node_type	type;
 	struct s_command	*data;
-	void				*left;
-	void				*right;
+	struct s_node				*left;
+	struct s_node				*right;
 }	t_node;
 
 /*

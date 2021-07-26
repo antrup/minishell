@@ -90,11 +90,7 @@ static int	ms_cmd(t_tlist **token, t_command *command)
 		}
 		else
 			command->cmd = ms_format_cmd((*token)->tk.value);
-		*token = (*token)->next;
-		if ((*token) == NULL)
-			return (0);
-		if ((*token)->tk.type == WORD)
-			command->args = malloc(sizeof(char *) * ms_count_args(*token) + 1);
+		command->args = malloc(sizeof(char *) * (ms_count_args(*token) + 2));
 		if (command->args == NULL)
 			return (errno);
 		while (*token && (*token)->tk.type == WORD)
@@ -108,13 +104,13 @@ static int	ms_cmd(t_tlist **token, t_command *command)
 	return (0);
 }
 
-t_node	*ms_create_cmd(t_tlist *tlist)
+t_node	*ms_create_cmd(t_tlist *tlist, char **env)
 {
 	t_node		*new_node;
 	t_command	*new_command;
 	t_tlist		*current;
 
-	ms_init_parser(&new_node, &new_command);
+	ms_init_parser(&new_node, &new_command, env);
 	current = tlist;
 	while (current && current->tk.type != OP_PIPE && current->tk.type != OP_AND
 		&& current->tk.type != OP_OR)

@@ -6,13 +6,13 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:52:09 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/26 17:17:58 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/26 23:19:26 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
 
-t_node	*ms_new_tree(t_tlist *tokens, int count)
+t_node	*ms_new_tree(t_tlist *tokens, int count, char **env)
 {
 	t_tlist		*current;
 	t_node		*head;
@@ -21,7 +21,7 @@ t_node	*ms_new_tree(t_tlist *tokens, int count)
 	if (!head)
 		return (NULL);
 	head->type = NO_PIPE;
-	head->left = ms_create_cmd(tokens);
+	head->left = ms_create_cmd(tokens, env);
 	current = tokens;
 	while (current->tk.type != OP_PIPE && current->tk.type != OP_AND)
 		current = current->next;
@@ -29,11 +29,11 @@ t_node	*ms_new_tree(t_tlist *tokens, int count)
 	if (!current || current->tk.type == OP_PIPE)
 		return (NULL); //ERR_SYN
 	if (count == 1)
-		head->right = ms_create_cmd(current);
+		head->right = ms_create_cmd(current, env);
 	else
 	{	
 		count--;
-		head->right = ms_new_tree(current, count);
+		head->right = ms_new_tree(current, count, env);
 	}
 	if (head->right == NULL)
 	{
@@ -44,7 +44,7 @@ t_node	*ms_new_tree(t_tlist *tokens, int count)
 	return (head);
 }
 
-int	ms_parser(t_tlist *tokens, t_node **thead)
+int	ms_parser(t_tlist *tokens, t_node **thead, char **env)
 {
 	t_tlist		*current;
 	int			count;
@@ -64,8 +64,8 @@ int	ms_parser(t_tlist *tokens, t_node **thead)
 		current = current->next;
 	}
 	if (!count)
-		*thead = ms_create_cmd(tokens);
+		*thead = ms_create_cmd(tokens, env);
 	if (count)
-		*thead = ms_new_tree(tokens, count);
+		*thead = ms_new_tree(tokens, count, env);
 	return (0);
 }

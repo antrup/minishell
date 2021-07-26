@@ -24,7 +24,9 @@ SRCS = ms_minishell.c \
 	   parser/ms_parser_format2.c \
 	   parser/ms_parser_path.c \
 	   parser/ms_redir_ina.c \
-	   parser/ms_parser_utils.c
+	   parser/ms_parser_utils.c \
+	   exec/ms_pipex.c \
+	   exec/ms_childs.c
 
 #TO BE REMOVED - TEST
 SRCS += ms_test/tester.c
@@ -33,10 +35,13 @@ UNAME = $(shell uname)
 
 ifeq (${UNAME}, Darwin)
 OS = 1
+LIBINC = -lreadline -L /Users/$(USER)/.brew/opt/readline/lib 
+IRDLINE = -I/Users/$(USER)/.brew/opt/readline/include
 endif
 
 ifeq (${UNAME}, Linux)
-	OS = 0
+OS = 0
+LIBINC = -lreadline
 endif
 
 SRCDIR = src
@@ -45,14 +50,7 @@ INCDIR = inc
 
 CC = clang
 CFLAGS = -Wall -Wextra -Werror -g
-ifeq (${UNAME}, Linux)
-LIBINC = -lreadline
-endif
-ifeq (${UNAME}, Darwin)
-LIBINC = -lreadline -L /Users/$(USER)/.brew/opt/readline/lib 
-IRDLINE = -I/Users/$(USER)/.brew/opt/readline/include
-endif
-#MEM = -fsanitize=address
+MEM = -fsanitize=address
 
 OBJS = $(addprefix ${OBJDIR}/,${SRCS:.c=.o})
 
