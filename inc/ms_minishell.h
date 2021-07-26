@@ -28,6 +28,7 @@
 # include <errno.h>
 # include <string.h>
 # include <termios.h>
+# include <sys/wait.h>
 /*
 ** MINISHELL HEADERS
 */
@@ -52,7 +53,7 @@
 
 int		ms_lexer(char *line, t_tlist **tokens);
 void	ms_expanser(t_tlist *tokens);
-int		ms_parser(t_tlist *tokens, t_node **thead);
+int		ms_parser(t_tlist *tokens, t_node **thead, char **env);
 
 /*
 ** LEXER UTILS
@@ -102,7 +103,7 @@ t_word	*ms_create_part(t_word **wlist);
 /*
 ** PARSER
 */
-t_node  *ms_create_cmd(t_tlist *tlist);
+t_node  *ms_create_cmd(t_tlist *tlist, char **env);
 char	**ms_clean_tab_path_b(char ***tab_path, char **ret);
 char	*ms_clean_tab_path(char ***tab_path, char *ret);
 char	**ms_ext_path();
@@ -117,8 +118,15 @@ char	*ms_find_cmd_path(char	*cmd_name, char ***t_path, int size_n);
 int		ms_name_sizer(char	*cmd_name);
 int		ms_check_buildin(char *cmd);
 int		ms_count_args(t_tlist *tlist);
-int		ms_init_parser(t_node **node, t_command **command);
+int		ms_init_parser(t_node **node, t_command **command, char **env);
 int		ms_redir_ina(t_tlist **token, t_command *command);	
+
+/*
+** EXEC
+*/
+
+int	child(t_command *cmd, int pipIN, int pipOUT);
+int	ms_exec(t_node *head, int pipIN);
 
 /*
 ** DEBUG -- TEST                                                |~

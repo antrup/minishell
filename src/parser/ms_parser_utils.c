@@ -56,7 +56,7 @@ int		ms_count_args(t_tlist *tokens)
 	return (i);
 }
 
-int	ms_init_parser(t_node **node, t_command **command)
+int	ms_init_parser(t_node **node, t_command **command, char **env)
 {
 	*node = malloc(sizeof(t_node));
 	if (*node == NULL)
@@ -74,6 +74,7 @@ int	ms_init_parser(t_node **node, t_command **command)
 	(*command)->cmd = NULL;
 	(*command)->buildin = 0;
 	(*command)->args = NULL;
+	(*command)->argve = env;
 	(*command)->redirIN = 0;
 	(*command)->redirOUT = 0;
 	(*command)->INfd = 0;

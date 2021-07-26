@@ -20,26 +20,27 @@ t_shell g_shell = {0, NULL};
 /*
 ** MAIN FUNCTION THAT CREATES COMMANDS AND EXECUTES
 */
-static int	ms_minishell(t_tlist **tokens)
+static int	ms_minishell(t_tlist **tokens, char **env)
 {
 	t_node *thead;
 
 	thead = NULL;
 	ms_expanser(*tokens);
 #if TEST		
-	print_token(*tokens);
+//	print_token(*tokens);
 #endif
-	ms_parser(*tokens, &thead);
+	ms_parser(*tokens, &thead, env);
 #if TEST		
-	print_tree(thead);
+//	print_tree(thead);
 #endif
 	//EXECUTION
+	ms_exec(thead, 0);
 	// cool code here
 	//CLEAN UP
 	ms_clean_cmd(thead);
 	ms_clean_tlist(tokens);
 	if (*tokens != NULL)
-		ms_minishell(tokens);
+		ms_minishell(tokens, env);
 	return (0);
 }
 /*
@@ -54,7 +55,7 @@ static int	ms_interactive(t_ms *data, char **env)
 		data->line = readline("Myshell: ");
 		tcsetattr(0, TCSANOW, &data->info.term_ios);
 		ms_lexer(data->line, &data->tokens);
-		ms_minishell(&data->tokens);
+		ms_minishell(&data->tokens, env);
 		add_history(data->line);
 	}
 	return (0);
@@ -68,7 +69,7 @@ static int	ms_arg_shell(t_ms *data, char **argv, char **env, int argc)
 	if (data->info.inte == 0)
 		data->line = ms_join_argv(argv, argc);
 	ms_lexer(data->line, &data->tokens);
-	ms_minishell(&data->tokens);
+	ms_minishell(&data->tokens, env);
 	return (0);
 }
 /*
