@@ -45,8 +45,14 @@ INCDIR = inc
 
 CC = clang
 CFLAGS = -Wall -Wextra -Werror -g
+ifeq (${UNAME}, Linux)
 LIBINC = -lreadline
-MEM = -fsanitize=address
+endif
+ifeq (${UNAME}, Darwin)
+LIBINC = -lreadline -L /Users/$(USER)/.brew/opt/readline/lib 
+IRDLINE = -I/Users/$(USER)/.brew/opt/readline/include
+endif
+#MEM = -fsanitize=address
 
 OBJS = $(addprefix ${OBJDIR}/,${SRCS:.c=.o})
 
@@ -60,7 +66,7 @@ $(NAME): ${OBJS} ${LIBFT}
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p ${@D}
-	${CC} ${CFLAGS} ${TFLAG} -I./inc -c $< -o $@
+	${CC} ${CFLAGS} ${IRDLINE} ${TFLAG} -I./inc -c $< -o $@
 
 test: TFLAG = -D TEST=1 -D OSX=${OS}
 
