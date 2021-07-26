@@ -53,7 +53,7 @@ ifeq (${UNAME}, Darwin)
 LIBINC = -lreadline -L /Users/$(USER)/.brew/opt/readline/lib 
 IRDLINE = -I/Users/$(USER)/.brew/opt/readline/include
 endif
-#MEM = -fsanitize=address
+MEM = -fsanitize=address
 
 OBJS = $(addprefix ${OBJDIR}/,${SRCS:.c=.o})
 

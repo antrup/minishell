@@ -84,7 +84,7 @@ static int	ms_cmd(t_tlist **token, t_command *command)
 		if ((*token) == NULL)
 			return (0);
 		if ((*token)->tk.type == WORD)
-			command->args = malloc(sizeof(char *) * ms_count_args(*token) + 1);
+			command->args = malloc(sizeof(char *) * (ms_count_args(*token) + 1));
 		if (command->args == NULL)
 			return (errno);
 		while (*token && (*token)->tk.type == WORD)
