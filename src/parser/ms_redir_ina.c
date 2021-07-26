@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 00:14:38 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/22 14:01:51 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/26 17:18:37 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,10 @@ int	ms_redir_ina(t_tlist **token, t_command *command)
 		if (buff == NULL)
 			return (errno);
 	}
-	//printf("%s\n", buff);
 	ft_putstr_fd(buff, fd[0]);
 	free(buff);
 	close(fd[0]);
 	command->INfd = fd[1];
 	*token = (*token)->next;
-	//printf("token token address = address = %p\n", *token);
-	return(0);
+	return (0);
 }

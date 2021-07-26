@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 16:27:04 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/21 09:59:41 by toni             ###   ########.fr       */
+/*   Updated: 2021/07/26 17:16:32 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ms_find_cmd_path(char	*cmd_name, char ***t_path, int size_n)
 	int			i;
 	int			size;
 	char		*cmd_path;
-	struct stat sf;
+	struct stat	sf;
 
 	i = 0;
 	while (t_path[0][i])

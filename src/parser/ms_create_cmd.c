@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:44:45 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/26 03:20:20 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/26 17:10:19 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ms_redir_in(t_tlist **token, t_command *command)
 {
-	char *file;
+	char	*file;
 
 	file = NULL;
 	if ((*token)->next->tk.type != WORD)
@@ -31,7 +31,7 @@ static int	ms_redir_in(t_tlist **token, t_command *command)
 
 static int	ms_redir_out(t_tlist **token, t_command *command)
 {
-	char *file;
+	char	*file;
 
 	file = NULL;
 	if ((*token)->next->tk.type != WORD)
@@ -48,7 +48,7 @@ static int	ms_redir_out(t_tlist **token, t_command *command)
 
 static int	ms_redir_outa(t_tlist **token, t_command *command)
 {
-	char *file;
+	char	*file;
 
 	file = NULL;
 	if ((*token)->next->tk.type != WORD)
@@ -108,15 +108,7 @@ static int	ms_cmd(t_tlist **token, t_command *command)
 	return (0);
 }
 
-//static int	ms_parenthesis(t_tlist **token, int *n)
-//{
-//	(void)*n;
-//	*token = (*token)->next;
-//	return (0);
-//}
-
-
-t_node	*ms_create_cmd(t_tlist *tlist, t_markers *op)
+t_node	*ms_create_cmd(t_tlist *tlist)
 {
 	t_node		*new_node;
 	t_command	*new_command;
@@ -135,14 +127,11 @@ t_node	*ms_create_cmd(t_tlist *tlist, t_markers *op)
 			ms_redir_outa(&current, new_command);
 		else if (current->tk.type == REDIR_IN_A)
 			ms_redir_ina(&current, new_command);
-		else if (current->tk.type == WORD || (current->tk.type == P_OPEN || current->tk.type == P_CLOSE))
+		else if (current->tk.type == WORD
+			|| (current->tk.type == P_OPEN || current->tk.type == P_CLOSE))
 			ms_cmd(&current, new_command);
 		else if (current->tk.type == OP_OR)
-		{
 			current = current->next;
-			(void)*op;
-			//(op->_or)--;
-		}
 	}
 	return (new_node);
 }

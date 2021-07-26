@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 12:04:53 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/21 09:58:13 by toni             ###   ########.fr       */
+/*   Updated: 2021/07/26 17:12:52 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	**ms_ext_path_loader(char *path, char ***tab_path)
 	return (tab_path[0]);
 }
 
-char	**ms_ext_path()
+char	**ms_ext_path(void)
 {
 	int		i;
 	int		count;
