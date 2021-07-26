@@ -56,7 +56,7 @@ t_node	*ms_new_tree(t_tlist *tokens, int count, t_markers *op)
 	current = current->next;
 	if (!current || current->tk.type == OP_PIPE)
 		return (NULL); //ERR_SYN
-	if (count == 1 || op->_or > 0)
+	if (count == 1)
 		head->right = ms_create_cmd(current, op);
 	else
 	{	
