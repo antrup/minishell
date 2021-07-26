@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:03:04 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/26 00:23:01 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/26 02:49:35 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,13 @@ typedef struct s_info
 	struct termios		ms_ios;
 	struct sigaction	sig;
 }	t_info;
+
+typedef struct s_moarkers
+{
+	int	_and;
+	int	_or;
+	int	ret;
+}	t_markers;
 
 /*
 ** GLOBAL VARIABLE

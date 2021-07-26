@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/25 21:59:18 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/26 03:22:17 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,46 @@ t_shell g_shell = {0, NULL};
 /*
 ** MAIN FUNCTION THAT CREATES COMMANDS AND EXECUTES
 */
+static void	ms_markers(t_tlist *tokens, t_markers *op)
+{
+	while (tokens)
+	{
+		if (tokens->tk.type == OP_OR)
+			op->_or += 1;
+		if (tokens->tk.type == OP_AND)
+			op->_and += 1;
+		tokens = tokens->next;
+	}
+}
+
 static int	ms_minishell(t_tlist **tokens)
 {
-	t_node *thead;
+	t_node	*thead;
+	t_markers	op;
 
 	thead = NULL;
+	ft_memset(&op, 0, sizeof(op));
 	ms_expanser(*tokens);
+	ms_markers(*tokens, &op);
+	//printf("%d\t%d\t%d\n", op._and, op._or, op.ret);
 #if TEST		
 	print_token(*tokens);
 #endif
-	ms_parser(*tokens, &thead);
+	ms_parser(*tokens, &thead, &op);
 #if TEST		
 	print_tree(thead);
 #endif
 	//EXECUTION
 	// cool code here
+	// op.ret = ms_execute();
 	//CLEAN UP
 	ms_clean_cmd(thead);
+	/*
+	if (op._or > 0 && op.ret == SUCCESS);
+	// clean OR tokens
+	else if (op._and == 0)
+	// clean all tokens
+	*/
 	ms_clean_tlist(tokens);
 	if (*tokens != NULL)
 		ms_minishell(tokens);

@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:44:45 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/26 02:00:21 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/26 03:20:20 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	ms_redir_outa(t_tlist **token, t_command *command)
 	return (0);
 }
 
-static int	ms_cmd(t_tlist **token, t_command *command, int *paren)
+static int	ms_cmd(t_tlist **token, t_command *command)
 {
 	int		buildin;
 	int		i;
@@ -77,7 +77,6 @@ static int	ms_cmd(t_tlist **token, t_command *command, int *paren)
 	}
 	if ((*token)->tk.type == P_CLOSE)
 	{
-		*paren -= 1;
 		*token = (*token)->next;
 		return (0);
 	}
@@ -117,7 +116,7 @@ static int	ms_cmd(t_tlist **token, t_command *command, int *paren)
 //}
 
 
-t_node	*ms_create_cmd(t_tlist *tlist, int *paren)
+t_node	*ms_create_cmd(t_tlist *tlist, t_markers *op)
 {
 	t_node		*new_node;
 	t_command	*new_command;
@@ -136,11 +135,14 @@ t_node	*ms_create_cmd(t_tlist *tlist, int *paren)
 			ms_redir_outa(&current, new_command);
 		else if (current->tk.type == REDIR_IN_A)
 			ms_redir_ina(&current, new_command);
-		else if (current->tk.type == WORD || (current->tk.type == P_OPEN || current->tk.type == P_CLOSE)
-)
-			ms_cmd(&current, new_command, paren);
-		//else if (current->tk.type == P_OPEN || current->tk.type == P_CLOSE)
-		//	ms_parenthesis(&current, paren);
+		else if (current->tk.type == WORD || (current->tk.type == P_OPEN || current->tk.type == P_CLOSE))
+			ms_cmd(&current, new_command);
+		else if (current->tk.type == OP_OR)
+		{
+			current = current->next;
+			(void)*op;
+			//(op->_or)--;
+		}
 	}
 	return (new_node);
 }

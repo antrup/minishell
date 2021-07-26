@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/26 01:54:14 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/26 03:09:56 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@
 
 int		ms_lexer(char *line, t_tlist **tokens);
 void	ms_expanser(t_tlist *tokens);
-int		ms_parser(t_tlist *tokens, t_node **thead);
+int		ms_parser(t_tlist *tokens, t_node **thead, t_markers *op);
 
 /*
 ** LEXER UTILS
@@ -103,7 +103,7 @@ t_word	*ms_create_part(t_word **wlist);
 /*
 ** PARSER
 */
-t_node  *ms_create_cmd(t_tlist *tlist, int *paren);
+t_node  *ms_create_cmd(t_tlist *tlist, t_markers *op);
 char	**ms_clean_tab_path_b(char ***tab_path, char **ret);
 char	*ms_clean_tab_path(char ***tab_path, char *ret);
 char	**ms_ext_path();
