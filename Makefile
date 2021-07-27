@@ -25,8 +25,7 @@ SRCS = ms_minishell.c \
 	   parser/ms_parser_path.c \
 	   parser/ms_redir_ina.c \
 	   parser/ms_parser_utils.c \
-	   exec/ms_pipex.c \
-	   exec/ms_childs.c
+	   exec/ms_exec.c
 
 #TO BE REMOVED - TEST
 SRCS += ms_test/tester.c

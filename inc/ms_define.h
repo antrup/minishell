@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 17:32:12 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/26 16:24:15 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/26 23:37:51 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,13 @@
 */
 # define FAIL 0
 # define SUCCESS 1
+
+/*
+** KEYS
+*/
+
+# define KEY_NONE 0
+# define KEY_CTRL_C 3
+# define KEY_CTRL_D 4 
 
 #endif

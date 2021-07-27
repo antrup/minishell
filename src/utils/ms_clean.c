@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 00:17:37 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/26 16:27:35 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/27 00:58:44 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,26 @@ void	ms_clean_tlist(t_tlist **list)
 	{
 		temp = (*list)->next;
 		free(*list);
+	}
+	if (*list && (*list)->tk.type == P_OPEN)
+	{
+		temp = (*list)->next;
+		free(*list);
+	}
+	*list = temp;
+}
+
+void	ms_clean_tk_all_or(t_tlist **list)
+{
+	t_tlist	*temp;
+
+	while (*list && (*list)->tk.type != OP_AND && (*list)->tk.type != P_OPEN)
+	{
+		temp = (*list)->next;
+		if ((*list)->tk.value)
+			free((*list)->tk.value);
+		free(*list);
+		*list = temp;
 	}
 	if (*list && (*list)->tk.type == P_OPEN)
 	{

@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/26 17:17:03 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/26 23:58:59 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@
 int		ms_lexer(char *line, t_tlist **tokens);
 void	ms_expanser(t_tlist *tokens);
 int		ms_parser(t_tlist *tokens, t_node **thead, char **env);
+int		ms_exec(t_node *head, int pipIN);
 
 /*
 ** LEXER UTILS
@@ -77,12 +78,23 @@ t_tlist	*ms_create_token(t_tlist **tlist);
 */
 
 int		is_interactive(void);
+char	*ms_join_argv(char **argv, int argc);
+
+/*
+** INIT
+*/
+
 void	ms_init(t_ms *data);
 void	ms_init_shell(t_ms *data);
+
+/*
+** CLEAN
+*/
 void	ms_clean(t_ms *data);
-char	*ms_join_argv(char **argv, int argc);
 void	ms_clean_cmd(t_node *head);
 void	ms_clean_tlist(t_tlist **list);
+void	ms_clean_tk_or(t_tlist **list);
+void	ms_clean_tk_all_or(t_tlist **list);
 
 /*
 ** SIGNAL HANDLERS
@@ -126,15 +138,12 @@ int		ms_redir_ina(t_tlist **token, t_command *command);
 ** EXEC
 */
 
-int	child(t_command *cmd, int pipIN, int pipOUT);
-int	ms_exec(t_node *head, int pipIN);
 
 /*
 ** DEBUG -- TEST                                                |~
 */
 
 void	print_token(t_tlist *tokens);
-void	ms_leak(int sig, siginfo_t *var, void *param);
 void	print_tree(t_node *thead);
 
 #endif

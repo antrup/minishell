@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:03:04 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/26 02:49:35 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/27 01:18:00 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,9 @@ typedef	struct	s_node
 {
 	enum e_node_type	type;
 	struct s_command	*data;
-	struct s_node				*left;
-	struct s_node				*right;
+	struct s_node		*left;
+	struct s_node		*right;
+	int					pid;
 }	t_node;
 
 /*
