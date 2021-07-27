@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/27 01:57:43 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/27 19:45:40 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@
 # ifndef OSX
 #  define OSX 0
 # endif
+
+/*
+** EXTERNAL VARIABLE
+*/
+
+extern char **environ;
 
 /*
 ** MAIN FUNCTIONS
@@ -138,6 +144,13 @@ int		ms_redir_ina(t_tlist **token, t_command *command);
 ** EXEC
 */
 
+/*
+** BUILDINS
+*/
+
+int		ms_echo(char **args);
+int		ms_export(char	**args);
+int		ms_pwd(void);
 
 /*
 ** DEBUG -- TEST                                                |~

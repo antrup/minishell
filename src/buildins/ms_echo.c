@@ -6,13 +6,15 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 11:21:30 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/22 11:57:41 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/27 19:54:21 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ms_minishell.h"
+
 int		ms_echo_option(int *i, char **args)
 {
-	int		n_opt,
+	int		n_opt;
 	int		y;
 	int		stop;
 	
@@ -34,14 +36,16 @@ int		ms_echo_option(int *i, char **args)
 		}
 		if (!stop)
 		(*i)++;
+	}
 	return (n_opt);
 }
 
-void	ms_echo(char **args)
+int		ms_echo(char **args)
 {
 	int		n_opt;
 	int		i;
-
+	
+	i = 0;
 	n_opt = ms_echo_option(&i, args);
 	while (args[i])
 	{
@@ -50,5 +54,5 @@ void	ms_echo(char **args)
 	}
 	if (!n_opt)
 		write(1, "\n", 1);
-	return ;
+	return (0);
 }
