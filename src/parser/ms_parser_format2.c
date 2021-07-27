@@ -6,12 +6,15 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 11:59:31 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/08 17:46:32 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/27 17:29:22 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
 
+/*
+** TILDE
+*/
 char	*ms_format_tile(char *file_name)
 {
 	char	*pwd;
@@ -26,6 +29,9 @@ char	*ms_format_tile(char *file_name)
 	return (file_path);
 }
 
+/*
+** SINGLE DOT
+*/
 char	*ms_format_ds(char *file_name)
 {
 	char	*pwd;
@@ -42,6 +48,9 @@ char	*ms_format_ds(char *file_name)
 	return (file_path);
 }
 
+/*
+** DOUBLE DOT
+*/
 char	*ms_format_dd(char *file_name)
 {
 	char	*pwd;
@@ -71,6 +80,10 @@ char	*ms_format_dd(char *file_name)
 	free(pwd);
 	return (file_path);
 }
+
+/*
+** SLASH
+*/
 
 char	*ms_format_sl(char *file_name)
 {

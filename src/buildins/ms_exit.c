@@ -12,3 +12,7 @@
 
 #include "ms_minishell.h"
 
+void	ms_exit(int n)
+{
+	exit(n);
+}
