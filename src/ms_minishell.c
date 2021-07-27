@@ -46,7 +46,7 @@ static int	ms_minishell(t_tlist **tokens, t_node **thead, char **env)
 #if TEST		
 	print_tree(*thead);
 #endif
-	ms_exec(*thead, 0);
+	op.ret = ms_exec(*thead, 0);
 	ms_clean_cmd(thead);
 	if (op._or > 0 && op.ret == SUCCESS)
 		ms_clean_tk_all_or(tokens);

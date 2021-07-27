@@ -24,6 +24,8 @@ void	ms_newline(int sig)
 void	ms_exit(int sig)
 {
 	(void)sig;
+	if (g_shell.data->thead != NULL)
+		return ;
 	write(1, "exit\n", 5);
 	tcsetattr(0, TCSANOW, &g_shell.data->info.term_ios);
 	ms_clean(g_shell.data);

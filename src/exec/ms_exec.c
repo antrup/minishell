@@ -51,27 +51,29 @@ int	ms_exec(t_node *head, int pipIN)
 {
 	int		pip[2];
 	int		test;
+	pid_t	pid;
 
 	test = 0;
 	if (!head)
 		return (1);
 	if (head->type == NO_CMD)
 	{
-		head->pid = fork();
-		if (head->pid == -1)
+		pid = fork();
+		if (pid == -1)
 			return (1);
-		if (head->pid == 0)
+		if (pid == 0)
 			return (child(head->data, pipIN, 0));
+		head->pid = pid;
 		wait(NULL);
 		return (0);
 	}
 	if (head->type == NO_PIPE)
 	{	
 		test = pipe(pip);
-		head->pid = fork();
-		if (test == -1 || head->pid == -1)
+		pid = fork();
+		if (test == -1 || pid == -1)
 			return (-1);
-		if (head->pid == 0)
+		if (pid == 0)
 			return (child(head->left->data, pipIN, pip[1]));
 		wait(NULL);
 		close(pip[1]);

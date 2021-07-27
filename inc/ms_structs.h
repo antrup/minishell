@@ -117,6 +117,7 @@ typedef struct s_moarkers
 typedef struct s_shell
 {
 	int			on;
+	int			rvar;
 	struct s_ms	*data;
 }	t_shell;
 
