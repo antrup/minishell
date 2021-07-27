@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:19:21 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/27 02:10:31 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/27 14:59:32 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int child(t_command *cmd, int pipIN, int pipOUT)
 			close(pipOUT);
 	}
 	else if (pipOUT)
-		dup2(cmd->OUTfd, 1);
+		dup2(pipOUT, 1);
 	if (pipOUT)
 		dup2(pipOUT, 1);
 	if (cmd->redirIN)
@@ -42,7 +42,7 @@ static int child(t_command *cmd, int pipIN, int pipOUT)
 			close(pipIN);	
 	}
 	else if (pipIN)
-		dup2(cmd->INfd, 0);
+		dup2(pipIN, 0);
 	child_ex(cmd->cmd, cmd->argve, cmd->args);
 	return (0);
 }
