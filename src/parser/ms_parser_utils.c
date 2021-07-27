@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 12:02:43 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/26 17:15:06 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/27 19:57:41 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,22 @@ int	ms_check_buildin(char *cmd)
 	ret = ft_strcmp(cmd, "echo");
 	if (ret)
 		return (BI_ECHO);
-	ft_strcmp(cmd, "cd");
+	ret = ft_strcmp(cmd, "cd");
 	if (ret)
 		return (BI_CD);
-	ft_strcmp(cmd, "pwd");
+	ret = ft_strcmp(cmd, "pwd");
 	if (ret)
 		return (BI_PWD);
-	ft_strcmp(cmd, "export");
+	ret = ft_strcmp(cmd, "export");
 	if (ret)
 		return (BI_EXPORT);
-	ft_strcmp(cmd, "unset");
+	ret = ft_strcmp(cmd, "unset");
 	if (ret)
 		return (BI_UNSET);
-	ft_strcmp(cmd, "env");
+	ret = ft_strcmp(cmd, "env");
 	if (ret)
 		return (BI_ENV);
-	ft_strcmp(cmd, "exit");
+	ret = ft_strcmp(cmd, "exit");
 	if (ret)
 		return (BI_EXIT);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:19:21 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/27 14:59:32 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/27 19:49:11 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,19 @@ static void child_ex(char *cmd, char **argve, char **argv)
 	test = execve(cmd, argv, argve);
 	if (test == -1)
 		printf("error");
+}
+
+int ms_exec_bd(int	bd, char **args)
+{
+	//if (bd == 1)
+	//	return (ms_cd(&(args[1])));
+	if (bd == 2)
+		return (ms_echo(&(args[1])));
+	if (bd == 3)
+		return (ms_pwd());
+	if (bd == 4)
+		return (ms_export(&(args[1])));
+	return (0);
 }
 
 static int child(t_command *cmd, int pipIN, int pipOUT)
@@ -46,6 +59,8 @@ static int child(t_command *cmd, int pipIN, int pipOUT)
 	}
 	else if (pipIN)
 		dup2(pipIN, 0);
+	if (cmd->buildin)
+		return(ms_exec_bd(cmd->buildin, cmd->args));
 	child_ex(cmd->cmd, cmd->argve, cmd->args);
 	return (0);
 }
@@ -67,7 +82,7 @@ int	ms_exec(t_node *head, int pipIN)
 		if (pid == 0)
 			return (child(head->data, pipIN, 0));
 		head->pid = pid;
-		wait(NULL);
+		wait(&(g_shell.rvar));
 		return (0);
 	}
 	if (head->type == NO_PIPE)
@@ -78,7 +93,7 @@ int	ms_exec(t_node *head, int pipIN)
 			return (-1);
 		if (pid == 0)
 			return (child(head->left->data, pipIN, pip[1]));
-		wait(NULL);
+		wait(&(g_shell.rvar));
 		close(pip[1]);
 		ms_exec(head->right, pip[0]);
 	}
