@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:03:04 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/27 01:18:00 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/27 01:41:29 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef	struct	s_node
 	struct s_command	*data;
 	struct s_node		*left;
 	struct s_node		*right;
-	int					pid;
+	pid_t				pid;
 }	t_node;
 
 /*
@@ -128,6 +128,7 @@ typedef struct s_ms
 {
 	t_info				info;
 	t_tlist				*tokens;
+	t_node				*thead;
 	char				*line;
 }	t_ms;
 

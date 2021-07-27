@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/27 00:24:27 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/27 01:55:04 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,30 +32,32 @@ static void	ms_markers(t_tlist *tokens, t_markers *op)
 ** MAIN FUNCTION THAT CREATES COMMANDS AND EXECUTES
 */
 
-static int	ms_minishell(t_tlist **tokens, char **env)
+static int	ms_minishell(t_tlist **tokens, t_node **thead, char **env)
 {
-	t_node		*thead;
 	t_markers	op;
 
-	thead = NULL;
 	ft_memset(&op, 0, sizeof(op));
 	ms_expanser(*tokens);
 	ms_markers(*tokens, &op);
+/*
 #if TEST		
 	print_token(*tokens);
 #endif
-	ms_parser(*tokens, &thead, env);
+*/
+	ms_parser(*tokens, thead, env);
+/*
 #if TEST		
 	print_tree(thead);
 #endif
-	ms_exec(thead, 0);
+*/
+	ms_exec(*thead, 0);
 	ms_clean_cmd(thead);
 	if (op._or > 0 && op.ret == SUCCESS)
 		ms_clean_tk_all_or(tokens);
 	else
 		ms_clean_tlist(tokens);
 	if (*tokens != NULL)
-		ms_minishell(tokens, env);
+		ms_minishell(tokens, thead, env);
 	return (0);
 }
 
@@ -72,7 +74,7 @@ static int	ms_interactive(t_ms *data, char **env)
 		data->line = readline("Myshell: ");
 		tcsetattr(0, TCSANOW, &data->info.term_ios);
 		ms_lexer(data->line, &data->tokens);
-		ms_minishell(&data->tokens, env);
+		ms_minishell(&data->tokens, &data->thead, env);
 		add_history(data->line);
 	}
 	return (0);
@@ -88,7 +90,7 @@ static int	ms_arg_shell(t_ms *data, char **argv, char **env, int argc)
 	if (data->info.inte == 0)
 		data->line = ms_join_argv(argv, argc);
 	ms_lexer(data->line, &data->tokens);
-	ms_minishell(&data->tokens, env);
+	ms_minishell(&data->tokens, &data->thead, env);
 	return (0);
 }
 
