@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:19:21 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/27 19:49:11 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/27 21:48:54 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,6 @@ int ms_exec_bd(int	bd, char **args)
 
 static int child(t_command *cmd, int pipIN, int pipOUT)
 {
-	if (isatty(cmd->INfd))
-	{
-		signal(SIGINT, SIG_IGN);
-		signal(SIGTERM, SIG_DFL);
-	}
 	if (cmd->redirOUT)
 	{
 		dup2(cmd->OUTfd, 1);
