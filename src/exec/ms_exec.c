@@ -24,7 +24,10 @@ static void child_ex(char *cmd, char **argve, char **argv)
 static int child(t_command *cmd, int pipIN, int pipOUT)
 {
 	if (isatty(cmd->INfd))
+	{
 		signal(SIGINT, SIG_IGN);
+		signal(SIGTERM, SIG_DFL);
+	}
 	if (cmd->redirOUT)
 	{
 		dup2(cmd->OUTfd, 1);

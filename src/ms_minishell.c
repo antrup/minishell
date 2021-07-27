@@ -15,7 +15,7 @@
 /*
 ** INIT GLOBAL VARIABLE
 */
-t_shell	g_shell = {0, NULL};
+t_shell	g_shell = {0, 0, NULL};
 
 static void	ms_markers(t_tlist *tokens, t_markers *op)
 {
