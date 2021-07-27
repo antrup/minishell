@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 00:14:38 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/26 17:18:37 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/27 14:44:13 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,13 @@ static char	*ms_strjoin(char *buff, char *line)
 {
 	char	*str;
 	size_t	len;
-
+	
+	if (!buff)
+	{	
+		str = ft_strdup(line);
+		free(line);
+		return (str);
+	}
 	len = ms_strlen(buff) + ms_strlen(line);
 	str = malloc(sizeof(char) * (len + 2));
 	if (str == NULL)
@@ -91,14 +97,16 @@ int	ms_redir_ina(t_tlist **token, t_command *command)
 		}
 		if (ft_strcmp(line, end))
 			flag = 0;
-		buff = ms_strjoin(buff, line);
+		else
+			buff = ms_strjoin(buff, line);
 		if (buff == NULL)
 			return (errno);
 	}
-	ft_putstr_fd(buff, fd[0]);
+	ft_putstr_fd(buff, fd[1]);
+	ft_putchar_fd('\n', fd[1]);
 	free(buff);
-	close(fd[0]);
-	command->INfd = fd[1];
+	close(fd[1]);
+	command->INfd = fd[0];
 	*token = (*token)->next;
 	return (0);
 }

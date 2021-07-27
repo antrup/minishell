@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/27 02:35:14 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/27 14:24:33 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 ** INIT GLOBAL VARIABLE
 */
-t_shell	g_shell = {0, NULL};
+t_shell	g_shell = {0, 0, NULL};
 
 static void	ms_markers(t_tlist *tokens, t_markers *op)
 {
