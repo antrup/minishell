@@ -6,38 +6,11 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 00:17:37 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/27 21:47:45 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/28 12:03:33 by Satcheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
-
-void	ms_newline(int sig)
-{
-	(void)sig;
-	if (g_shell.data->thead != NULL)
-	{
-		write(0, "\n", 1);
-		return ;
-	}
-	write(0, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
-
-void	ms_exit(int sig)
-{
-	(void)sig;
-	if (g_shell.data->thead != NULL)
-		return ;
-	write(1, "exit\n", 5);
-	tcsetattr(0, TCSANOW, &g_shell.data->info.term_ios);
-	ms_clean(g_shell.data);
-	g_shell.on = 0;
-	rl_clear_history();
-	exit (0);
-}
 
 void	ms_clean_tlist(t_tlist **list)
 {

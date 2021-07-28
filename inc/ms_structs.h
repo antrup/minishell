@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:03:04 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/27 01:41:29 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/28 12:13:12 by Satcheen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct s_info
 {
 	int					inte;
 	struct termios		term_ios;
+	struct termios		ms_input;
 	struct termios		ms_ios;
 	struct sigaction	sig;
 }	t_info;
