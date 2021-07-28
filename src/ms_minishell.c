@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/28 17:14:37 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/28 18:13:32 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ static int	ms_minishell(t_ms *data, char **env)
 	t_markers	op;
 	
 	ft_memset(&op, 0, sizeof(op));
+#if TEST		
+	print_token(data->tokens);
+#endif
 	ms_expanser(data->tokens);
 	ms_markers(data->tokens, &op);
 #if TEST		

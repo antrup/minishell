@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 11:21:30 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/27 19:54:21 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/28 17:53:54 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int		ms_echo(char **args)
 	while (args[i])
 	{
 		write(1, args[i], ft_strlen(args[i]));
+		if (args[i + 1])
+				write(1, " ", 1);
 		i++;
 	}
 	if (!n_opt)
