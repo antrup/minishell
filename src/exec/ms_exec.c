@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:19:21 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/28 10:56:34 by toni             ###   ########.fr       */
+/*   Updated: 2021/07/28 15:59:35 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int child(t_command *cmd, int pipIN, int pipOUT)
 
 void	ms_close_fds(t_command *cmd, int pipIN)
 {
-	if (cmd->redirIN)
+	if (cmd->redirIN && cmd->INfd)
 		close(cmd->INfd);
 	if (cmd->redirOUT)
 		close(cmd->OUTfd);
