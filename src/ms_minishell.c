@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/28 15:05:42 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/28 15:21:35 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,28 +32,30 @@ static void	ms_markers(t_tlist *tokens, t_markers *op)
 ** MAIN FUNCTION THAT CREATES COMMANDS AND EXECUTES
 */
 
-static int	ms_minishell(t_tlist **tokens, t_node **thead, char **env)
+static int	ms_minishell(t_ms *data, char **env)
 {
 	t_markers	op;
 	
 	ft_memset(&op, 0, sizeof(op));
-	ms_expanser(*tokens);
-	ms_markers(*tokens, &op);
+	ms_expanser(data->tokens);
+	ms_markers(data->tokens, &op);
 #if TEST		
-	print_token(*tokens);
+	print_token(data->tokens);
 #endif
-	ms_parser(*tokens, thead, env);
+	ms_shell_input_io(data);
+	ms_parser(data->tokens, &data->thead, env);
 #if TEST		
-	print_tree(*thead);
+	print_tree(data->thead);
 #endif
-	op.ret = ms_exec(*thead, 0);
-	ms_clean_cmd(thead);
+	tcsetattr(0, TCSANOW, &data->info.term_ios);
+	op.ret = ms_exec(data->thead, 0);
+	ms_clean_cmd(&data->thead);
 	if (op._or > 0 && op.ret == SUCCESS)
-		ms_clean_tk_all_or(tokens);
+		ms_clean_tk_all_or(&data->tokens);
 	else
-		ms_clean_tlist(tokens);
-	if (*tokens != NULL)
-		ms_minishell(tokens, thead, env);
+		ms_clean_tlist(&data->tokens);
+	if (data->tokens != NULL)
+		ms_minishell(data, env);
 	return (0);
 }
 
@@ -66,11 +68,11 @@ static int	ms_interactive(t_ms *data, char **env)
 	(void)env;
 	while (g_shell.on == 1)
 	{
-		ms_init_shell(data);
+		data->thead = NULL;
+		ms_init_shell_io(data);
 		data->line = readline("Myshell: ");
-		tcsetattr(0, TCSANOW, &data->info.term_ios);
 		ms_lexer(data->line, &data->tokens);
-		ms_minishell(&data->tokens, &data->thead, env);
+		ms_minishell(data, env);
 		add_history(data->line);
 	}
 	return (0);
@@ -86,7 +88,7 @@ static int	ms_arg_shell(t_ms *data, char **argv, char **env, int argc)
 	if (data->info.inte == 0)
 		data->line = ms_join_argv(argv, argc);
 	ms_lexer(data->line, &data->tokens);
-	ms_minishell(&data->tokens, &data->thead, env);
+	ms_minishell(data, env);
 	return (0);
 }
 
