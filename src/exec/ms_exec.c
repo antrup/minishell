@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:19:21 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/28 10:37:53 by toni             ###   ########.fr       */
+/*   Updated: 2021/07/28 10:56:34 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int ms_exec_bd(int	bd, char **args)
 //	if (bd == 1)
 //		return (ms_cd(&(args[1])));
 	if (bd == 2)
-		return (ms_echo(&(args[1])));
+		exit(ms_echo(&(args[1])));
 	if (bd == 3)
-		return (ms_pwd());
+		exit(ms_pwd());
 	if (bd == 4)
 		return (ms_export(&(args[1])));
 	return (0);
