@@ -29,7 +29,9 @@ SRCS = ms_minishell.c \
 	   exec/ms_exec.c \
 	   buildins/ms_echo.c \
 	   buildins/ms_pwd.c \
-	   buildins/ms_export.c 
+	   buildins/ms_export.c \
+	   buildins/ms_unset.c \
+	   buildins/ms_env_utils.c
 
 #TO BE REMOVED - TEST
 SRCS += ms_test/tester.c

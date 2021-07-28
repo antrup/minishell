@@ -6,11 +6,33 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:14:09 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/28 14:22:19 by Satcheen         ###   ########.fr       */
+/*   Updated: 2021/07/28 17:15:06 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
+
+void	ms_init_env(void)
+{
+	int		i;
+	char	**new_env;
+	int		j;
+
+	i = 0;
+	while (environ[i])
+		i++;
+	new_env = malloc(sizeof(char *) * (i + 2));
+	if (!new_env)
+		return ;
+	j = 0;
+	while (j < i)
+	{
+		new_env[j] = ft_strdup(environ[j]);
+		j++;
+	}
+	new_env[i] = NULL;
+	environ = new_env;
+}
 
 void	ms_init(t_ms *data)
 {

@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/28 15:21:35 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/28 17:14:37 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argv;
 	(void)argc;
+	ms_init_env();
 	ms_init(&data);
 	if (argc > 1)
 		ms_arg_shell(&data, argv, env, argc);

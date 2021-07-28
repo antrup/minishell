@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/28 16:03:42 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/28 17:11:35 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ char	*ms_join_argv(char **argv, int argc);
 void	ms_init(t_ms *data);
 void	ms_init_shell_io(t_ms *data);
 void	ms_shell_input_io(t_ms *data);
+void	ms_init_env(void);
 
 /*
 ** CLEAN
@@ -151,8 +152,13 @@ int		ms_redir_ina(t_tlist **token, t_command *command);
 
 int		ms_echo(char **args);
 int		ms_export(char	**args);
+int		ms_unset(char	**args);
 int		ms_pwd(void);
 int		ms_cd(char **args);
+int		ms_exp_error(char *str);
+int		ms_exp_check(char	*str);
+char	*ms_exp_extr_var(char	*str);
+int		ms_copy_env(void);
 
 /*
 ** DEBUG -- TEST                                                |~
