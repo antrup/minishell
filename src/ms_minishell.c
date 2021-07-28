@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/27 14:24:33 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/28 15:05:42 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	ms_markers(t_tlist *tokens, t_markers *op)
 static int	ms_minishell(t_tlist **tokens, t_node **thead, char **env)
 {
 	t_markers	op;
-
+	
 	ft_memset(&op, 0, sizeof(op));
 	ms_expanser(*tokens);
 	ms_markers(*tokens, &op);

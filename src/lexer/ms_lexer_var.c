@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 02:16:27 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/16 11:28:06 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/28 15:09:40 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ static void	ms_clear_var(t_tlist **tokens)
 			temp = next;
 			prev->next = next;
 		}
-		temp = temp->next;
+		if (temp)
+			temp = temp->next;
 	}
 }
 

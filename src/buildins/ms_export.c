@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:55:30 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/28 10:42:55 by toni             ###   ########.fr       */
+/*   Updated: 2021/07/28 15:06:56 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,7 @@ int		ms_copy_env()
 	}
 	new_env[i + 1] = NULL;
 	//free(environ);
-	printf("%p \n", environ);
 	environ = new_env;
-	printf("%p \n", environ);
 	return (i);
 }
 
