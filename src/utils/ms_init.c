@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:14:09 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/28 17:15:06 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/28 17:46:15 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	ms_init_shell_io(t_ms *data)
 
 void	ms_shell_input_io(t_ms *data)
 {
-	data->info.ms_input.c_cc[VEOF] = KEY_CTRL_C;
 	data->info.ms_input.c_cc[VQUIT] = KEY_NONE;
 	//data->info.ms_input.c_lflag &= ~(ECHOCTL);
 	tcsetattr(0, TCSANOW, &data->info.ms_input);
