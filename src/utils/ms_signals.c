@@ -6,7 +6,7 @@
 /*   By: Satcheen SHAKYA <sshakya@student.42.f      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 12:02:43 by Satcheen          #+#    #+#             */
-/*   Updated: 2021/07/28 14:44:50 by Satcheen         ###   ########.fr       */
+/*   Updated: 2021/07/28 17:50:35 by toto             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@ void	ms_newline(int sig)
 {
 	(void)sig;
 	if (g_shell.data->thead != NULL)
+	{
+		write(0, "\n", 1);
+		return ;
+	}
+	if (g_shell.rda == 1)
 	{
 		write(0, "\n", 1);
 		return ;

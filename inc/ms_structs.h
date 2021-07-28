@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:03:04 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/28 12:13:12 by Satcheen         ###   ########.fr       */
+/*   Updated: 2021/07/28 17:35:36 by toto             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ typedef struct s_shell
 {
 	int			on;
 	int			rvar;
+	int			rda;
 	struct s_ms	*data;
 }	t_shell;
 
