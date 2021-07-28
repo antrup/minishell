@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:55:30 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/28 15:06:56 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/28 16:06:05 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int ms_exp_error(char *str)
 {
 	write(2, "minishell: export: `", 20);
 	write(2, str, ft_strlen(str));
-	write(2, "': not a valid identifier\n", 25);
+	write(2, "': not a valid identifier\n", 26);
 	return (1);
 }
 		
@@ -84,7 +84,7 @@ void	ms_create_env_var(char	*arg)
 	int		index;
 
 	index = ms_copy_env();
-	environ[index] = arg;
+	environ[index] = ft_strdup(arg);
 }
 
 void	ms_replace_env_var(char *var, char *arg)

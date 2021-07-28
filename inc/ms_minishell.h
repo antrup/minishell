@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/28 12:25:05 by Satcheen         ###   ########.fr       */
+/*   Updated: 2021/07/28 16:03:42 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,5 +160,6 @@ int		ms_cd(char **args);
 
 void	print_token(t_tlist *tokens);
 void	print_tree(t_node *thead);
+void	print_environ();
 
 #endif

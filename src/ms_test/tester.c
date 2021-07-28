@@ -2,6 +2,18 @@
 
 #if TEST
 
+void	print_environ()
+{
+	int		i;
+
+	i = 0;
+	while (environ[i])
+	{
+		printf("index : %d - %s \n", i, environ[i]);
+		i++;
+	}
+}
+
 void	print_tree(t_node *thead)
 {
 	t_node		*current;
