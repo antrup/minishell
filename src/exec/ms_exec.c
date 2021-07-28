@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:19:21 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/27 21:48:54 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/28 10:37:53 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static void child_ex(char *cmd, char **argve, char **argv)
 
 int ms_exec_bd(int	bd, char **args)
 {
-	//if (bd == 1)
-	//	return (ms_cd(&(args[1])));
+//	if (bd == 1)
+//		return (ms_cd(&(args[1])));
 	if (bd == 2)
 		return (ms_echo(&(args[1])));
 	if (bd == 3)
@@ -60,6 +60,16 @@ static int child(t_command *cmd, int pipIN, int pipOUT)
 	return (0);
 }
 
+void	ms_close_fds(t_command *cmd, int pipIN)
+{
+	if (cmd->redirIN)
+		close(cmd->INfd);
+	if (cmd->redirOUT)
+		close(cmd->OUTfd);
+	if (pipIN)
+		close(pipIN);
+}
+
 int	ms_exec(t_node *head, int pipIN)
 {
 	int		pip[2];
@@ -71,13 +81,22 @@ int	ms_exec(t_node *head, int pipIN)
 		return (1);
 	if (head->type == NO_CMD)
 	{
-		pid = fork();
-		if (pid == -1)
-			return (1);
-		if (pid == 0)
-			return (child(head->data, pipIN, 0));
-		head->pid = pid;
-		wait(&(g_shell.rvar));
+		if (head->data->cmd)
+		{
+			if (head->data->buildin == 1 || head->data->buildin == 4)
+				g_shell.rvar = ms_exec_bd(head->data->buildin, head->data->args);
+			else
+			{
+				pid = fork();
+				if (pid == -1)
+					return (1);
+				if (pid == 0)
+					return (child(head->data, pipIN, 0));
+				head->pid = pid;
+				wait(&(g_shell.rvar));
+			}
+		}
+		ms_close_fds(head->data, pipIN);
 		return (0);
 	}
 	if (head->type == NO_PIPE)

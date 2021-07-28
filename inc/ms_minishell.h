@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/27 19:45:40 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/28 10:35:21 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ int		ms_redir_ina(t_tlist **token, t_command *command);
 int		ms_echo(char **args);
 int		ms_export(char	**args);
 int		ms_pwd(void);
+int		ms_cd(char **args);
 
 /*
 ** DEBUG -- TEST                                                |~

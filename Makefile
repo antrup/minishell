@@ -28,7 +28,7 @@ SRCS = ms_minishell.c \
 	   exec/ms_exec.c \
 	   buildins/ms_echo.c \
 	   buildins/ms_pwd.c \
-	   buildins/ms_export.c
+	   buildins/ms_export.c 
 
 #TO BE REMOVED - TEST
 SRCS += ms_test/tester.c
@@ -37,8 +37,10 @@ UNAME = $(shell uname)
 
 ifeq (${UNAME}, Darwin)
 OS = 1
-LIBINC = -lreadline -L /Users/$(USER)/.brew/opt/readline/lib 
-IRDLINE = -I/Users/$(USER)/.brew/opt/readline/include
+#LIBINC = -lreadline -L /Users/$(USER)/.brew/opt/readline/lib 
+#IRDLINE = -I/Users/$(USER)/.brew/opt/readline/include
+IRDLINE = -I/usr/local/opt/readline/include
+LIBINC = -lreadline -L /usr/local/opt/readline/lib 
 endif
 
 ifeq (${UNAME}, Linux)

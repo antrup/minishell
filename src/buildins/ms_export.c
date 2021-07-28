@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:55:30 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/27 19:30:12 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/28 10:42:55 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int ms_exp_error(char *str)
 {
 	write(2, "minishell: export: `", 20);
 	write(2, str, ft_strlen(str));
-	write(2, "': not a valid identifier", 25);
+	write(2, "': not a valid identifier\n", 25);
 	return (1);
 }
 		
