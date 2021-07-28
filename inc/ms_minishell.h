@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/28 17:11:35 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/28 17:40:53 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,8 +155,8 @@ int		ms_export(char	**args);
 int		ms_unset(char	**args);
 int		ms_pwd(void);
 int		ms_cd(char **args);
-int		ms_exp_error(char *str);
 int		ms_exp_check(char	*str);
+int		ms_unset_check(char	*str);
 char	*ms_exp_extr_var(char	*str);
 int		ms_copy_env(void);
 

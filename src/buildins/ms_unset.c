@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 16:23:58 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/28 17:19:06 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/28 17:39:13 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ms_unset(char	**args)
 	i = 0;
 	while (args[i] != NULL)
 	{
-		test = ms_exp_check(args[i]);
+		test = ms_unset_check(args[i]);
 		if (test == 1)
 			ret = 1;
 		else 

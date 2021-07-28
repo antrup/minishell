@@ -6,11 +6,19 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 16:59:54 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/28 17:21:39 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/28 17:38:43 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
+
+int ms_unset_error(char *str)
+{
+	write(2, "minishell: unset: `", 19);
+	write(2, str, ft_strlen(str));
+	write(2, "': not a valid identifier\n", 26);
+	return (1);
+}
 
 int ms_exp_error(char *str)
 {
@@ -18,6 +26,24 @@ int ms_exp_error(char *str)
 	write(2, str, ft_strlen(str));
 	write(2, "': not a valid identifier\n", 26);
 	return (1);
+}
+
+int	ms_unset_check(char	*str)
+{
+	int		i;
+
+	i = 1;
+	if ((str[0] < 'a' || str[0] > 'z') && (str[0] < 'A' || str[0] > 'Z') 
+			&& str[0] != '_')
+		return (ms_unset_error(str));
+	while (str[i])
+	{	
+		if ((str[i] < 'a' || str[i] > 'z') && (str[i] < 'A' || str[i] > 'Z') 
+		&& (str[i] < '0' || str[i] > '9') && str[i] != '_')
+			return (ms_unset_error(str));
+		i++;
+	}
+	return (0);
 }
 		
 int	ms_exp_check(char	*str)

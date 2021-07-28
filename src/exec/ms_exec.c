@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:19:21 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/28 15:59:35 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/28 17:30:34 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int ms_exec_bd(int	bd, char **args)
 		exit(ms_pwd());
 	if (bd == 4)
 		return (ms_export(&(args[1])));
+	if (bd == 5)
+		return (ms_unset(&(args[1])));
 	return (0);
 }
 
@@ -83,7 +85,8 @@ int	ms_exec(t_node *head, int pipIN)
 	{
 		if (head->data->cmd)
 		{
-			if (head->data->buildin == 1 || head->data->buildin == 4)
+			if (head->data->buildin == 1 || head->data->buildin == 4
+					|| head->data->buildin == 5)
 				g_shell.rvar = ms_exec_bd(head->data->buildin, head->data->args);
 			else
 			{
