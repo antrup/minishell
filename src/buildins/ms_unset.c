@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 16:23:58 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/29 20:16:15 by toni             ###   ########.fr       */
+/*   Updated: 2021/07/29 21:25:50 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	ms_remove_env_var(char *var)
 		i++;
 	while (environ[j])
 		j++;
-	free(environ[i]);
 	environ[i] = environ[j - 1];
 	environ[j - 1] = NULL;
 }
