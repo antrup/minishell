@@ -32,7 +32,8 @@ static int	ms_change_dir(char *path)
 	int		type;
 
 	type = ms_isrelative(path);
-	if (type == 1 || type == 3)
+	printf("%d\n", type);
+	if (type == 1)
 		return (0);
 	//if (type == 2)
 	//	ms_navigate_up_one(path);
@@ -49,8 +50,8 @@ int	ms_cd(char **args)
 		return (ERR_CD);
 	if (ms_isrelative(args[0]) == 0)
 	{
-		chdir(args[0]);
-		ms_export_env(args[0]);
+		write(1, "@", 1);
+		ms_absolute_path(args[0]);
 		return (0);
 	}
 	else

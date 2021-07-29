@@ -85,3 +85,55 @@ char	*ms_add_target(char *dir, char *path)
 	ms_join(path, target, new_path);
 	return (new_path);
 }
+
+static int	ms_has_slash(char *path)
+{
+	int	i;
+
+	i = 0;
+	while (path[i])
+	{
+		if (path[i] == '/')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	ms_absolute_path(char *path)
+{
+	char	*dir;
+	char	*new_path;
+	char	*old_path;
+	int		ret;
+
+	old_path = getenv("PWD");
+	if (path[0] == '/')
+	{
+		ret = chdir(path);
+		if (ret == -1)
+			return (errno);
+		ms_export_env(ft_strdup(path), old_path);
+	}
+	else if (path[0] != '/' && ms_has_slash(path))
+	{
+		dir = ms_get_directory(path, 0);
+		new_path = malloc(sizeof(char)
+			* (ft_strlen(path) + ft_strlen(dir) + 2));
+		ms_join(dir, path, new_path);
+		ret = chdir(new_path);
+		free(new_path);
+		free(dir);
+		if (ret == -1)
+			return (errno);
+		ms_export_env(new_path, old_path);
+	}
+	else
+	{
+		ret = chdir(path);
+		if (ret == -1)
+			return (errno);
+		ms_export_env(ft_strdup(path), old_path);
+	}
+	return (0);
+}

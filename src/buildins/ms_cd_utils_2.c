@@ -12,7 +12,7 @@
 
 #include "ms_minishell.h"
 
-char	*ms_get_directory(char *path)
+char	*ms_get_directory(char *path, int relative)
 {
 	int		level;
 	char	*pwd;
@@ -27,6 +27,8 @@ char	*ms_get_directory(char *path)
 		i = i + 3;
 	}
 	pwd = getenv("PWD");
+	if (relative == 0)
+		return (ft_strdup(pwd));
 	i = ft_strlen(pwd) - 2;
 	while (level && i)
 	{
@@ -39,18 +41,30 @@ char	*ms_get_directory(char *path)
 	return (dir);
 }
 
-int	ms_export_env(char *path)
+int	ms_export_env(char *path, char *old_path)
 {
-	char	**ex_path;
+	char	**ex_path_new;
+	char	**ex_path_old;
 	
-	ex_path = malloc(sizeof(char *) * 2);
-	if (ex_path == NULL)
+	ex_path_new = malloc(sizeof(char *) * 2);
+	if (ex_path_new == NULL)
 		return (ERR_MEM);
-	ex_path[0] = ft_strjoin(path, "PATH=");
-	ex_path[1] = NULL;
-	free(ex_path[0]);
-	free(ex_path[1]);
-	free(ex_path);
+	ex_path_new[0] = ft_strjoin("PWD=", path);
+	ex_path_new[1] = NULL;
+	ms_export(ex_path_new);
+	ex_path_old = malloc(sizeof(char *) * 2);
+	if (ex_path_new == NULL)
+		return (ERR_MEM);
+	ex_path_old[0] = ft_strjoin("OLDPWD=", old_path);
+	ex_path_old[1] = NULL;
+	ms_export(ex_path_old);
+	free(ex_path_new[0]);
+	free(ex_path_new[1]);
+	free(ex_path_new);
+	free(ex_path_old[0]);
+	free(ex_path_old[1]);
+	free(ex_path_old);
+	free(path);
 	return (0);
 }
 
@@ -58,11 +72,13 @@ void	ms_navigate_up(char *path)
 {
 	char	*dir;
 	char	*new_path;
+	char	*old_path;
 
-	dir = ms_get_directory(path);
+	dir = ms_get_directory(path, 1);
 	new_path = ms_add_target(dir, path);
+	old_path = getenv("PWD");
 	chdir(new_path);
-	ms_export_env(new_path);
+	ms_export_env(new_path, old_path);
 	free(new_path);
 	free(dir);
 }

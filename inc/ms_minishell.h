@@ -164,9 +164,11 @@ int		ms_copy_env(void);
 */
 
 int		ms_cd(char **args);
-int		ms_export_env(char *path);
+int		ms_export_env(char *path, char *old_path);
 void	ms_navigate_up(char *path);
 char	*ms_add_target(char *dir, char *path);
+int		ms_absolute_path(char *path);
+char	*ms_get_directory(char *path, int relative);
 
 /*
 ** DEBUG -- TEST                                                |~

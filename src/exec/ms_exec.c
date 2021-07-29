@@ -23,8 +23,8 @@ static void child_ex(char *cmd, char **argve, char **argv)
 
 int ms_exec_bd(int	bd, char **args)
 {
-//	if (bd == 1)
-//		return (ms_cd(&(args[1])));
+	if (bd == 1)
+		return (ms_cd(&(args[1])));
 	if (bd == 2)
 		exit(ms_echo(&(args[1])));
 	if (bd == 3)

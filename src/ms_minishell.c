@@ -37,9 +37,6 @@ static int	ms_minishell(t_ms *data, char **env)
 	t_markers	op;
 	
 	ft_memset(&op, 0, sizeof(op));
-#if TEST		
-	print_token(data->tokens);
-#endif
 	ms_expanser(&data->tokens);
 	ms_markers(data->tokens, &op);
 #if TEST		
