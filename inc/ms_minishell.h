@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/28 17:40:53 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/29 01:41:57 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ extern char **environ;
 */
 
 int		ms_lexer(char *line, t_tlist **tokens);
-void	ms_expanser(t_tlist *tokens);
+void	ms_expanser(t_tlist **tokens);
 int		ms_parser(t_tlist *tokens, t_node **thead, char **env);
 int		ms_exec(t_node *head, int pipIN);
 

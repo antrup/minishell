@@ -77,7 +77,10 @@ void	print_token(t_tlist *tokens)
 	{
 		printf("%2d\t", i);
 		if (current->tk.type == 0)
+		{
 			printf(" W");
+			//printf("%p\t%p\t%p", current, current->previous, current->next);
+		}
 		if (current->tk.type == 1)
 			printf(" |");
 		if (current->tk.type == 2)
@@ -93,7 +96,10 @@ void	print_token(t_tlist *tokens)
 		if (current->tk.type == 7)
 			printf(">>");
 		if (current->tk.type == 8)
+		{
 			printf("VR");
+			//printf("C=%p\tP=%p\tN=%p", current, current->previous, current->next);
+		}
 		if (current->tk.type == 9)
 			printf("(");
 		if (current->tk.type == 10)
