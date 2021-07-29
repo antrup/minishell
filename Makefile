@@ -27,9 +27,12 @@ SRCS = ms_minishell.c \
 	   parser/ms_redir_ina.c \
 	   parser/ms_parser_utils.c \
 	   exec/ms_exec.c \
-	   buildins/ms_cd.c \
-	   buildins/ms_cd_utils.c \
-	   buildins/ms_cd_utils_2.c \
+	   buildins/cd/ms_cd.c \
+	   buildins/cd/ms_cd_utils.c \
+	   buildins/cd/ms_relative_path.c \
+	   buildins/cd/ms_change_path.c \
+	   buildins/cd/ms_get_directory.c \
+	   buildins/cd/ms_add_target_dir.c \
 	   buildins/ms_echo.c \
 	   buildins/ms_pwd.c \
 	   buildins/ms_export.c \

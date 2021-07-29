@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 17:32:12 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/29 02:36:11 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/29 23:46:10 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,19 @@
 # define KEY_NONE 0
 # define KEY_CTRL_C 3
 # define KEY_CTRL_D 4 
+
+/*
+** CD BUILDIN CONSTANTS
+*/
+
+# define CD_NONE 0
+# define CD_HOME 1
+# define CD_UP_ONE 2
+# define CD_CURRENT 3
+# define CD_RELATIVE 4
+# define CD_BACK 5
+# define CD_CURRENT_R 6
+# define CD_NOT 7
+# define CD_RELATIVE_R 8
 
 #endif

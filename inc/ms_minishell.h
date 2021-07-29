@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/29 02:38:27 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/29 23:24:44 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,11 +164,14 @@ int		ms_copy_env(void);
 */
 
 int		ms_cd(char **args);
-int		ms_export_env(char *path, char *old_path);
-void	ms_navigate_up(char *path);
-char	*ms_add_target(char *dir, char *path);
-int		ms_absolute_path(char *path);
+int		ms_change_path(char *path);
+int		ms_relative_path(char *path);
+char	*ms_add_target_dir(char *dir, char *path);
 char	*ms_get_directory(char *path, int relative);
+int		ms_export_env(char *path, char *old_path);
+int		ms_isrelative(char *arg);
+void	ms_slash_join(char *path, char *target, char *str);
+int		ms_error_nav(char *path1, char *path2, int error);
 
 /*
 ** DEBUG -- TEST                                                |~

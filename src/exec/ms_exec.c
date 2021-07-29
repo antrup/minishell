@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:19:21 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/28 17:30:34 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/29 19:59:54 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int child(t_command *cmd, int pipIN, int pipOUT)
 	}
 	else if (pipIN)
 		dup2(pipIN, 0);
-	if (cmd->buildin)
+	if (cmd->buildin == 1)
 		return(ms_exec_bd(cmd->buildin, cmd->args));
 	child_ex(cmd->cmd, cmd->argve, cmd->args);
 	return (0);
@@ -85,8 +85,7 @@ int	ms_exec(t_node *head, int pipIN)
 	{
 		if (head->data->cmd)
 		{
-			if (head->data->buildin == 1 || head->data->buildin == 4
-					|| head->data->buildin == 5)
+			if (head->data->buildin == 1)
 				g_shell.rvar = ms_exec_bd(head->data->buildin, head->data->args);
 			else
 			{
