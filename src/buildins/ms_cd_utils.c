@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 17:01:15 by user42            #+#    #+#             */
-/*   Updated: 2021/07/27 19:09:37 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/29 02:35:40 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	ms_join(char *path, char *target, char *str)
 	i = 0;
 	while (path && path[i] != '\0')
 	{
-		new_path[i] = path[i];
+		str[i] = path[i];
 		i++;
 	}
 	str[i] = '/';
@@ -61,9 +61,11 @@ static char	*ms_get_target_name(char *path, int len)
 	i = 0;
 	ret = malloc(sizeof(char) * (len + 1));
 	l = ft_strlen(path);
-	while (len)
+	len = len - 1;
+	while (len > -1)
 	{
-		ret[i] = path[l - 1];
+		ret[len] = path[l - 1];
+		len--;
 		l--;
 	}
 	return (ret);
@@ -71,7 +73,6 @@ static char	*ms_get_target_name(char *path, int len)
 
 char	*ms_add_target(char *dir, char *path)
 {
-	int		i;
 	int		len;
 	char	*target;
 	char	*new_path;

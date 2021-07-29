@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/29 01:41:57 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/29 02:38:27 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,11 +154,19 @@ int		ms_echo(char **args);
 int		ms_export(char	**args);
 int		ms_unset(char	**args);
 int		ms_pwd(void);
-int		ms_cd(char **args);
 int		ms_exp_check(char	*str);
 int		ms_unset_check(char	*str);
 char	*ms_exp_extr_var(char	*str);
 int		ms_copy_env(void);
+
+/*
+** BUILDIN -- CD
+*/
+
+int		ms_cd(char **args);
+int		ms_export_env(char *path);
+void	ms_navigate_up(char *path);
+char	*ms_add_target(char *dir, char *path);
 
 /*
 ** DEBUG -- TEST                                                |~

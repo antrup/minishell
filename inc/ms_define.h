@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 17:32:12 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/28 17:30:26 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/29 02:36:11 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@
 # define ERR_PIPE -6
 # define ERR_WRT -7
 # define ERR_READ -8
-# define ERR_REDIR_IN -8
+# define ERR_REDIR_IN 9
+# define ERR_CD -10
+# define ERR_MEM -11
 
 /*
 ** MARKERS

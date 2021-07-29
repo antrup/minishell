@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 16:06:45 by user42            #+#    #+#             */
-/*   Updated: 2021/07/27 20:04:11 by user42           ###   ########.fr       */
+/*   Updated: 2021/07/29 02:30:21 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,15 @@ static int	ms_change_dir(char *path)
 {
 	int		type;
 
-	dir = NULL;
 	type = ms_isrelative(path);
 	if (type == 1 || type == 3)
 		return (0);
-	if (type == 2)
-		ms_navigate_up_one(path);
+	//if (type == 2)
+	//	ms_navigate_up_one(path);
 	if (type == 4)
 		ms_navigate_up(path);
-	if (type == 5)
-		ms_navigate_home(path);
+	//if (type == 5)
+	//	ms_navigate_home(path);
 	return (0);
 }
 
