@@ -6,7 +6,7 @@
 /*   By: Satcheen SHAKYA <sshakya@student.42.f      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 12:02:43 by Satcheen          #+#    #+#             */
-/*   Updated: 2021/07/28 23:15:02 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/29 21:05:55 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	ms_exit(int sig)
 	ms_clean(g_shell.data);
 	g_shell.on = 0;
 	rl_clear_history();
+	ms_clean_environ();
 	exit (0);
 }
 

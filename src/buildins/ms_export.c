@@ -6,11 +6,46 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:55:30 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/28 17:12:27 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/29 21:10:28 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
+
+void	ms_add_to_envpt(char **ptr)
+{
+	int	i;
+	int	j;
+	char	**new;
+
+	if (g_shell.env_pt == NULL)
+	{
+		g_shell.env_pt = malloc(sizeof(char*) * 2);
+		if (!(g_shell.env_pt))
+			return;
+		g_shell.env_pt[0] = *ptr;
+		g_shell.env_pt[1] = NULL;
+	}
+	else
+	{
+		i = 0;
+		while (g_shell.env_pt[i])
+			i++;
+		new = malloc(sizeof(char*) * (i + 2));
+		if (!new)
+			return;
+		j = 0;
+		while (j < i)
+		{
+			new[j] = g_shell.env_pt[j];
+			j++;
+		}
+		free(g_shell.env_pt);
+		new[i] = *ptr;
+		new[i + 1] = NULL;
+		g_shell.env_pt = new;
+	}
+}
 
 int		ms_copy_env(void)
 {
@@ -42,6 +77,7 @@ void	ms_create_env_var(char	*arg)
 
 	index = ms_copy_env();
 	environ[index] = ft_strdup(arg);
+	ms_add_to_envpt(&(environ[index]));
 }
 
 void	ms_replace_env_var(char *var, char *arg)
@@ -51,8 +87,8 @@ void	ms_replace_env_var(char *var, char *arg)
 	i = 0;
 	while (ft_strncmp(environ[i], var, ft_strlen(var)))
 		i++;
-	free(environ[i]);
 	environ[i] = ft_strdup(arg);
+	ms_add_to_envpt(&(environ[i]));
 }
 
 int	ms_export(char	**args)
@@ -76,6 +112,7 @@ int	ms_export(char	**args)
 				ms_create_env_var(args[i]);
 			else
 				ms_replace_env_var(var, args[i]);
+			free(var);
 		}
 		i++;
 	}

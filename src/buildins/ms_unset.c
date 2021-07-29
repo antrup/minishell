@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 16:23:58 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/28 17:39:13 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/29 20:16:15 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	ms_unset(char	**args)
 			var = ms_exp_extr_var(args[i]);
 			if (getenv(var))
 				ms_remove_env_var(var);
+			free(var);
 		}
 		i++;
 	}

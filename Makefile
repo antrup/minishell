@@ -60,7 +60,8 @@ INCDIR = inc
 
 CC = clang
 CFLAGS = -Wall -Wextra -Werror -g
-MEM = -fsanitize=address
+#MEM = -fsanitize=address
+MEM =
 
 OBJS = $(addprefix ${OBJDIR}/,${SRCS:.c=.o})
 

@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:14:09 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/28 17:46:15 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/29 20:53:52 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,25 @@
 
 void	ms_init_env(void)
 {
-	int		i;
-	char	**new_env;
-	int		j;
-
-	i = 0;
-	while (environ[i])
-		i++;
-	new_env = malloc(sizeof(char *) * (i + 2));
-	if (!new_env)
-		return ;
-	j = 0;
-	while (j < i)
-	{
-		new_env[j] = ft_strdup(environ[j]);
-		j++;
-	}
-	new_env[i] = NULL;
-	environ = new_env;
+//	int		i;
+//	char	**new_env;
+//	int		j;
+//
+//	i = 0;
+//	while (environ[i])
+//		i++;
+//	new_env = malloc(sizeof(char *) * (i + 2));
+//	if (!new_env)
+//		return ;
+//	j = 0;
+//	while (j < i)
+//	{
+//		new_env[j] = ft_strdup(environ[j]);
+//		j++;
+//	}
+//	new_env[i] = NULL;
+//	environ = new_env;
+	g_shell.env_pt = NULL;
 }
 
 void	ms_init(t_ms *data)
