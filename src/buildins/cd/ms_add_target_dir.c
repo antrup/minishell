@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/29 22:08:11 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/29 22:08:44 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/30 12:21:47 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,9 @@ static char	*ms_get_target_name(char *path, int len)
 	i = 0;
 	ret = malloc(sizeof(char) * (len + 1));
 	l = ft_strlen(path);
-	len = len - 1;
 	while (len > -1)
 	{
-		ret[len] = path[l - 1];
+		ret[len] = path[l];
 		len--;
 		l--;
 	}
@@ -59,6 +58,7 @@ char	*ms_add_target_dir(char *dir, char *path)
 	len = ms_get_target_len(path);
 	target = ms_get_target_name(path, len);
 	new_path = malloc(sizeof(char) * (len + ft_strlen(dir) + 2));
-	ms_slash_join(path, target, new_path);
+	ms_slash_join(dir, target, new_path);
+	free(target);
 	return (new_path);
 }

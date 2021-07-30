@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/29 20:46:59 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/29 23:21:14 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/30 12:36:22 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static int	ms_absolute_path(char *path)
 	char	*old_path;
 	char	*new_path;
 
+	old_path = NULL;
+	new_path = NULL;
 	old_path = ms_get_directory(path, CD_CURRENT);
 	new_path = ft_strdup(path);
 	error = chdir(path);
@@ -47,10 +49,12 @@ static int	ms_current_path(char *path)
 	char	*old_path;
 	char	*new_path;
 
+	old_path = NULL;
+	new_path = NULL;
+	old_path = ms_get_directory(path, CD_CURRENT);
 	new_path = malloc(sizeof(char) * (ft_strlen(path) + ft_strlen(old_path) + 2));
 	if (!new_path)
 		return (errno);
-	old_path = ms_get_directory(path, CD_CURRENT);
 	ms_slash_join(old_path, path, new_path);
 	error = chdir(new_path);
 	if (error == -1)
@@ -65,6 +69,8 @@ static int	ms_current_folder(char *path)
 	char	*new_path;
 	int		error;
 
+	old_path = NULL;
+	new_path = NULL;
 	error = chdir(path);
 	if (error == -1)
 		return (errno);
@@ -88,5 +94,5 @@ int	ms_change_path(char *path)
 		error = ms_current_path(path);
 	else
 		error = ms_current_folder(path);
-	return (0);
+	return (error);
 }

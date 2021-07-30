@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 19:09:18 by user42            #+#    #+#             */
-/*   Updated: 2021/07/29 23:43:55 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/30 12:29:59 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,16 @@ static int	ms_navigate_up(char *target)
 {
 	int		error;
 	char	*new_path;
+	char	*dir;
 	char	*old_path;
 
+	new_path = NULL;
+	old_path = NULL;
+	dir = NULL;
 	old_path = ms_get_directory(target, CD_CURRENT);
-	new_path = ms_add_target_dir(old_path, target);
+	dir = ms_get_directory(target, CD_RELATIVE);	
+	new_path = ms_add_target_dir(dir, target);
+	free(dir);
 	error = chdir(new_path);
 	if (error)
 		return (ms_error_nav(old_path, new_path, ERR_CD));
@@ -33,8 +39,10 @@ static int ms_navigate_up_one(char *target)
 	char	*new_path;
 	char	*old_path;
 
+	new_path = NULL;
+	old_path = NULL;
 	old_path = ms_get_directory(target, CD_CURRENT);
-	new_path = ms_add_target_dir(old_path, target);
+	new_path = ms_get_directory(target, CD_UP_ONE);
 	error = chdir(new_path);
 	if (error)
 		return (ms_error_nav(old_path, new_path, ERR_CD));
@@ -42,15 +50,42 @@ static int ms_navigate_up_one(char *target)
 	return (0);
 }
 
-static int	ms_navigate_current(char *path)
+static int	ms_navigate_current(char *target)
 {
-	(void)path;
+	int		error;
+	char	*new_path;
+	char	*old_path;
+
+	new_path = NULL;
+	old_path = NULL;
+	old_path = ms_get_directory(target, CD_CURRENT);
+	new_path = ms_add_target_dir(old_path, target);
+	error = chdir(new_path);
+	printf("%s\n", new_path);
+	if (error)
+		return (ms_error_nav(old_path, new_path, ERR_CD));
+	ms_export_env(new_path, old_path);
 	return (0);
 }
 
-static int	ms_navigate_home(char *path)
-{
-	(void)path;
+static int	ms_navigate_home(char *target)
+{	
+	int		error;
+	char	*new_path;
+	char	*old_path;
+	char	*home;
+
+	new_path = NULL;
+	old_path = NULL;
+	home = NULL;
+	old_path = ms_get_directory(target, CD_CURRENT);
+	home = ms_get_directory(target, CD_HOME);
+	new_path = ms_add_target_dir(home, target);
+	free(home);
+	error = chdir(new_path);
+	if (error)
+		return (ms_error_nav(old_path, new_path, ERR_CD));
+	ms_export_env(new_path, old_path);
 	return (0);
 }
 
@@ -61,7 +96,6 @@ int	ms_relative_path(char *path)
 
 	error = 0;
 	type = ms_isrelative(path);
-	printf("%d\n", type);
 	if (type == CD_NONE)
 		return (0);
 	if (type == CD_UP_ONE)
@@ -76,4 +110,3 @@ int	ms_relative_path(char *path)
 		return (error);
 	return (0);
 }
-

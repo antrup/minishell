@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 17:01:15 by user42            #+#    #+#             */
-/*   Updated: 2021/07/29 23:46:30 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/30 13:09:42 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,17 @@
 
 int	ms_isrelative(char *arg)
 {
-	if (arg && arg[0] == '.' && arg[1] == '\0')
+	if (arg[0] == '.' && arg[1] == '\0')
 		return (CD_NONE);
-	if (arg && arg[0] == '.' && arg[1] != '.' && arg[2] == '\0')
-		return (CD_UP_ONE);
-	if (arg && arg[0] == '.' && arg[1] == '/')
+	if (arg[0] == '.' && arg[1] == '/')
 		return (CD_CURRENT_R);
-	if (arg && arg[0] == '.' && arg[1] == '.' && arg[2] == '/')
+	if (arg[0] == '.' && arg[1] == '.' && arg[2] == '/')
 		return (CD_RELATIVE);
-	if (arg && arg[0] == '.' && arg[1] == '.' && arg[2] == '/' && arg[3] == '\0')
-		return (CD_RELATIVE_R);
-	if (arg && arg[0] == '~' && arg[1] == '/')
+	if (arg[0] == '.' && arg[1] == '.' && arg[2] == '\0')
+		return (CD_UP_ONE);
+	if (arg[0] == '~' && arg[1] == '/')
 		return (CD_HOME);
-	if (arg && arg[0] == '-')
+	if (arg[0] == '-')
 		return (CD_BACK);
 	return (CD_NOT);
 }	

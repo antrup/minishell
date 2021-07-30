@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 00:17:37 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/28 12:03:33 by Satcheen         ###   ########.fr       */
+/*   Updated: 2021/07/30 12:53:33 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,20 @@ void	ms_clean_tlist(t_tlist **list)
 	{
 		temp = (*list)->next;
 		free(*list);
+		*list = temp;
 	}
 	if (*list && (*list)->tk.type == OP_OR)
 	{
 		temp = (*list)->next;
 		free(*list);
+		*list = temp;
 	}
 	if (*list && (*list)->tk.type == P_OPEN)
 	{
 		temp = (*list)->next;
 		free(*list);
+		*list = temp;
 	}
-	*list = temp;
 }
 
 void	ms_clean_tk_all_or(t_tlist **list)
