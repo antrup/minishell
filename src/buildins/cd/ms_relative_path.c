@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 19:09:18 by user42            #+#    #+#             */
-/*   Updated: 2021/07/30 13:23:42 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/30 14:08:44 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	ms_navigate_up(char *target)
 	free(dir);
 	error = chdir(new_path);
 	if (error)
-		return (ms_error_nav(old_path, new_path, ERR_CD));
+		return (ms_error_nav(old_path, new_path, errno));
 	ms_export_env(new_path, old_path);
 	return (0);
 }
@@ -45,7 +45,7 @@ static int ms_navigate_up_one(char *target)
 	new_path = ms_get_directory(target, CD_UP_ONE);
 	error = chdir(new_path);
 	if (error)
-		return (ms_error_nav(old_path, new_path, ERR_CD));
+		return (ms_error_nav(old_path, new_path, errno));
 	ms_export_env(new_path, old_path);
 	return (0);
 }
@@ -61,9 +61,8 @@ static int	ms_navigate_current(char *target)
 	old_path = ms_get_directory(target, CD_CURRENT);
 	new_path = ms_add_target_dir(old_path, target);
 	error = chdir(new_path);
-	printf("%s\n", new_path);
 	if (error)
-		return (ms_error_nav(old_path, new_path, ERR_CD));
+		return (ms_error_nav(old_path, new_path, errno));
 	ms_export_env(new_path, old_path);
 	return (0);
 }
@@ -84,7 +83,27 @@ static int	ms_navigate_home(char *target)
 	free(home);
 	error = chdir(new_path);
 	if (error)
-		return (ms_error_nav(old_path, new_path, ERR_CD));
+		return (ms_error_nav(old_path, new_path, errno));
+	ms_export_env(new_path, old_path);
+	return (0);
+}
+
+static int	ms_navigate_back(void)
+{
+	int	error;
+	char	*new_path;
+	char	*old_path;
+
+	new_path = NULL;
+	old_path = NULL;
+	error = 0;
+	new_path = ms_get_directory(NULL, CD_BACK);
+	old_path = ms_get_directory(NULL, CD_CURRENT);
+	if (new_path == NULL)
+		return (0);
+	error = chdir(new_path);
+	if (error)
+		return (ms_error_nav(old_path, new_path, errno));
 	ms_export_env(new_path, old_path);
 	return (0);
 }
@@ -96,7 +115,6 @@ int	ms_relative_path(char *path)
 
 	error = 0;
 	type = ms_isrelative(path);
-	printf("type = %d\n", type);
 	if (type == CD_NONE)
 		return (0);
 	if (type == CD_UP_ONE)
@@ -107,6 +125,8 @@ int	ms_relative_path(char *path)
 		error = ms_navigate_up(path);
 	if (type == CD_HOME)
 		error = ms_navigate_home(path);
+	if (type == CD_BACK)
+		error = ms_navigate_back();
 	if (error)
 		return (error);
 	return (0);

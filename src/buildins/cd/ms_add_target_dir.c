@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/29 22:08:11 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/30 13:53:59 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/30 14:09:05 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,6 @@ char	*ms_add_target_dir(char *dir, char *path)
 		return (dir);
 	len = ms_get_target_len(path);
 	target = ms_get_target_name(path, len);
-	printf("%s\n", dir);
-	printf("%s\n", path);
-	printf("%s\n", target);
 	new_path = malloc(sizeof(char) * (len + ft_strlen(dir) + 2));
 	ms_slash_join(dir, target, new_path);
 	free(target);

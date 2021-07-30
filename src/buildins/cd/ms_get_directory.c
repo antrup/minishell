@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/29 20:37:13 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/30 12:28:20 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/30 14:07:40 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,20 @@ static char	*ms_get_current_dir(void)
 	return (current);
 }
 
+static char	*ms_get_old_dir(void)
+{
+	char	*oldpwd;
+
+	oldpwd = NULL;
+	oldpwd = getenv("OLDPWD");
+	if (!oldpwd)
+		return (NULL);
+	oldpwd = ft_strdup(oldpwd);
+	if (!oldpwd)
+		return (NULL);
+	return (oldpwd);
+}
+
 char	*ms_get_directory(char *path, int relative)
 {
 	char	*dir;
@@ -101,5 +115,7 @@ char	*ms_get_directory(char *path, int relative)
 		dir = ms_get_relative_dir(path);
 	if (relative == CD_UP_ONE)
 		dir = ms_get_up_dir();
+	if (relative == CD_BACK)
+		dir = ms_get_old_dir();
 	return (dir);
 }
