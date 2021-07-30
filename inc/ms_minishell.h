@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/30 11:09:42 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/30 15:23:32 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	ms_clean_cmd(t_node **head);
 void	ms_clean_tlist(t_tlist **list);
 void	ms_clean_tk_or(t_tlist **list);
 void	ms_clean_tk_all_or(t_tlist **list);
+void	ms_clean_environ(void);
 
 /*
 ** SIGNAL HANDLERS

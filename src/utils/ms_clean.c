@@ -6,11 +6,28 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 00:17:37 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/30 14:34:04 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/30 15:22:10 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
+
+void	ms_clean_environ()
+{
+	int	i;
+
+	i = 0;
+	if (g_shell.env_pt)
+	{
+		while (g_shell.env_pt[i])
+		{	
+			free(g_shell.env_pt[i]);
+			i++;
+		}
+		free(g_shell.env_pt);
+	}
+	free(environ);
+}
 
 void	ms_clean_tlist(t_tlist **list)
 {
