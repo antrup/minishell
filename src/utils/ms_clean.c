@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 00:17:37 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/30 12:53:33 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/30 14:34:04 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,6 @@ void	ms_clean(t_ms *data)
 {
 	if (data->tokens)
 		ms_clean_tlist(&data->tokens);
-	free(data->line);
+	if (data->line)
+		free(data->line);
 }
