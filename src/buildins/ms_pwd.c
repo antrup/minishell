@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 11:58:37 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/27 19:51:45 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/07/30 15:44:40 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,6 @@ int	ms_pwd(void)
 
 	pwd = getenv("PWD");
 	write(1, pwd, ft_strlen(pwd));
+	write(1, "\n", 1);
 	return (0);
 }
