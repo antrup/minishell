@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 19:09:18 by user42            #+#    #+#             */
-/*   Updated: 2021/07/30 12:29:59 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/30 13:23:42 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int	ms_relative_path(char *path)
 
 	error = 0;
 	type = ms_isrelative(path);
+	printf("type = %d\n", type);
 	if (type == CD_NONE)
 		return (0);
 	if (type == CD_UP_ONE)
