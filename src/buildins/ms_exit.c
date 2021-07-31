@@ -6,13 +6,14 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 11:36:10 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/23 17:53:37 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/31 19:57:25 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
 
-void	ms_exit(int n)
+int	ms_exit(int n)
 {
+	ms_clean(g_shell->data)
 	exit(n);
 }

@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:19:21 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/30 15:42:13 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/31 20:32:18 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,21 @@ static void child_ex(char *cmd, char **argve, char **argv)
 
 int ms_exec_bd(int	bd, char **args)
 {
-	if (bd == 1)
+	if (bd == BI_CD)
 		return (ms_cd(&(args[1])));
-	if (bd == 2)
+	if (bd == BI_ECHO)
 		exit(ms_echo(&(args[1])));
-	if (bd == 3)
+	if (bd == BI_PWD)
 		exit(ms_pwd());
-	if (bd == 4)
+	if (bd == BI_EXPORT)
 		return (ms_export(&(args[1])));
-	if (bd == 5)
+	if (bd == BI_UNSET)
 		return (ms_unset(&(args[1])));
+	if (bd == BI_EXIT)
+	{
+		ms_clean(g_shell.data);
+		exit(0);
+	}
 	return (0);
 }
 
@@ -76,43 +81,49 @@ int	ms_exec(t_node *head, int pipIN)
 {
 	int		pip[2];
 	int		test;
+	int		error;
 	pid_t	pid;
 
 	test = 0;
+	error = 0;
 	if (!head)
 		return (1);
 	if (head->type == NO_CMD)
 	{
 		if (head->data->cmd)
 		{
-			if (head->data->buildin == 1 || head->data->buildin == 4
-				|| head->data->buildin == 5)
-				g_shell.rvar = ms_exec_bd(head->data->buildin, head->data->args);
+			if (head->data->buildin == BI_CD || head->data->buildin == BI_EXPORT
+				|| head->data->buildin == BI_UNSET || head->data->buildin == BI_EXIT)
+				error = ms_exec_bd(head->data->buildin, head->data->args);
 			else
 			{
 				pid = fork();
 				if (pid == -1)
-					return (1);
+					return (errno);
 				if (pid == 0)
 					return (child(head->data, pipIN, 0));
 				head->pid = pid;
-				wait(&(g_shell.rvar));
+				wait(&error);
 			}
 		}
 		ms_close_fds(head->data, pipIN);
-		return (0);
+		return (error);
 	}
 	if (head->type == NO_PIPE)
 	{	
 		test = pipe(pip);
+		if (test == -1)
+			return (errno);
 		pid = fork();
-		if (test == -1 || pid == -1)
-			return (-1);
+		if (pid == -1)
+			return (errno);
 		if (pid == 0)
 			return (child(head->left->data, pipIN, pip[1]));
-		wait(&(g_shell.rvar));
+		wait(&error);
 		close(pip[1]);
-		ms_exec(head->right, pip[0]);
+		if (error)
+			return (error);
+		error = ms_exec(head->right, pip[0]);
 	}
-	return (0);
+	return (error);
 }	

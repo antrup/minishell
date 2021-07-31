@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:03:04 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/29 20:50:17 by toni             ###   ########.fr       */
+/*   Updated: 2021/07/31 20:10:09 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ typedef struct s_info
 	struct sigaction	sig;
 }	t_info;
 
-typedef struct s_moarkers
+typedef struct s_markers
 {
 	int	_and;
 	int	_or;

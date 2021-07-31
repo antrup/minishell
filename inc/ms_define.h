@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 17:32:12 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/29 23:46:10 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/31 20:30:02 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@
 # define BI_UNSET 5
 # define BI_ENV 6
 # define BI_EXIT 7
-/*
-** ERRORS
+/** ERRORS
 */
 # define ERR_SYN -1
 # define ERR_TK -2
@@ -50,16 +49,6 @@
 # define ERR_REDIR_IN 9
 # define ERR_CD -10
 # define ERR_MEM -11
-
-/*
-** MARKERS
-*/
-# define FAIL 0
-# define SUCCESS 1
-
-/*
-** KEYS
-*/
 
 # define KEY_NONE 0
 # define KEY_CTRL_C 3
@@ -78,5 +67,9 @@
 # define CD_CURRENT_R 6
 # define CD_NOT 7
 # define CD_RELATIVE_R 8
+
+/*
+** BUILT IN COMMANDS
+*/
 
 #endif

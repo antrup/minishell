@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/30 15:23:32 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/31 20:30:25 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,16 +100,16 @@ void	ms_init_env(void);
 */
 void	ms_clean(t_ms *data);
 void	ms_clean_cmd(t_node **head);
-void	ms_clean_tlist(t_tlist **list);
+void	ms_clean_tlist_cmd(t_tlist **list);
+void	ms_clean_tlist_or(t_tlist **list);
+void	ms_clean_tlist_all(t_tlist **list);
 void	ms_clean_tk_or(t_tlist **list);
-void	ms_clean_tk_all_or(t_tlist **list);
 void	ms_clean_environ(void);
 
 /*
 ** SIGNAL HANDLERS
 */
 
-void	ms_exit(int sig);
 void	ms_newline(int sig);
 /*
 ** EXPANSER
@@ -173,6 +173,7 @@ int		ms_export_env(char *path, char *old_path);
 int		ms_isrelative(char *arg);
 void	ms_slash_join(char *path, char *target, char *str);
 int		ms_error_nav(char *path1, char *path2, int error);
+void	ms_exit(int sig);
 
 /*
 ** DEBUG -- TEST                                                |~

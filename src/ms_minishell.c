@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/30 15:22:29 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/31 20:28:48 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	ms_markers(t_tlist *tokens, t_markers *op)
 static int	ms_minishell(t_ms *data, char **env)
 {
 	t_markers	op;
-	
+
 	ft_memset(&op, 0, sizeof(op));
 	ms_expanser(&data->tokens);
 	ms_markers(data->tokens, &op);
@@ -49,11 +49,14 @@ static int	ms_minishell(t_ms *data, char **env)
 #endif
 	tcsetattr(0, TCSANOW, &data->info.term_ios);
 	op.ret = ms_exec(data->thead, 0);
+	g_shell.rvar = op.ret;
 	ms_clean_cmd(&data->thead);
-	if (op._or > 0 && op.ret == SUCCESS)
-		ms_clean_tk_all_or(&data->tokens);
+	if (op._or > 0 && op.ret == 0)
+		ms_clean_tlist_or(&data->tokens);
+	else if (op._or == 0 && op._and > 0 && op.ret != 0)
+		ms_clean_tlist_all(&data->tokens);
 	else
-		ms_clean_tlist(&data->tokens);
+		ms_clean_tlist_cmd(&data->tokens);
 	if (data->tokens != NULL)
 		ms_minishell(data, env);
 	return (0);

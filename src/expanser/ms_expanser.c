@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 09:41:43 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/29 02:12:38 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/31 20:51:46 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,7 @@ void	ms_expanser(t_tlist **tokens)
 	int			i;
 
 	token = *tokens;
-	while (token && token->tk.type != OP_PIPE && token->tk.type != OP_AND
-			&& token->tk.type != OP_OR)
+	while (token && token->tk.type != OP_AND && token->tk.type != OP_OR)
 	{
 		wlist = NULL;
 		if (token->tk.type == WORD || token->tk.type == VAR)

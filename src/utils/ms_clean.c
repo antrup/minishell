@@ -6,13 +6,13 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 00:17:37 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/30 15:22:10 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/07/31 20:44:12 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
 
-void	ms_clean_environ()
+void	ms_clean_environ(void)
 {
 	int	i;
 
@@ -29,7 +29,7 @@ void	ms_clean_environ()
 	free(environ);
 }
 
-void	ms_clean_tlist(t_tlist **list)
+void	ms_clean_tlist_cmd(t_tlist **list)
 {
 	t_tlist	*temp;
 
@@ -62,7 +62,7 @@ void	ms_clean_tlist(t_tlist **list)
 	}
 }
 
-void	ms_clean_tk_all_or(t_tlist **list)
+void	ms_clean_tlist_or(t_tlist **list)
 {
 	t_tlist	*temp;
 
@@ -80,6 +80,20 @@ void	ms_clean_tk_all_or(t_tlist **list)
 		free(*list);
 	}
 	*list = temp;
+}
+
+void	ms_clean_tlist_all(t_tlist **list)
+{
+	t_tlist	*temp;
+
+	while (*list)
+	{
+		temp = (*list)->next;
+		if ((*list)->tk.value)
+			free((*list)->tk.value);
+		free(*list);
+		*list = temp;
+	}
 }
 
 void	ms_clean_cmd(t_node **node)
@@ -129,7 +143,9 @@ void	ms_clean_wlist(t_word *list)
 void	ms_clean(t_ms *data)
 {
 	if (data->tokens)
-		ms_clean_tlist(&data->tokens);
+		ms_clean_tlist_all(&data->tokens);
+	if (data->thead)
+		ms_clean_cmd(&data->thead);
 	if (data->line)
 		free(data->line);
 }
