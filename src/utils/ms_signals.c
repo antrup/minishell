@@ -6,7 +6,7 @@
 /*   By: Satcheen SHAKYA <sshakya@student.42.f      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 12:02:43 by Satcheen          #+#    #+#             */
-/*   Updated: 2021/08/01 19:22:25 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/01 19:23:13 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,13 @@ void	ms_newline(int sig)
 		close(g_shell.rda_fd[0]);
 		return (exit(0));
 	}
+	else 
+	{
 	write(0, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
+	}
 }
 
 void	ms_exit(int sig)
