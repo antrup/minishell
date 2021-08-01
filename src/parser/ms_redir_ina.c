@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 00:14:38 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/28 17:55:56 by toto             ###   ########.fr       */
+/*   Updated: 2021/08/01 20:22:54 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static char	*ms_strjoin(char *buff, char *line)
 {
 	char	*str;
 	size_t	len;
-	
+
 	if (!buff)
 	{	
 		str = ft_strdup(line);
@@ -70,46 +70,71 @@ static char	*ms_strjoin(char *buff, char *line)
 	return (str);
 }
 
-int	ms_redir_ina(t_tlist **token, t_command *command)
+static int ms_write_heredoc(char *end, int *fd)
 {
-	int		fd[2];
-	char	*end;
 	char	*line;
 	char	*buff;
-	int		flag;
+
+	buff = NULL;
+	line = NULL;
+	while (1)
+	{
+		line = readline("> ");
+		if (line == NULL)
+			break;
+		//	return (ERR_REDIR_IN);
+		if (ft_strcmp(line, end))
+			break ;
+		buff = ms_strjoin(buff, line);
+		if (buff == NULL)
+			return (errno);
+	}
+	ft_putstr_fd(buff, fd[1]);
+	ft_putchar_fd('\n', fd[1]);
+	free(buff);
+	free(line);
+	close(fd[1]);
+	return (0);
+}
+
+static int	ms_fork_redir(char *end)
+{
+	int	error;
+	int	fd[2];
+	pid_t pid;
+
+	error = 0;
+	if (end == NULL)
+		return (0);
+	if (pipe(fd) == -1)
+		return (ERR_PIPE);
+	g_shell.rda_fd[0] = fd[0];
+	g_shell.rda = 1;
+	pid = fork();
+	if (pid == -1)
+		return (ERR_REDIR_IN);
+	g_shell.r_pid = pid;
+	if (pid == 0)
+	{
+		error = ms_write_heredoc(end, fd);
+		exit(0);
+	}
+	wait(NULL);
+	close(fd[1]);
+	g_shell.rda = 0;
+	return (fd[0]);
+}
+
+int	ms_redir_ina(t_tlist **token, t_command *command)
+{
+	char	*end;
 
 	if (!(*token)->next || (*token)->next->tk.type != WORD)
 		return (ERR_SYN);
 	*token = (*token)->next;
 	end = (*token)->tk.value;
-	if (pipe(fd) == -1)
-		return (ERR_PIPE);
 	command->redirIN = 1;
-	flag = 1;
-	buff = NULL;
-	while (flag)
-	{
-		g_shell.rda = 1;
-		line = readline("> ");
-		if (line == NULL)
-		{
-			*token = (*token)->next;
-			return (ERR_REDIR_IN);
-		}
-		if (ft_strcmp(line, end))
-			flag = 0;
-		else
-		{
-			buff = ms_strjoin(buff, line);
-			if (buff == NULL)
-				return (errno);
-		}
-	}
-	ft_putstr_fd(buff, fd[1]);
-	ft_putchar_fd('\n', fd[1]);
-	free(buff);
-	close(fd[1]);
-	command->INfd = fd[0];
+	command->INfd = ms_fork_redir(end);
 	*token = (*token)->next;
 	return (0);
 }

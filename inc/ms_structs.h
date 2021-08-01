@@ -6,12 +6,48 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:03:04 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/31 20:10:09 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/01 11:57:05 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MS_STRUCTS_H
 # define MS_STRUCTS_H
+
+
+
+/*
+** TOKENS
+*/
+
+enum e_token_type
+{
+	ERROR = -1,
+	WORD = 0,
+	OP_PIPE = 1,
+	OP_AND = 2,
+	OP_OR = 3,
+	REDIR_IN = 4,
+	REDIR_OUT = 5,
+	REDIR_IN_A = 6,
+	REDIR_OUT_A = 7,
+	P_OPEN = 9,
+	P_CLOSE = 10,
+	VAR = 8
+};
+
+typedef struct s_token
+{
+	enum e_token_type	type;
+	char				*value;
+
+}	t_token;
+
+typedef struct s_tlist
+{	
+	t_token				tk;
+	struct s_tlist		*next;
+	struct s_tlist		*previous;
+}	t_tlist;
 
 /*
 ** WORD LIST / TOKEN
@@ -61,40 +97,6 @@ typedef	struct	s_node
 	pid_t				pid;
 }	t_node;
 
-/*
-** TOKENS
-*/
-
-enum e_token_type
-{
-	ERROR = -1,
-	WORD = 0,
-	OP_PIPE = 1,
-	OP_AND = 2,
-	OP_OR = 3,
-	REDIR_IN = 4,
-	REDIR_OUT = 5,
-	REDIR_IN_A = 6,
-	REDIR_OUT_A = 7,
-	P_OPEN = 9,
-	P_CLOSE = 10,
-	VAR = 8
-};
-
-typedef struct s_token
-{
-	enum e_token_type	type;
-	char				*value;
-
-}	t_token;
-
-typedef struct s_tlist
-{	
-	t_token				tk;
-	struct s_tlist		*next;
-	struct s_tlist		*previous;
-}	t_tlist;
-
 typedef struct s_info
 {
 	int					inte;
@@ -120,6 +122,8 @@ typedef struct s_shell
 	int			on;
 	int			rvar;
 	int			rda;
+	int			rda_fd[2];
+	pid_t		r_pid;
 	struct s_ms	*data;
 	char		**env_pt;
 }	t_shell;
