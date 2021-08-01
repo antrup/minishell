@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 00:14:38 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/01 18:49:13 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/01 19:12:57 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ static int	ms_fork_redir(char *end)
 		exit(0);
 	}
 	wait(NULL);
+	close(fd[1]);
 	printf("fork fd = %d\n", fd[0]);
 	return (fd[0]);
 }
