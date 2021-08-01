@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 00:14:38 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/01 19:12:57 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/01 20:22:54 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,16 +74,15 @@ static int ms_write_heredoc(char *end, int *fd)
 {
 	char	*line;
 	char	*buff;
-	int		eof;
 
 	buff = NULL;
 	line = NULL;
-	eof = EOF;
 	while (1)
 	{
 		line = readline("> ");
 		if (line == NULL)
-			return (ERR_REDIR_IN);
+			break;
+		//	return (ERR_REDIR_IN);
 		if (ft_strcmp(line, end))
 			break ;
 		buff = ms_strjoin(buff, line);
@@ -92,7 +91,6 @@ static int ms_write_heredoc(char *end, int *fd)
 	}
 	ft_putstr_fd(buff, fd[1]);
 	ft_putchar_fd('\n', fd[1]);
-	write(fd[1], &eof, 1);
 	free(buff);
 	free(line);
 	close(fd[1]);
@@ -111,21 +109,19 @@ static int	ms_fork_redir(char *end)
 	if (pipe(fd) == -1)
 		return (ERR_PIPE);
 	g_shell.rda_fd[0] = fd[0];
-	g_shell.rda_fd[1] = fd[1];
+	g_shell.rda = 1;
 	pid = fork();
 	if (pid == -1)
 		return (ERR_REDIR_IN);
+	g_shell.r_pid = pid;
 	if (pid == 0)
 	{
-		g_shell.rda = 1;
 		error = ms_write_heredoc(end, fd);
-		printf("fork fd = %d\n", fd[0]);
-		printf("fork pid = %d\n", pid);
 		exit(0);
 	}
 	wait(NULL);
 	close(fd[1]);
-	printf("fork fd = %d\n", fd[0]);
+	g_shell.rda = 0;
 	return (fd[0]);
 }
 
@@ -139,7 +135,6 @@ int	ms_redir_ina(t_tlist **token, t_command *command)
 	end = (*token)->tk.value;
 	command->redirIN = 1;
 	command->INfd = ms_fork_redir(end);
-	printf("infd = %d\n", command->INfd);
 	*token = (*token)->next;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: Satcheen SHAKYA <sshakya@student.42.f      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 12:02:43 by Satcheen          #+#    #+#             */
-/*   Updated: 2021/08/01 19:23:13 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/01 20:17:07 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,10 @@
 void	ms_newline(int sig)
 {
 	(void)sig;
-	if (g_shell.data->thead != NULL && !g_shell.rda)
+	if (g_shell.data->thead != NULL && g_shell.r_pid != 0)
 	{
 		write(0, "\n", 1);
-		write(0, "@", 1);
 		return ;
-	}
-	if (g_shell.rda == 1)
-	{
-		write(0, "#", 1);
-		close(g_shell.rda_fd[0]);
-		return (exit(0));
 	}
 	else 
 	{
@@ -49,9 +42,11 @@ void	ms_exit(int sig)
 	}
 	if (g_shell.rda == 1)
 	{
-		write(0, "$", 1);
-		//write(g_shell.rda_fd[0], &i, 1); 
-		exit(0);
+		if (g_shell.r_pid == 0)
+		{	
+			close(g_shell.rda_fd[0]);
+			exit(0);
+		}
 	}
 	else 
 	{
