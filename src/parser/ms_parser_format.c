@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 11:55:38 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/21 17:13:52 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/01 12:15:33 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ char	*ms_format_cmd(char *file_name)
 	else
 	{	
 		tab_path = ms_ext_path();
+		if (!tab_path)
+			return (ft_strdup(file_name));
 		size_name = ms_name_sizer(file_name);
 		file_path = ms_find_cmd_path(file_name, &tab_path, size_name);
 	}

@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:14:09 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/30 15:20:23 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/01 12:14:41 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	ms_init_env(void)
 {
 //	int		i;
-//	char	**new_env;
+	char	*pwd;
+	char	*pwd_env;
 //	int		j;
 //
 //	i = 0;
@@ -32,7 +33,21 @@ void	ms_init_env(void)
 //	}
 //	new_env[i] = NULL;
 //	environ = new_env;
+	if (!getenv("PWD"))
+	{
+		pwd = malloc(sizeof(char) * 1000);
+		if (!pwd)
+			return;
+		if (!getcwd(pwd, 1000))
+			return;
+		pwd_env = malloc(sizeof(char) * (ft_strlen(pwd) + 5));
+		if (!pwd_env)
+			return;
+		ft_strlcpy(pwd_env, "PWD=", 5);
+		ft_strlcpy(pwd_env + 4, pwd, ft_strlen(pwd) + 1);
+		ms_export(&pwd_env);
 	g_shell.env_pt = NULL;
+	}
 }
 
 void	ms_init(t_ms *data)

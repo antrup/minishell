@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:19:21 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/31 20:32:18 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/01 11:50:06 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int ms_exec_bd(int	bd, char **args)
 		ms_clean(g_shell.data);
 		exit(0);
 	}
+	if (bd == BI_ENV)
+		return (ms_env());
 	return (0);
 }
 
@@ -93,7 +95,8 @@ int	ms_exec(t_node *head, int pipIN)
 		if (head->data->cmd)
 		{
 			if (head->data->buildin == BI_CD || head->data->buildin == BI_EXPORT
-				|| head->data->buildin == BI_UNSET || head->data->buildin == BI_EXIT)
+				|| head->data->buildin == BI_UNSET || head->data->buildin == BI_EXIT
+				|| head->data->buildin == BI_ENV)
 				error = ms_exec_bd(head->data->buildin, head->data->args);
 			else
 			{
