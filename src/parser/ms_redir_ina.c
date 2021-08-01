@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 00:14:38 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/01 13:12:57 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/01 18:49:13 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,11 @@ static int ms_write_heredoc(char *end, int *fd)
 {
 	char	*line;
 	char	*buff;
+	int		eof;
 
 	buff = NULL;
 	line = NULL;
+	eof = EOF;
 	while (1)
 	{
 		line = readline("> ");
@@ -90,47 +92,40 @@ static int ms_write_heredoc(char *end, int *fd)
 	}
 	ft_putstr_fd(buff, fd[1]);
 	ft_putchar_fd('\n', fd[1]);
+	write(fd[1], &eof, 1);
 	free(buff);
+	free(line);
 	close(fd[1]);
 	return (0);
-}
-
-static int	ms_heredoc(char *end)
-{
-	int		fd[2];
-	int		error;
-
-	error = 0;
-	g_shell.rda_fd[0] = fd[0];
-	g_shell.rda_fd[1] = fd[1];
-	if (pipe(fd) == -1)
-		return (ERR_PIPE);
-	error = ms_write_heredoc(end, fd);
-	if (error)
-		return (-1);
-	return (fd[0]);
 }
 
 static int	ms_fork_redir(char *end)
 {
 	int	error;
+	int	fd[2];
 	pid_t pid;
 
 	error = 0;
 	if (end == NULL)
 		return (0);
+	if (pipe(fd) == -1)
+		return (ERR_PIPE);
+	g_shell.rda_fd[0] = fd[0];
+	g_shell.rda_fd[1] = fd[1];
 	pid = fork();
 	if (pid == -1)
 		return (ERR_REDIR_IN);
 	if (pid == 0)
 	{
 		g_shell.rda = 1;
-		error = ms_heredoc(end);
-		printf("%d\n", error);
-		exit(error);
+		error = ms_write_heredoc(end, fd);
+		printf("fork fd = %d\n", fd[0]);
+		printf("fork pid = %d\n", pid);
+		exit(0);
 	}
-	wait(&error);
-	return (error);
+	wait(NULL);
+	printf("fork fd = %d\n", fd[0]);
+	return (fd[0]);
 }
 
 int	ms_redir_ina(t_tlist **token, t_command *command)
@@ -143,7 +138,7 @@ int	ms_redir_ina(t_tlist **token, t_command *command)
 	end = (*token)->tk.value;
 	command->redirIN = 1;
 	command->INfd = ms_fork_redir(end);
-	printf("%d\n", command->INfd);
+	printf("infd = %d\n", command->INfd);
 	*token = (*token)->next;
 	return (0);
 }
