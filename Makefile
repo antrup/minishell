@@ -77,7 +77,7 @@ $(NAME): ${OBJS} ${LIBFT}
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p ${@D}
-	${CC} ${CFLAGS} ${IRDLINE} ${TFLAG} -I./inc -c $< -o $@
+	${CC} ${CFLAGS} ${MEM} ${IRDLINE} ${TFLAG} -I./inc -c $< -o $@
 
 test: TFLAG = -D TEST=1 -D OSX=${OS}
 

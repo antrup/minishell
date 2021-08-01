@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 00:14:38 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/28 17:55:56 by toto             ###   ########.fr       */
+/*   Updated: 2021/08/01 13:12:57 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static char	*ms_strjoin(char *buff, char *line)
 {
 	char	*str;
 	size_t	len;
-	
+
 	if (!buff)
 	{	
 		str = ft_strdup(line);
@@ -70,46 +70,80 @@ static char	*ms_strjoin(char *buff, char *line)
 	return (str);
 }
 
-int	ms_redir_ina(t_tlist **token, t_command *command)
+static int ms_write_heredoc(char *end, int *fd)
 {
-	int		fd[2];
-	char	*end;
 	char	*line;
 	char	*buff;
-	int		flag;
 
-	if (!(*token)->next || (*token)->next->tk.type != WORD)
-		return (ERR_SYN);
-	*token = (*token)->next;
-	end = (*token)->tk.value;
-	if (pipe(fd) == -1)
-		return (ERR_PIPE);
-	command->redirIN = 1;
-	flag = 1;
 	buff = NULL;
-	while (flag)
+	line = NULL;
+	while (1)
 	{
-		g_shell.rda = 1;
 		line = readline("> ");
 		if (line == NULL)
-		{
-			*token = (*token)->next;
 			return (ERR_REDIR_IN);
-		}
 		if (ft_strcmp(line, end))
-			flag = 0;
-		else
-		{
-			buff = ms_strjoin(buff, line);
-			if (buff == NULL)
-				return (errno);
-		}
+			break ;
+		buff = ms_strjoin(buff, line);
+		if (buff == NULL)
+			return (errno);
 	}
 	ft_putstr_fd(buff, fd[1]);
 	ft_putchar_fd('\n', fd[1]);
 	free(buff);
 	close(fd[1]);
-	command->INfd = fd[0];
+	return (0);
+}
+
+static int	ms_heredoc(char *end)
+{
+	int		fd[2];
+	int		error;
+
+	error = 0;
+	g_shell.rda_fd[0] = fd[0];
+	g_shell.rda_fd[1] = fd[1];
+	if (pipe(fd) == -1)
+		return (ERR_PIPE);
+	error = ms_write_heredoc(end, fd);
+	if (error)
+		return (-1);
+	return (fd[0]);
+}
+
+static int	ms_fork_redir(char *end)
+{
+	int	error;
+	pid_t pid;
+
+	error = 0;
+	if (end == NULL)
+		return (0);
+	pid = fork();
+	if (pid == -1)
+		return (ERR_REDIR_IN);
+	if (pid == 0)
+	{
+		g_shell.rda = 1;
+		error = ms_heredoc(end);
+		printf("%d\n", error);
+		exit(error);
+	}
+	wait(&error);
+	return (error);
+}
+
+int	ms_redir_ina(t_tlist **token, t_command *command)
+{
+	char	*end;
+
+	if (!(*token)->next || (*token)->next->tk.type != WORD)
+		return (ERR_SYN);
+	*token = (*token)->next;
+	end = (*token)->tk.value;
+	command->redirIN = 1;
+	command->INfd = ms_fork_redir(end);
+	printf("%d\n", command->INfd);
 	*token = (*token)->next;
 	return (0);
 }
