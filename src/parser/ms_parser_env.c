@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 12:04:53 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/26 17:12:52 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/01 12:01:39 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ char	**ms_ext_path(void)
 	i = 0;
 	count = 1;
 	path = getenv("PATH");
+	if (!path)
+		return (NULL);
 	while (path[i] != '\0')
 	{
 		if (path[i] == ':')

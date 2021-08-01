@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/01 22:20:22 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/01 22:24:43 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,7 @@ int		ms_exp_check(char	*str);
 int		ms_unset_check(char	*str);
 char	*ms_exp_extr_var(char	*str);
 int		ms_copy_env(void);
+int		ms_env(void);
 
 /*
 ** BUILDIN -- CD
