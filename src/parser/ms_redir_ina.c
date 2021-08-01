@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 00:14:38 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/01 20:22:54 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/01 22:49:11 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,16 @@ static char	*ms_strjoin(char *buff, char *line)
 	return (str);
 }
 
+static void	ms_heredoc_error(char *end)
+{
+	int	i;
+
+	i = ms_strlen(end);
+	write (0, "minishell: warning: found end-of-file (wanted `", 47); 
+	write (0, end, i);
+	write (0, "')\n", 3);
+}
+
 static int ms_write_heredoc(char *end, int *fd)
 {
 	char	*line;
@@ -81,8 +91,10 @@ static int ms_write_heredoc(char *end, int *fd)
 	{
 		line = readline("> ");
 		if (line == NULL)
+		{
+			ms_heredoc_error(end);
 			break;
-		//	return (ERR_REDIR_IN);
+		}
 		if (ft_strcmp(line, end))
 			break ;
 		buff = ms_strjoin(buff, line);

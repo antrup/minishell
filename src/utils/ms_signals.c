@@ -6,7 +6,7 @@
 /*   By: Satcheen SHAKYA <sshakya@student.42.f      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 12:02:43 by Satcheen          #+#    #+#             */
-/*   Updated: 2021/08/01 20:17:07 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/01 22:36:41 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	ms_exit(int sig)
 		if (g_shell.r_pid == 0)
 		{	
 			close(g_shell.rda_fd[0]);
+			write (0, "\n", 1);
 			exit(0);
 		}
 	}
