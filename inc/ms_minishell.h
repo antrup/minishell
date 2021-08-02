@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/02 16:40:40 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/03 00:57:02 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,8 @@ int		ms_init_parser(t_node **node, t_command **command, char **env);
 int		ms_redir_ina(t_tlist **token, t_command *command);	
 char	*ms_heredoc_join(char *buff, char *line);
 void	ms_heredoc_error(char *end);
+char	*ms_heredoc_expand(char *line);
+int		ms_hasvar(char *line);
 
 /*
 ** EXEC

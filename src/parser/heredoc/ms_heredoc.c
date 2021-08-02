@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 16:29:51 by user42            #+#    #+#             */
-/*   Updated: 2021/08/02 16:41:27 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/03 01:49:35 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,12 @@ static int ms_write_heredoc(char *end, int *fd)
 		}
 		if (ft_strcmp(line, end))
 			break ;
+		if (ms_hasvar(line))
+			line = ms_heredoc_expand(line);
 		buff = ms_heredoc_join(buff, line);
 		if (buff == NULL)
 			return (errno);
 	}
-//	buff = ms_heredoc_vars(buff);
 	ft_putstr_fd(buff, fd[1]);
 	ft_putchar_fd('\n', fd[1]);
 	free(buff);
