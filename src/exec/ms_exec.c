@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:19:21 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/01 20:33:49 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/02 18:27:17 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,22 @@ void	ms_close_fds(t_command *cmd, int pipIN)
 		close(pipIN);
 }
 
+void	ms_wait_children(t_node *current, int *error)
+{
+	if (current->type == NO_CMD)
+	{
+		waitpid(current->pid, error, 0);
+		return;
+	}
+	else
+	{
+		waitpid(current->left->pid, NULL, 0);
+		ms_wait_children(current->right, error);
+		return;
+	}
+}
+
+
 int	ms_exec(t_node *head, int pipIN)
 {
 	int		pip[2];
@@ -101,12 +117,12 @@ int	ms_exec(t_node *head, int pipIN)
 			else
 			{
 				pid = fork();
+				head->pid = pid;
 				if (pid == -1)
 					return (errno);
 				if (pid == 0)
 					return (child(head->data, pipIN, 0));
-				head->pid = pid;
-				wait(&error);
+				ms_wait_children(g_shell.data->thead, &error);
 			}
 		}
 		ms_close_fds(head->data, pipIN);
@@ -118,11 +134,12 @@ int	ms_exec(t_node *head, int pipIN)
 		if (test == -1)
 			return (errno);
 		pid = fork();
+		head->left->pid = pid;
 		if (pid == -1)
 			return (errno);
 		if (pid == 0)
 			return (child(head->left->data, pipIN, pip[1]));
-		wait(&error);
+		//wait(&error);
 		close(pip[1]);
 		if (error)
 			return (error);
