@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:14:09 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/01 22:35:43 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/02 14:33:09 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,34 @@
 void	ms_init_env(void)
 {
 	char	*pwd;
-	char	*pwd_env;
+	char	**pwd_env;
 	if (!getenv("PWD"))
 	{
+		environ = NULL;
 		pwd = malloc(sizeof(char) * 1000);
 		if (!pwd)
 			return;
 		if (!getcwd(pwd, 1000))
 			return;
-		pwd_env = malloc(sizeof(char) * (ft_strlen(pwd) + 5));
+		pwd_env = malloc(sizeof(char *) * 2);
 		if (!pwd_env)
 			return;
-		ft_strlcpy(pwd_env, "PWD=", 5);
-		ft_strlcpy(pwd_env + 4, pwd, ft_strlen(pwd) + 1);
-		ms_export(&pwd_env);
-	g_shell.env_pt = NULL;
+		pwd_env[0] = malloc(sizeof(char) * (ft_strlen(pwd) + 5));
+		if (!pwd_env[0])
+			return;
+		pwd_env[1] = NULL;
+		ft_strlcpy(pwd_env[0], "PWD=", 5);
+		ft_strlcpy(pwd_env[0] + 4, pwd, ft_strlen(pwd) + 1);
+		ms_export(pwd_env);
+		g_shell.env_pt = NULL;
+		free(pwd_env[0]);
+		pwd_env[0] = malloc(sizeof(char) * 10);
+		if (!pwd_env[0])
+			return;
+		ft_strlcpy(pwd_env[0], "PATH=/bin", 10);
+		ms_export(pwd_env);
+		free(pwd_env[0]);
+		free(pwd_env);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:55:30 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/29 21:10:28 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/02 14:17:35 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,13 @@ int		ms_copy_env(void)
 	int		j;
 
 	i = 0;
-	while (environ[i])
-		i++;
+	if (!environ)
+		i = 0;
+	else
+	{
+		while (environ[i])
+			i++;
+	}
 	new_env = malloc(sizeof(char *) * (i + 2));
 	if (!new_env)
 		return (i - 1);

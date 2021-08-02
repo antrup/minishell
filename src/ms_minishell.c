@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/01 11:57:52 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/02 16:12:36 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,12 @@ static void	ms_markers(t_tlist *tokens, t_markers *op)
 static int	ms_minishell(t_ms *data, char **env)
 {
 	t_markers	op;
-
+	
+	if (ms_check_syntax(data->tokens))
+	{	
+		ms_clean_tlist_all(&data->tokens);
+		return (1);
+	}
 	ft_memset(&op, 0, sizeof(op));
 	ms_expanser(&data->tokens);
 	ms_markers(data->tokens, &op);
@@ -105,7 +110,7 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argv;
 	(void)argc;
-	//ms_init_env();
+	ms_init_env();
 	ms_init(&data);
 	if (argc > 1)
 		ms_arg_shell(&data, argv, env, argc);

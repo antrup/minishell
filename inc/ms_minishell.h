@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/01 22:24:43 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/02 15:46:40 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,13 @@ void	ms_clean_tlist_or(t_tlist **list);
 void	ms_clean_tlist_all(t_tlist **list);
 void	ms_clean_tk_or(t_tlist **list);
 void	ms_clean_environ(void);
+
+/*
+** ERRO
+*/
+
+int		ms_check_syntax(t_tlist *tokens);
+void	ms_error_token(t_token *token);
 
 /*
 ** SIGNAL HANDLERS
