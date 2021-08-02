@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 09:41:43 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/01 22:24:28 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/02 16:36:00 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,17 @@ static int	ms_exp_oth(char *word, int *i, t_word **wlist, int type)
 	if (!new)
 		return (1);
 	y = *i;
-	while (word[y] && ms_isquote(word[y]) != type && !ms_isvariable(&(word[y])))
+	if (type == -1)
+	{	
+		while (word[y] && !ms_isquote(word[y]) && !ms_isvariable(&(word[y])))
 		y++;
+	}
+	else
+	{
+		while (word[y] && ms_isquote(word[y]) != type 
+			&& !ms_isvariable(&(word[y])))
+		y++;
+	}
 	new->part = ft_substr(word, *i, y - *i);
 	*i = y;
 	return (0);
