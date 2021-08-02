@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 00:17:37 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/31 20:44:12 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/02 19:08:38 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ void	ms_clean_cmd(t_node **node)
 		if ((*node)->type == NO_CMD)
 		{
 			free((*node)->data->cmd);
-			free((*node)->data->delimiter);
 			if ((*node)->data->args)
 			{
 				while ((*node)->data->args[i])

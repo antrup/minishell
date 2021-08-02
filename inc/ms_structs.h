@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:03:04 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/02 18:27:20 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/02 19:07:47 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,14 @@ typedef	struct	s_command
 	char	*cmd;
 	char	**args;
 	char	**argve;
-	char	flag;
 	int		buildin;
 	int		redirIN;
 	int		redirOUT;
 	int		INfd;
-	char	*delimiter;
 	int		OUTfd;
-	
+	int		OUTerror;
+	int		error;
+	char	*error_file_name;
 }	t_command;
 
 /*

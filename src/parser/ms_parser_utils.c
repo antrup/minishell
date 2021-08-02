@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 12:02:43 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/27 19:57:41 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/02 19:17:34 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,9 @@ int	ms_init_parser(t_node **node, t_command **command, char **env)
 	(*command)->redirIN = 0;
 	(*command)->redirOUT = 0;
 	(*command)->INfd = 0;
-	(*command)->delimiter = NULL;
 	(*command)->OUTfd = 1;
+	(*command)->error = 0;
+	(*command)->error_file_name = NULL;
 	return (0);
 }
 

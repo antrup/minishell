@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:19:21 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/02 18:27:17 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/02 19:17:32 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,15 @@ static int child(t_command *cmd, int pipIN, int pipOUT)
 	}
 	else if (pipIN)
 		dup2(pipIN, 0);
+	if (cmd->error)
+	{
+		write(2, "minishell: ", 11);
+		write(2, cmd->error_file_name, ft_strlen(cmd->error_file_name));
+		write(2, ": ", 2);
+		write(2, strerror(cmd->error), ft_strlen(strerror(cmd->error)));
+		write(2, "\n", 1);
+		exit (1);
+	}
 	if (cmd->buildin)
 		return(ms_exec_bd(cmd->buildin, cmd->args));
 	child_ex(cmd->cmd, cmd->argve, cmd->args);
