@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 11:59:31 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/27 17:29:22 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/02 16:45:14 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ char	*ms_format_tile(char *file_name)
 	int		size;
 
 	pwd = getenv("HOME");
+	if (!pwd)
+		return (ft_strdup(file_name));
 	size = ft_strlen(file_name) + ft_strlen(pwd) + 1;
 	file_path = malloc(sizeof(char) * size);
 	ft_strlcpy(file_path, pwd, ft_strlen(pwd) + 1);
