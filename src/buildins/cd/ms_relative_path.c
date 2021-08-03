@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 19:09:18 by user42            #+#    #+#             */
-/*   Updated: 2021/07/30 14:08:44 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/03 02:54:04 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,13 @@ int	ms_relative_path(char *path)
 {
 	int		type;
 	int		error;
+	char	*test;
 
+	test = getenv("PWD");
+	if (test == NULL)
+		return (errno);
+	if (test[0] == '/' && test[1] == '\0')
+		return (0);
 	error = 0;
 	type = ms_isrelative(path);
 	if (type == CD_NONE)
