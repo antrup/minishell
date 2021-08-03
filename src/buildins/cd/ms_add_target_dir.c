@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/29 22:08:11 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/30 14:09:05 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/03 16:07:57 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ static char	*ms_strip_tslash(char *target)
 	return (target);
 }
 
-
 static char	*ms_get_target_name(char *path, int len)
 {
 	int		i;
@@ -74,6 +73,8 @@ char	*ms_add_target_dir(char *dir, char *path)
 	char	*new_path;
 
 	if (path == NULL)
+		return (dir);
+	if (path[0] == '~' && path[1] == '\0')
 		return (dir);
 	len = ms_get_target_len(path);
 	target = ms_get_target_name(path, len);

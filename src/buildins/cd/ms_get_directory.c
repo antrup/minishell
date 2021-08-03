@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/29 20:37:13 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/30 14:07:40 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/03 15:12:40 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,6 @@ static char	*ms_get_up_dir(void)
 	dir = malloc(sizeof(char) * (i + 2));
 	ft_strlcpy(dir, pwd, i + 2);
 	return (dir);
-}
-
-static char	*ms_get_home_dir(void)
-{
-	char	*home;
-
-	home = NULL;
-	home = getenv("HOME");
-	if (!home)
-		return (NULL);
-	home = ft_strdup(home);
-	return (home);
 }
 
 static char	*ms_get_current_dir(void)

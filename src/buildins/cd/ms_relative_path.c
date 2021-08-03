@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 19:09:18 by user42            #+#    #+#             */
-/*   Updated: 2021/08/03 02:54:04 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/03 16:19:41 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	ms_navigate_up(char *target)
 	old_path = NULL;
 	dir = NULL;
 	old_path = ms_get_directory(target, CD_CURRENT);
-	dir = ms_get_directory(target, CD_RELATIVE);	
+	dir = ms_get_directory(target, CD_RELATIVE);
 	new_path = ms_add_target_dir(dir, target);
 	free(dir);
 	error = chdir(new_path);
@@ -33,7 +33,7 @@ static int	ms_navigate_up(char *target)
 	return (0);
 }
 
-static int ms_navigate_up_one(char *target)
+static int	ms_navigate_up_one(char *target)
 {
 	int		error;
 	char	*new_path;
@@ -67,30 +67,9 @@ static int	ms_navigate_current(char *target)
 	return (0);
 }
 
-static int	ms_navigate_home(char *target)
-{	
-	int		error;
-	char	*new_path;
-	char	*old_path;
-	char	*home;
-
-	new_path = NULL;
-	old_path = NULL;
-	home = NULL;
-	old_path = ms_get_directory(target, CD_CURRENT);
-	home = ms_get_directory(target, CD_HOME);
-	new_path = ms_add_target_dir(home, target);
-	free(home);
-	error = chdir(new_path);
-	if (error)
-		return (ms_error_nav(old_path, new_path, errno));
-	ms_export_env(new_path, old_path);
-	return (0);
-}
-
 static int	ms_navigate_back(void)
 {
-	int	error;
+	int		error;
 	char	*new_path;
 	char	*old_path;
 
@@ -112,13 +91,7 @@ int	ms_relative_path(char *path)
 {
 	int		type;
 	int		error;
-	char	*test;
 
-	test = getenv("PWD");
-	if (test == NULL)
-		return (errno);
-	if (test[0] == '/' && test[1] == '\0')
-		return (0);
 	error = 0;
 	type = ms_isrelative(path);
 	if (type == CD_NONE)

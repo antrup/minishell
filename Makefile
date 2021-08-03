@@ -31,6 +31,7 @@ SRCS = ms_minishell.c \
 	   parser/ms_parser_utils.c \
 	   exec/ms_exec.c \
 	   buildins/cd/ms_cd.c \
+	   buildins/cd/ms_export_env.c \
 	   buildins/cd/ms_cd_utils.c \
 	   buildins/cd/ms_relative_path.c \
 	   buildins/cd/ms_change_path.c \

@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/03 14:52:36 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/03 15:19:16 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,8 @@ int		ms_export_env(char *path, char *old_path);
 int		ms_isrelative(char *arg);
 void	ms_slash_join(char *path, char *target, char *str);
 int		ms_error_nav(char *path1, char *path2, int error);
+int		ms_navigate_home(char *target);
+char	*ms_get_home_dir(void);
 
 /*
 ** DEBUG -- TEST                                                |~
