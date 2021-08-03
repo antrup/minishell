@@ -6,13 +6,13 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 09:41:43 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/01 22:24:28 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/03 03:35:29 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
 
-static int	ms_exp_var(char *word, int *i, t_word **wlist)
+int	ms_exp_var(char *word, int *i, t_word **wlist)
 {
 	t_word	*new;
 	int		y;

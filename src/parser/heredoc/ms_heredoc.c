@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 16:29:51 by user42            #+#    #+#             */
-/*   Updated: 2021/08/03 01:49:35 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/03 03:58:26 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@ static int ms_write_heredoc(char *end, int *fd)
 {
 	char	*line;
 	char	*buff;
+	int		error;
 
 	buff = NULL;
 	line = NULL;
+	error = 0;
 	while (1)
 	{
 		line = readline("> ");
@@ -31,9 +33,9 @@ static int ms_write_heredoc(char *end, int *fd)
 			break ;
 		if (ms_hasvar(line))
 			line = ms_heredoc_expand(line);
-		buff = ms_heredoc_join(buff, line);
-		if (buff == NULL)
-			return (errno);
+		buff = ms_heredoc_join(buff, line, &error);
+		if (error)
+			return (error);
 	}
 	ft_putstr_fd(buff, fd[1]);
 	ft_putchar_fd('\n', fd[1]);

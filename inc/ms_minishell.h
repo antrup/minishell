@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/03 00:57:02 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/03 03:58:53 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void	ms_newline(int sig);
 
 int		ms_isparen(char c);
 int		ms_isvariable(char *str);
+int		ms_exp_var(char *word, int *i, t_word **wlist);
 char	*ms_concat(t_word *wlist);
 void	ms_clean_wlist(t_word *list);
 void	ms_var_tokens(char *var, t_tlist **tokens, t_tlist **current);
@@ -147,7 +148,7 @@ int		ms_init_parser(t_node **node, t_command **command, char **env);
 */
 
 int		ms_redir_ina(t_tlist **token, t_command *command);	
-char	*ms_heredoc_join(char *buff, char *line);
+char	*ms_heredoc_join(char *buff, char *line, int *error);
 void	ms_heredoc_error(char *end);
 char	*ms_heredoc_expand(char *line);
 int		ms_hasvar(char *line);

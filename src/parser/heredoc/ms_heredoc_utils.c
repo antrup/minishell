@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 16:31:56 by user42            #+#    #+#             */
-/*   Updated: 2021/08/02 16:40:21 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/03 03:57:03 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,13 @@ static void	ms_join(char *buff, char *line, char *str)
 	str[i] = '\0';
 }
 
-char	*ms_heredoc_join(char *buff, char *line)
+char	*ms_heredoc_join(char *buff, char *line, int *error)
 {
 	char	*str;
 	size_t	len;
 
+	if (!line)
+		return (NULL);
 	if (!buff)
 	{	
 		str = ft_strdup(line);
@@ -63,7 +65,10 @@ char	*ms_heredoc_join(char *buff, char *line)
 	len = ms_strlen(buff) + ms_strlen(line);
 	str = malloc(sizeof(char) * (len + 2));
 	if (str == NULL)
+	{
+		*error = errno;
 		return (NULL);
+	}
 	ms_join(buff, line, str);
 	free(buff);
 	free(line);
