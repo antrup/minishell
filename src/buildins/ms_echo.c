@@ -6,18 +6,18 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 11:21:30 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/01 11:58:01 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/03 22:35:58 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
 
-int		ms_echo_option(int *i, char **args)
+int	ms_echo_option(int *i, char **args)
 {
 	int		n_opt;
 	int		y;
 	int		stop;
-	
+
 	n_opt = 0;
 	stop = 0;
 	if (!args[0])
@@ -30,30 +30,31 @@ int		ms_echo_option(int *i, char **args)
 		{
 			if (args[*i][y] != 'n')
 			{
-				n_opt = 0;
+				if (*i == 0)
+					n_opt = 0;
 				stop = 1;
-				break;
+				break ;
 			}
 			y++;
 		}
 		if (!stop)
-		(*i)++;
+			(*i)++;
 	}
 	return (n_opt);
 }
 
-int		ms_echo(char **args)
+int	ms_echo(char **args)
 {
 	int		n_opt;
 	int		i;
-	
+
 	i = 0;
 	n_opt = ms_echo_option(&i, args);
 	while (args[i])
 	{
 		write(1, args[i], ft_strlen(args[i]));
 		if (args[i + 1])
-				write(1, " ", 1);
+			write(1, " ", 1);
 		i++;
 	}
 	if (!n_opt)

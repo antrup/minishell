@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 16:23:58 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/29 21:25:50 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/03 22:17:28 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ms_remove_env_var(char *var)
 {
 	int		i;
 	int		j;
-	
+
 	i = 0;
 	j = 0;
 	while (ft_strncmp(environ[i], var, ft_strlen(var)))
@@ -41,7 +41,7 @@ int	ms_unset(char	**args)
 		test = ms_unset_check(args[i]);
 		if (test == 1)
 			ret = 1;
-		else 
+		else
 		{
 			var = ms_exp_extr_var(args[i]);
 			if (getenv(var))

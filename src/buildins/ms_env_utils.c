@@ -6,13 +6,13 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 16:59:54 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/28 17:38:43 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/03 22:22:13 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
 
-int ms_unset_error(char *str)
+int	ms_unset_error(char *str)
 {
 	write(2, "minishell: unset: `", 19);
 	write(2, str, ft_strlen(str));
@@ -20,7 +20,7 @@ int ms_unset_error(char *str)
 	return (1);
 }
 
-int ms_exp_error(char *str)
+int	ms_exp_error(char *str)
 {
 	write(2, "minishell: export: `", 20);
 	write(2, str, ft_strlen(str));
@@ -33,33 +33,33 @@ int	ms_unset_check(char	*str)
 	int		i;
 
 	i = 1;
-	if ((str[0] < 'a' || str[0] > 'z') && (str[0] < 'A' || str[0] > 'Z') 
-			&& str[0] != '_')
+	if ((str[0] < 'a' || str[0] > 'z') && (str[0] < 'A' || str[0] > 'Z')
+		&& str[0] != '_')
 		return (ms_unset_error(str));
 	while (str[i])
 	{	
-		if ((str[i] < 'a' || str[i] > 'z') && (str[i] < 'A' || str[i] > 'Z') 
-		&& (str[i] < '0' || str[i] > '9') && str[i] != '_')
+		if ((str[i] < 'a' || str[i] > 'z') && (str[i] < 'A' || str[i] > 'Z')
+			&& (str[i] < '0' || str[i] > '9') && str[i] != '_')
 			return (ms_unset_error(str));
 		i++;
 	}
 	return (0);
 }
-		
+
 int	ms_exp_check(char	*str)
 {
 	int		i;
 
 	i = 1;
-	if ((str[0] < 'a' || str[0] > 'z') && (str[0] < 'A' || str[0] > 'Z') 
-			&& str[0] != '_')
+	if ((str[0] < 'a' || str[0] > 'z') && (str[0] < 'A' || str[0] > 'Z')
+		&& str[0] != '_')
 		return (ms_exp_error(str));
 	while (str[i] != '=')
 	{	
-		if ((str[i] < 'a' || str[i] > 'z') && (str[i] < 'A' || str[i] > 'Z') 
-		&& (str[i] < '0' || str[i] > '9') && str[i] != '_' && str[i] != '+')
+		if ((str[i] < 'a' || str[i] > 'z') && (str[i] < 'A' || str[i] > 'Z')
+			&& (str[i] < '0' || str[i] > '9') && str[i] != '_' && str[i] != '+')
 			return (ms_exp_error(str));
-		if (str[i] == '+'  && str[i + 1] != '=')
+		if (str[i] == '+' && str[i + 1] != '=')
 			return (ms_exp_error(str));
 		i++;
 	}
@@ -70,7 +70,7 @@ char	*ms_exp_extr_var(char	*str)
 {
 	int		i;
 	char	*ret;
-	
+
 	i = 0;
 	while (str[i] && str[i] != '+' && str[i] != '=')
 		i++;
