@@ -110,5 +110,49 @@ void	print_token(t_tlist *tokens)
 	}
 	return ;
 }
+/*
+** TEST VERSION TO PRINT TOKENS & COMANDS
+*/
+static void	ms_markers(t_tlist *tokens, t_markers *op)
+{
+	while (tokens)
+	{
+		if (tokens->tk.type == OP_OR)
+			op->_or += 1;
+		if (tokens->tk.type == OP_AND)
+			op->_and += 1;
+		tokens = tokens->next;
+	}
+}
+
+int	ms_minishell(t_ms *data, char **env)
+{
+	t_markers	op;
+	int			err;
+
+	err = 0;
+	ft_memset(&op, 0, sizeof(op));
+	if (ms_check_syntax(data->tokens))
+		return (ms_clean_tlist_all(&data->tokens));
+	//PRINT TOKENS BEFORE EXPANSER
+	print_token(data->tokens);
+	if (ms_expanser(&data->tokens))
+		return (ms_clean_tlist_all(&data->tokens));
+	ms_markers(data->tokens, &op);
+	//PRINTF TOKENS AFTER EXPANSER
+	print_token(data->tokens);
+	ms_shell_input_io(data);
+	ms_parser(data->tokens, &data->thead, env);
+	//PRINT COMMANDS
+	print_tree(data->thead);
+	tcsetattr(0, TCSANOW, &data->info.term_ios);
+	op.ret = ms_exec(data->thead, 0);
+	g_shell.rvar = op.ret;
+	ms_clean_tokens(&data->tokens, op);
+	ms_clean_cmd(&data->thead);
+	if (data->tokens != NULL)
+		ms_minishell(data, env);
+	return (0);
+}
 
 #endif

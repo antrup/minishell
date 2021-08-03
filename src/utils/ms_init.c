@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:14:09 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/02 14:33:09 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/03 14:44:38 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,21 @@ void	ms_init_env(void)
 {
 	char	*pwd;
 	char	**pwd_env;
+
 	if (!getenv("PWD"))
 	{
 		environ = NULL;
 		pwd = malloc(sizeof(char) * 1000);
 		if (!pwd)
-			return;
+			return ;
 		if (!getcwd(pwd, 1000))
-			return;
+			return ;
 		pwd_env = malloc(sizeof(char *) * 2);
 		if (!pwd_env)
-			return;
+			return ;
 		pwd_env[0] = malloc(sizeof(char) * (ft_strlen(pwd) + 5));
 		if (!pwd_env[0])
-			return;
+			return ;
 		pwd_env[1] = NULL;
 		ft_strlcpy(pwd_env[0], "PWD=", 5);
 		ft_strlcpy(pwd_env[0] + 4, pwd, ft_strlen(pwd) + 1);
@@ -38,7 +39,7 @@ void	ms_init_env(void)
 		free(pwd_env[0]);
 		pwd_env[0] = malloc(sizeof(char) * 10);
 		if (!pwd_env[0])
-			return;
+			return ;
 		ft_strlcpy(pwd_env[0], "PATH=/bin", 10);
 		ms_export(pwd_env);
 		free(pwd_env[0]);
@@ -53,7 +54,6 @@ void	ms_init(t_ms *data)
 	data->line = NULL;
 	data->thead = NULL;
 	g_shell.data = data;
-	g_shell.on = 1;
 	tcgetattr(0, &data->info.term_ios);
 	ft_memcpy(&data->info.ms_ios, &data->info.term_ios,
 		sizeof(data->info.ms_ios));
@@ -77,6 +77,5 @@ void	ms_shell_input_io(t_ms *data)
 {
 	data->info.ms_input.c_cc[VINTR] = KEY_NONE;
 	data->info.ms_input.c_cc[VQUIT] = KEY_CTRL_C;
-	//data->info.ms_input.c_lflag &= ~(ECHOCTL);
 	tcsetattr(0, TCSANOW, &data->info.ms_input);
 }

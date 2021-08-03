@@ -11,6 +11,7 @@ SRCS = ms_minishell.c \
 	   utils/ms_init.c \
 	   utils/ms_signals.c \
 	   utils/ms_clean.c \
+	   utils/ms_clean_shell.c \
 	   lexer/ms_lexer.c \
 	   lexer/ms_lexer_var.c \
 	   lexer/ms_lexer_utils.c \
@@ -68,7 +69,7 @@ INCDIR = inc
 
 CC = clang
 CFLAGS = -Wall -Wextra -Werror -g
-#MEM = -fsanitize=address
+MEM = -fsanitize=address
 
 OBJS = $(addprefix ${OBJDIR}/,${SRCS:.c=.o})
 
