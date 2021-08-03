@@ -11,7 +11,8 @@ SRCS = ms_minishell.c \
 	   utils/ms_init.c \
 	   utils/ms_signals.c \
 	   utils/ms_clean.c \
-	   utils/ms_clean_shell.c \
+	   utils/ms_clean_cmd.c \
+	   utils/ms_clean_tokens.c \
 	   lexer/ms_lexer.c \
 	   lexer/ms_lexer_var.c \
 	   lexer/ms_lexer_utils.c \
