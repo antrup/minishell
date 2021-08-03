@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/03 15:19:16 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/03 17:09:40 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ int		ms_name_sizer(char	*cmd_name);
 int		ms_check_buildin(char *cmd);
 int		ms_count_args(t_tlist *tlist);
 int		ms_init_parser(t_node **node, t_command **command, char **env);
+int		ms_skip_parenthesis(t_tlist **token);
 
 /*
 ** HEREDOC

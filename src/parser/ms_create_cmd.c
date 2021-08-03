@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:44:45 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/02 19:01:44 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/03 17:09:11 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,16 +86,8 @@ static int	ms_cmd(t_tlist **token, t_command *command)
 
 	buildin = 0;
 	i = 0;
-	if ((*token)->tk.type == P_OPEN)
-	{
-		*token = (*token)->next;
+	if (ms_skip_parenthesis(token))
 		return (0);
-	}
-	if ((*token)->tk.type == P_CLOSE)
-	{
-		*token = (*token)->next;
-		return (0);
-	}
 	if (command->cmd == NULL)
 	{
 		buildin = ms_check_buildin((*token)->tk.value);
