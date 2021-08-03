@@ -6,7 +6,7 @@
 /*   By: sshakya <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 14:51:16 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/03 11:46:25 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/03 16:26:53 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	ms_errmsg(int id, char *str)
 
 static char	*ms_error_word(t_token *token)
 {
-	char *errstr;
-	char *temp;
+	char	*errstr;
+	char	*temp;
 
 	temp = ft_strjoin("'", token->value);
 	errstr = ft_strjoin(temp, "'");
