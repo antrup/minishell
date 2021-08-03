@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/02 16:12:36 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/03 11:52:28 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ static int	ms_minishell(t_ms *data, char **env)
 		return (1);
 	}
 	ft_memset(&op, 0, sizeof(op));
+#if TEST		
+	print_token(data->tokens);
+#endif
 	ms_expanser(&data->tokens);
 	ms_markers(data->tokens, &op);
 #if TEST		
@@ -79,8 +82,10 @@ static int	ms_interactive(t_ms *data, char **env)
 		data->thead = NULL;
 		ms_init_shell_io(data);
 		data->line = readline("Myshell: ");
-		ms_lexer(data->line, &data->tokens);
-		ms_minishell(data, env);
+		if (!ms_lexer(data->line, &data->tokens))
+			ms_minishell(data, env);
+		else
+			ms_clean_tlist_all(&data->tokens);
 		add_history(data->line);
 	}
 	return (0);

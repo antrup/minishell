@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 14:36:33 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/26 00:34:16 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/03 11:42:35 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,15 @@ static int	ms_tk_quote(int y, int type, char *line)
 	while (line[y] && ms_isquote(line[y]) != type)
 		y++;
 	if (!line[y] && type == STRING_DQ)
-		return (ERR_DQUT);
+	{
+		ms_errmsg(ERR_DQUT, NULL);
+		return (-1);
+	}
 	if (!line[y] && type == STRING_SQ)
-		return (ERR_SQUT);
+	{	
+		ms_errmsg(ERR_SQUT, NULL);
+		return (-1);
+	}
 	return (y);
 }
 
@@ -43,7 +49,11 @@ int	ms_ctoken_word(char *line, t_tlist **tlist, int *i)
 	{	
 		type = ms_isquote(line[y]);
 		if (type)
+		{	
 			y = ms_tk_quote(y, type, line);
+			if (y == -1)
+				return(1);
+		}
 		y++;
 	}
 	new->tk.value = ft_substr(line, *i, y - *i);

@@ -6,20 +6,20 @@
 /*   By: sshakya <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 14:51:16 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/02 16:18:26 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/03 11:46:25 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
 
-static void	ms_errmsg(int id, char *str)
+void	ms_errmsg(int id, char *str)
 {
 	if (id == ERR_SYN)
 		ft_putstr_fd("syntax error near unexpected token", 2);
 	if (id == ERR_DQUT)
-		ft_putstr_fd("unmatched - ' \" ' ", 2);
+		ft_putstr_fd("unmatched - ' \" ' \n", 2);
 	if (id == ERR_SQUT)
-		ft_putstr_fd("unmatched - ' ' ' ", 2);
+		ft_putstr_fd("unmatched - ' ' ' \n", 2);
 	if (str)
 		ft_putstr_fd(str, 2);
 }
