@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/03 11:52:28 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/03 12:56:04 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,17 @@ static void	ms_markers(t_tlist *tokens, t_markers *op)
 static int	ms_minishell(t_ms *data, char **env)
 {
 	t_markers	op;
+	int			err;
 	
-	if (ms_check_syntax(data->tokens))
-	{	
-		ms_clean_tlist_all(&data->tokens);
-		return (1);
-	}
+	err = 0;
 	ft_memset(&op, 0, sizeof(op));
+	if (ms_check_syntax(data->tokens))
+		return (ms_clean_tlist_all(&data->tokens));
 #if TEST		
 	print_token(data->tokens);
 #endif
-	ms_expanser(&data->tokens);
+	if (ms_expanser(&data->tokens))
+		return (ms_clean_tlist_all(&data->tokens));
 	ms_markers(data->tokens, &op);
 #if TEST		
 	print_token(data->tokens);
@@ -82,10 +82,9 @@ static int	ms_interactive(t_ms *data, char **env)
 		data->thead = NULL;
 		ms_init_shell_io(data);
 		data->line = readline("Myshell: ");
-		if (!ms_lexer(data->line, &data->tokens))
-			ms_minishell(data, env);
-		else
-			ms_clean_tlist_all(&data->tokens);
+		if (ms_lexer(data->line, &data->tokens))
+			return (ms_clean_tlist_all(&data->tokens));
+		ms_minishell(data, env);
 		add_history(data->line);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 02:16:27 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/01 22:24:03 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/03 13:10:08 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	ms_add_token(t_tlist *vtoken, t_tlist **token)
 	free(isvar);
 }
 
-static void	ms_clear_var(t_tlist **tokens)
+static int	ms_clear_var(t_tlist **tokens)
 {
 	t_tlist	*temp;
 	t_tlist	*next;
@@ -61,30 +61,36 @@ static void	ms_clear_var(t_tlist **tokens)
 		if (temp)
 			temp = temp->next;
 	}
+	return (1);
 }
 
-void	ms_var_tokens(char *var, t_tlist **tokens, t_tlist **current)
+int	ms_var_tokens(char *var, t_tlist **tokens, t_tlist **current)
 {
 	int		i;
+	int		err;
 	t_tlist	*vtoken;
 
 	i = 0;
+	err = 0;
 	vtoken = NULL;
 	if (var == NULL)
 		return (ms_clear_var(tokens));
-	while (var[i])
+	while (var[i] && !err)
 	{
 		if (ft_isspace(var[i]))
 			i++;
 		else if (ms_isop_pipe(var[i]))
-			ms_ctoken_pipe(var, &vtoken, &i);
+			err = ms_ctoken_pipe(var, &vtoken, &i);
 		else if (ms_isredirection(var[i]))
-			ms_ctoken_re(var, &vtoken, &i);
+			err = ms_ctoken_re(var, &vtoken, &i);
 		else if (ms_isop_and(var[i], var[i + 1]))
-			ms_ctoken_and(&vtoken, &i);
-		else
-			ms_ctoken_word(var, &vtoken, &i);
+			err = ms_ctoken_and(&vtoken, &i);
+		else if (!err)
+			err = ms_ctoken_word(var, &vtoken, &i);
 	}
+	if (err)
+		return (ms_clean_tlist_all(&vtoken));
 	ms_add_token(vtoken, tokens);
 	*current = vtoken;
+	return (0);
 }

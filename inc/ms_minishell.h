@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/03 11:45:05 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/03 13:06:50 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ extern char **environ;
 */
 
 int		ms_lexer(char *line, t_tlist **tokens);
-void	ms_expanser(t_tlist **tokens);
+int		ms_expanser(t_tlist **tokens);
 int		ms_parser(t_tlist *tokens, t_node **thead, char **env);
 int		ms_exec(t_node *head, int pipIN);
 
@@ -102,7 +102,7 @@ void	ms_clean(t_ms *data);
 void	ms_clean_cmd(t_node **head);
 void	ms_clean_tlist_cmd(t_tlist **list);
 void	ms_clean_tlist_or(t_tlist **list);
-void	ms_clean_tlist_all(t_tlist **list);
+int		ms_clean_tlist_all(t_tlist **list);
 void	ms_clean_tk_or(t_tlist **list);
 void	ms_clean_environ(void);
 
@@ -118,6 +118,7 @@ void	ms_errmsg(int id, char *str);
 */
 
 void	ms_newline(int sig);
+void	ms_exit(int sig);
 /*
 ** EXPANSER
 */
@@ -125,9 +126,9 @@ void	ms_newline(int sig);
 int		ms_isparen(char c);
 int		ms_isvariable(char *str);
 int		ms_exp_var(char *word, int *i, t_word **wlist);
-char	*ms_concat(t_word *wlist);
+char	*ms_concat(t_word *wlist, int *error);
 void	ms_clean_wlist(t_word *list);
-void	ms_var_tokens(char *var, t_tlist **tokens, t_tlist **current);
+int		ms_var_tokens(char *var, t_tlist **tokens, t_tlist **current);
 t_word	*ms_create_part(t_word **wlist);
 
 /*
@@ -191,7 +192,6 @@ int		ms_export_env(char *path, char *old_path);
 int		ms_isrelative(char *arg);
 void	ms_slash_join(char *path, char *target, char *str);
 int		ms_error_nav(char *path1, char *path2, int error);
-void	ms_exit(int sig);
 
 /*
 ** DEBUG -- TEST                                                |~

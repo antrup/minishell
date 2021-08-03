@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 00:17:37 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/02 19:08:38 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/03 12:53:50 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	ms_clean_tlist_or(t_tlist **list)
 	*list = temp;
 }
 
-void	ms_clean_tlist_all(t_tlist **list)
+int	ms_clean_tlist_all(t_tlist **list)
 {
 	t_tlist	*temp;
 
@@ -94,6 +94,7 @@ void	ms_clean_tlist_all(t_tlist **list)
 		free(*list);
 		*list = temp;
 	}
+	return (1);
 }
 
 void	ms_clean_cmd(t_node **node)
