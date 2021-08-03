@@ -6,7 +6,7 @@
 /*   By: sshakya <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 14:51:16 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/03 16:26:53 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/03 23:54:13 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ void	ms_errmsg(int id, char *str)
 	if (id == ERR_SQUT)
 		ft_putstr_fd("unmatched - ' ' ' \n", 2);
 	if (str)
+	{
 		ft_putstr_fd(str, 2);
+		ft_putstr_fd("\n", 2);
+	}
 }
 
 static char	*ms_error_word(t_token *token)
@@ -29,7 +32,7 @@ static char	*ms_error_word(t_token *token)
 	char	*errstr;
 	char	*temp;
 
-	temp = ft_strjoin("'", token->value);
+	temp = ft_strjoin(" `", token->value);
 	errstr = ft_strjoin(temp, "'");
 	free (temp);
 	return (errstr);
