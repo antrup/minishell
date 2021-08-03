@@ -6,13 +6,22 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 16:29:51 by user42            #+#    #+#             */
-/*   Updated: 2021/08/03 03:58:26 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/03 15:00:57 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
 
-static int ms_write_heredoc(char *end, int *fd)
+static void	ms_clean_heredoc(char *buff, char *line, int *fd)
+{
+	ft_putstr_fd(buff, fd[1]);
+	ft_putchar_fd('\n', fd[1]);
+	free(buff);
+	free(line);
+	close(fd[1]);
+}
+
+static int	ms_write_heredoc(char *end, int *fd)
 {
 	char	*line;
 	char	*buff;
@@ -27,7 +36,7 @@ static int ms_write_heredoc(char *end, int *fd)
 		if (line == NULL)
 		{
 			ms_heredoc_error(end);
-			break;
+			break ;
 		}
 		if (ft_strcmp(line, end))
 			break ;
@@ -37,19 +46,15 @@ static int ms_write_heredoc(char *end, int *fd)
 		if (error)
 			return (error);
 	}
-	ft_putstr_fd(buff, fd[1]);
-	ft_putchar_fd('\n', fd[1]);
-	free(buff);
-	free(line);
-	close(fd[1]);
+	ms_clean_heredoc(buff, line, fd);
 	return (0);
 }
 
 static int	ms_fork_redir(char *end)
 {
-	int	error;
-	int	fd[2];
-	pid_t pid;
+	int		error;
+	int		fd[2];
+	pid_t	pid;
 
 	error = 0;
 	if (end == NULL)

@@ -6,38 +6,11 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 09:41:43 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/03 10:51:26 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/03 13:55:49 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
-
-int	ms_exp_var(char *word, int *i, t_word **wlist)
-{
-	t_word	*new;
-	int		y;
-	char	*var;
-
-	y = *i + 1;
-	while (word[y] && ft_isalnum(word[y]))
-		y++;
-	var = ft_substr(word, *i + 1, y - *i - 1);
-	*i = y;
-	if (getenv(var) == NULL)
-	{
-		free(var);
-		return (0);
-	}
-	new = ms_create_part(wlist);
-	if (!new)
-		return (1);
-	new->part = malloc(sizeof(char) * (ft_strlen(getenv(var)) + 1));
-	if (!new->part)
-		return (1);
-	ft_strlcpy(new->part, getenv(var), ft_strlen(getenv(var)) + 1);
-	free(var);
-	return (0);
-}
 
 static int	ms_exp_sqt(char *word, int *i, t_word **wlist)
 {
@@ -46,12 +19,12 @@ static int	ms_exp_sqt(char *word, int *i, t_word **wlist)
 
 	new = ms_create_part(wlist);
 	if (!new)
-		return (1);
+		return (errno);
 	y = *i + 1;
 	while (word[y] && ms_isquote(word[y]) != STRING_SQ)
 		y++;
 	if (!word[y])
-		return (1);
+		return (ERR_SQUT);
 	new->part = ft_substr(word, *i + 1, y - *i - 1);
 	*i = y + 1;
 	return (0);
@@ -64,20 +37,22 @@ static int	ms_exp_oth(char *word, int *i, t_word **wlist, int type)
 
 	new = ms_create_part(wlist);
 	if (!new)
-		return (1);
+		return (errno);
 	y = *i;
 	if (type == -1)
 	{	
 		while (word[y] && !ms_isquote(word[y]) && !ms_isvariable(&(word[y])))
-		y++;
+			y++;
 	}
 	else
 	{
 		while (word[y] && ms_isquote(word[y]) != type 
-			&& !ms_isvariable(&(word[y])))
-		y++;
+				&& !ms_isvariable(&(word[y])))
+			y++;
 	}
 	new->part = ft_substr(word, *i, y - *i);
+	if (!new->part)
+		return (errno);
 	*i = y;
 	return (0);
 }
@@ -94,46 +69,60 @@ static int	ms_exp_dqt(char *word, int *i, t_word **wlist)
 			ret = ms_exp_var(word, i, wlist);
 		else
 			ret = ms_exp_oth(word, i, wlist, STRING_DQ);
-		if (ret == 1)
-			return (1);
+		if (ret != 0)
+			return (ret);
 	}
 	if (!word[*i])
-		return (1);
+		return (ERR_DQUT);
 	(*i)++;
 	return (0);
 }
 
-void	ms_expanser(t_tlist **tokens)
+static int	ms_expand_tk_value(t_tlist *token)
+{	
+	int		i;
+	int		err;
+	t_word	*wlist;
+
+	i = 0;
+	err = 0;
+	wlist = NULL;
+	while (token->tk.value[i] && !err)
+	{
+		if (ms_isquote(token->tk.value[i]) == STRING_SQ && !err)
+			err = ms_exp_sqt(token->tk.value, &i, &wlist);
+		else if (ms_isvariable(&(token->tk.value[i])) && !err)
+			err = ms_exp_var(token->tk.value, &i, &wlist);
+		else if (ms_isquote(token->tk.value[i]) == STRING_DQ && !err)
+			err = ms_exp_dqt(token->tk.value, &i, &wlist);
+		else if (!err)
+			err = ms_exp_oth(token->tk.value, &i, &wlist, -1);
+	}
+	free(token->tk.value);
+	token->tk.value = ms_concat(wlist, &err);
+	if (wlist)
+		ms_clean_wlist(wlist);
+	if (err)
+		return (1);
+	return (0);
+}
+
+int	ms_expanser(t_tlist **tokens)
 {
-	t_word		*wlist;
 	t_tlist		*token;
-	int			i;
+	int			err;
 
 	token = *tokens;
+	err = 0;
 	while (token && token->tk.type != OP_AND && token->tk.type != OP_OR)
 	{
-		wlist = NULL;
 		if (token->tk.type == WORD || token->tk.type == VAR)
-		{
-			i = 0;
-			while (token->tk.value[i])
-			{
-				if (ms_isquote(token->tk.value[i]) == STRING_SQ)
-					ms_exp_sqt(token->tk.value, &i, &wlist);
-				else if (ms_isvariable(&(token->tk.value[i])))
-					ms_exp_var(token->tk.value, &i, &wlist);
-				else if (ms_isquote(token->tk.value[i]) == STRING_DQ)
-					ms_exp_dqt(token->tk.value, &i, &wlist);
-				else
-					ms_exp_oth(token->tk.value, &i, &wlist, -1);
-			}
-			free(token->tk.value);
-			token->tk.value = ms_concat(wlist);
-			if (wlist)
-				ms_clean_wlist(wlist);
-		}
-		if (token->tk.type == VAR)
-			ms_var_tokens(token->tk.value, tokens, &token);
+			err = ms_expand_tk_value(token);
+		if (token->tk.type == VAR && !err)
+			err = ms_var_tokens(token->tk.value, tokens, &token);
+		if (err)
+			return (1);
 		token = token->next;
 	}
+	return (0);
 }

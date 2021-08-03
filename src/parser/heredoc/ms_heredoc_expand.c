@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 00:14:38 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/03 04:01:56 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/03 12:40:05 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*ms_heredoc_expand(char *line)
 			ms_exp_other(line, &i, &list);
 	}
 	free(line);
-	line = ms_concat(list);
+	line = ms_concat(list, &error);
 	ms_clean_wlist(list);
 	return (line);
 }

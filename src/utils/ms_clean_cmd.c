@@ -1,53 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_clean.c                                         :+:      :+:    :+:   */
+/*   ms_clean_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/09 00:17:37 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/03 14:16:30 by sshakya          ###   ########.fr       */
+/*   Created: 2021/08/03 16:36:38 by sshakya           #+#    #+#             */
+/*   Updated: 2021/08/03 16:37:06 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
 
-void	ms_clean_environ(void)
+static void	ms_clean_node_cmd(t_node **node)
 {
 	int	i;
 
 	i = 0;
-	if (g_shell.env_pt)
+	free((*node)->data->cmd);
+	if ((*node)->data->args)
 	{
-		while (g_shell.env_pt[i])
-		{	
-			free(g_shell.env_pt[i]);
+		while ((*node)->data->args[i])
+		{
+			free((*node)->data->args[i]);
 			i++;
 		}
-		free(g_shell.env_pt);
 	}
-	free(environ);
+	free((*node)->data->args);
+	free((*node)->data);
 }
 
-void	ms_clean_wlist(t_word *list)
+void	ms_clean_cmd(t_node **node)
 {
-	t_word	*temp;
+	int	i;
 
-	while (list)
+	i = 0;
+	if (*node)
 	{
-		temp = list->next;
-		free (list->part);
-		free(list);
-		list = temp;
+		if ((*node)->type == NO_CMD)
+			ms_clean_node_cmd(node);
+		if ((*node)->type == NO_PIPE)
+		{
+			ms_clean_cmd(&(*node)->right);
+			ms_clean_cmd(&(*node)->left);
+		}
+		free(*node);
 	}
-}
-
-void	ms_clean(t_ms *data)
-{
-	if (data->tokens)
-		ms_clean_tlist_all(&data->tokens);
-	if (data->thead)
-		ms_clean_cmd(&data->thead);
-	if (data->line)
-		free(data->line);
 }

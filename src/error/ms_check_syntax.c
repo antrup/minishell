@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 14:41:40 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/02 19:10:03 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/03 16:28:48 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	ms_check_redir(t_tlist *current)
 {
-	if (current->tk.type == REDIR_IN || current->tk.type == REDIR_OUT 
-		|| current->tk.type == REDIR_IN_A 
+	if (current->tk.type == REDIR_IN || current->tk.type == REDIR_OUT
+		|| current->tk.type == REDIR_IN_A
 		|| current->tk.type == REDIR_OUT_A)
 	{
 		if (!current->next)
@@ -23,7 +23,7 @@ int	ms_check_redir(t_tlist *current)
 			ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
 			return (1);
 		}
-		if (current->next->tk.type != WORD && current->next->tk.type != VAR) 
+		if (current->next->tk.type != WORD && current->next->tk.type != VAR)
 		{
 			ms_error_token(&(current->next->tk));
 			return (1);
@@ -42,9 +42,9 @@ int	ms_check_op(t_tlist *current)
 			ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
 			return (1);
 		}
-		if (current->next->tk.type != WORD 
+		if (current->next->tk.type != WORD
 			&& current->next->tk.type != REDIR_IN
-			&& current->next->tk.type != REDIR_OUT 
+			&& current->next->tk.type != REDIR_OUT
 			&& current->next->tk.type != REDIR_IN_A
 			&& current->next->tk.type != REDIR_OUT_A
 			&& current->next->tk.type != VAR)
@@ -58,8 +58,8 @@ int	ms_check_op(t_tlist *current)
 
 int	ms_check_syntax(t_tlist *tokens)
 {
-	t_tlist *current;
-	
+	t_tlist	*current;
+
 	current = tokens;
 	if (current == NULL)
 		return (1);
@@ -80,5 +80,3 @@ int	ms_check_syntax(t_tlist *tokens)
 	}
 	return (0);
 }
-
-

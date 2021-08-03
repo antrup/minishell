@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/29 20:46:59 by sshakya           #+#    #+#             */
-/*   Updated: 2021/07/30 12:36:22 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/03 15:05:15 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ static int	ms_current_path(char *path)
 	old_path = NULL;
 	new_path = NULL;
 	old_path = ms_get_directory(path, CD_CURRENT);
-	new_path = malloc(sizeof(char) * (ft_strlen(path) + ft_strlen(old_path) + 2));
+	new_path = malloc(sizeof(char)
+			* (ft_strlen(path) + ft_strlen(old_path) + 2));
 	if (!new_path)
 		return (errno);
 	ms_slash_join(old_path, path, new_path);
@@ -75,7 +76,8 @@ static int	ms_current_folder(char *path)
 	if (error == -1)
 		return (errno);
 	old_path = ms_get_directory(path, CD_CURRENT);
-	new_path = malloc(sizeof(char) * (ft_strlen(path) + ft_strlen(old_path) + 2));
+	new_path = malloc(sizeof(char)
+			* (ft_strlen(path) + ft_strlen(old_path) + 2));
 	if (!new_path)
 		return (ms_error_nav(old_path, new_path, errno));
 	ms_slash_join(old_path, path, new_path);

@@ -6,19 +6,15 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:03:04 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/02 19:07:47 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/03 14:47:05 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MS_STRUCTS_H
 # define MS_STRUCTS_H
-
-
-
 /*
 ** TOKENS
 */
-
 enum e_token_type
 {
 	ERROR = -1,
@@ -50,20 +46,46 @@ typedef struct s_tlist
 }	t_tlist;
 
 /*
-** WORD LIST / TOKEN
+** UTILS
 */
 
-typedef struct	s_word
+typedef struct s_word
 {
 	char			*part;
 	struct s_word	*next;
 }	t_word;
 
+typedef struct s_markers
+{
+	int	_and;
+	int	_or;
+	int	ret;
+}	t_markers;
+
+/*
+** NODES
+*/
+
+enum e_node_type
+{
+	NO_CMD = 0,
+	NO_PIPE = 1,
+};
+
+typedef struct s_node
+{
+	enum e_node_type	type;
+	struct s_command	*data;
+	struct s_node		*left;
+	struct s_node		*right;
+	pid_t				pid;
+}	t_node;
+
 /*
 ** COMMANDS
 */
 
-typedef	struct	s_command
+typedef struct s_command
 {
 	char	*cmd;
 	char	**args;
@@ -79,39 +101,15 @@ typedef	struct	s_command
 }	t_command;
 
 /*
-** NODES
+** TERMIOS
 */
-
-enum e_node_type
-{
-	NO_CMD = 0,
-	NO_PIPE = 1,
-};
-
-typedef	struct	s_node
-{
-	enum e_node_type	type;
-	struct s_command	*data;
-	struct s_node		*left;
-	struct s_node		*right;
-	pid_t				pid;
-}	t_node;
 
 typedef struct s_info
 {
-	int					inte;
 	struct termios		term_ios;
 	struct termios		ms_input;
 	struct termios		ms_ios;
-	struct sigaction	sig;
 }	t_info;
-
-typedef struct s_markers
-{
-	int	_and;
-	int	_or;
-	int	ret;
-}	t_markers;
 
 /*
 ** GLOBAL VARIABLE
@@ -119,7 +117,6 @@ typedef struct s_markers
 
 typedef struct s_shell
 {
-	int			on;
 	int			rvar;
 	int			rda;
 	int			rda_fd[2];
@@ -139,7 +136,5 @@ typedef struct s_ms
 	t_node				*thead;
 	char				*line;
 }	t_ms;
-
-extern t_shell g_shell;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/03 13:08:28 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/03 21:28:19 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,18 @@
 ** EXTERNAL VARIABLE
 */
 
-extern char **environ;
+extern char		**environ;
+extern t_shell	g_shell;
 
 /*
 ** MAIN FUNCTIONS
 */
 
 int		ms_lexer(char *line, t_tlist **tokens);
-void	ms_expanser(t_tlist **tokens);
+int		ms_expanser(t_tlist **tokens);
 int		ms_parser(t_tlist *tokens, t_node **thead, char **env);
 int		ms_exec(t_node *head, int pipIN);
+int		ms_minishell(t_ms *data, char **env);
 
 /*
 ** LEXER UTILS
@@ -102,9 +104,10 @@ void	ms_clean(t_ms *data);
 void	ms_clean_cmd(t_node **head);
 void	ms_clean_tlist_cmd(t_tlist **list);
 void	ms_clean_tlist_or(t_tlist **list);
-void	ms_clean_tlist_all(t_tlist **list);
+int		ms_clean_tlist_all(t_tlist **list);
 void	ms_clean_tk_or(t_tlist **list);
 void	ms_clean_environ(void);
+void	ms_clean_tokens(t_tlist **tokens, t_markers op);
 
 /*
 ** ERROR
@@ -118,6 +121,7 @@ void	ms_errmsg(int id, char *str);
 */
 
 void	ms_newline(int sig);
+void	ms_exit(int sig);
 /*
 ** EXPANSER
 */
@@ -125,19 +129,19 @@ void	ms_newline(int sig);
 int		ms_isparen(char c);
 int		ms_isvariable(char *str);
 int		ms_exp_var(char *word, int *i, t_word **wlist);
-char	*ms_concat(t_word *wlist);
+char	*ms_concat(t_word *wlist, int *error);
 void	ms_clean_wlist(t_word *list);
-void	ms_var_tokens(char *var, t_tlist **tokens, t_tlist **current);
+int		ms_var_tokens(char *var, t_tlist **tokens, t_tlist **current);
 t_word	*ms_create_part(t_word **wlist);
 int	ms_is_sp_variable(char *str);
 
 /*
 ** PARSER
 */
-t_node  *ms_create_cmd(t_tlist *tlist, char **env);
+t_node	*ms_create_cmd(t_tlist *tlist, char **env);
 char	**ms_clean_tab_path_b(char ***tab_path, char **ret);
 char	*ms_clean_tab_path(char ***tab_path, char *ret);
-char	**ms_ext_path();
+char	**ms_ext_path(void);
 char	*ms_format_file(char *file_name);
 char	*ms_format_cmd(char *file_name);
 char	*ms_format_tile(char *file_name);
@@ -150,6 +154,7 @@ int		ms_name_sizer(char	*cmd_name);
 int		ms_check_buildin(char *cmd);
 int		ms_count_args(t_tlist *tlist);
 int		ms_init_parser(t_node **node, t_command **command, char **env);
+int		ms_skip_parenthesis(t_tlist **token);
 
 /*
 ** HEREDOC
@@ -192,7 +197,8 @@ int		ms_export_env(char *path, char *old_path);
 int		ms_isrelative(char *arg);
 void	ms_slash_join(char *path, char *target, char *str);
 int		ms_error_nav(char *path1, char *path2, int error);
-void	ms_exit(int sig);
+int		ms_navigate_home(char *target);
+char	*ms_get_home_dir(void);
 
 /*
 ** DEBUG -- TEST                                                |~
@@ -200,6 +206,6 @@ void	ms_exit(int sig);
 
 void	print_token(t_tlist *tokens);
 void	print_tree(t_node *thead);
-void	print_environ();
+void	print_environ(void);
 
 #endif

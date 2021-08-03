@@ -6,7 +6,7 @@
 /*   By: Satcheen SHAKYA <sshakya@student.42.f      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 12:02:43 by Satcheen          #+#    #+#             */
-/*   Updated: 2021/08/01 22:36:41 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/03 14:44:55 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,31 @@ void	ms_newline(int sig)
 		write(0, "\n", 1);
 		return ;
 	}
-	else 
+	else
 	{
-	write(0, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
+		write(0, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
 	}
+}
+
+static void	ms_exit_main(void)
+{
+	write(1, "exit\n", 5);
+	tcsetattr(0, TCSANOW, &g_shell.data->info.term_ios);
+	ms_clean(g_shell.data);
+	rl_clear_history();
+	ms_clean_environ();
+	exit (0);
 }
 
 void	ms_exit(int sig)
 {
-	(void)sig;
 	int	i;
 
 	i = EOF;
+	(void)sig;
 	if (g_shell.data->thead != NULL)
 	{
 		write(1, "Quit (core dumped)\n", 19);
@@ -49,14 +59,6 @@ void	ms_exit(int sig)
 			exit(0);
 		}
 	}
-	else 
-	{
-	write(1, "exit\n", 5);
-	tcsetattr(0, TCSANOW, &g_shell.data->info.term_ios);
-	ms_clean(g_shell.data);
-	g_shell.on = 0;
-	rl_clear_history();
-	ms_clean_environ();
-	exit (0);
-	}
+	else
+		ms_exit_main();
 }
