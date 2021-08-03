@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/02 15:46:40 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/03 10:52:12 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ void	ms_newline(int sig);
 
 int		ms_isparen(char c);
 int		ms_isvariable(char *str);
+int		ms_exp_var(char *word, int *i, t_word **wlist);
 char	*ms_concat(t_word *wlist);
 void	ms_clean_wlist(t_word *list);
 void	ms_var_tokens(char *var, t_tlist **tokens, t_tlist **current);
@@ -148,7 +149,16 @@ int		ms_name_sizer(char	*cmd_name);
 int		ms_check_buildin(char *cmd);
 int		ms_count_args(t_tlist *tlist);
 int		ms_init_parser(t_node **node, t_command **command, char **env);
+
+/*
+** HEREDOC
+*/
+
 int		ms_redir_ina(t_tlist **token, t_command *command);	
+char	*ms_heredoc_join(char *buff, char *line, int *error);
+void	ms_heredoc_error(char *end);
+char	*ms_heredoc_expand(char *line);
+int		ms_hasvar(char *line);
 
 /*
 ** EXEC
