@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 14:36:33 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/26 01:52:59 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/03 13:07:42 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,13 @@ int	ms_isquote(char c)
 int	ms_isvariable(char *str)
 {
 	if (str[0] == '$' && (ft_isalnum(str[1])))
+		return (1);
+	return (0);
+}
+
+int	ms_is_sp_variable(char *str)
+{
+	if (str[0] == '$' && str[1] == '?')
 		return (1);
 	return (0);
 }
