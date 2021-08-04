@@ -82,11 +82,11 @@ $(LIBFT) :
 	@make -s -C inc/libft
 
 $(NAME): ${OBJS} ${LIBFT}
-	${CC} ${CFLAGS} ${MEM} ${OBJS} ${LIBFT} -o $@ ${LIBINC}
+	${CC} ${CFLAGS} ${MEM} ${OBJS} ${LIBFT} -D _GNU_SOURCE -o $@ ${LIBINC}
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p ${@D}
-	${CC} ${CFLAGS} ${MEM} ${IRDLINE} ${TFLAG} -I./inc -c $< -o $@
+	${CC} ${CFLAGS} ${MEM} ${IRDLINE} ${TFLAG} -D _GNU_SOURCE -I./inc -c $< -o $@
 
 test: TFLAG = -D TEST=1 -D OSX=${OS}
 

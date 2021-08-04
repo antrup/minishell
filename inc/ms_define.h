@@ -6,12 +6,14 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 17:32:12 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/31 20:30:02 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/04 18:44:13 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MS_DEFINE_H
 # define MS_DEFINE_H
+
+//# define environ g_shell.env
 
 /*
 ** TOKEN TYPES
