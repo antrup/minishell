@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:14:09 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/03 14:44:38 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/04 23:03:17 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,17 @@ void	ms_init_env(void)
 	}
 }
 
-void	ms_init(t_ms *data)
+void	ms_init(t_ms *data, char **argv, char **env)
 {
+	if (env)
+		g_shell.env = env;
+	ms_init_env();
 	ft_memset(data, 0, sizeof(t_ms));
 	data->tokens = NULL;
 	data->line = NULL;
 	data->thead = NULL;
 	g_shell.data = data;
+	g_shell.mypath = argv[0];
 	tcgetattr(0, &data->info.term_ios);
 	ft_memcpy(&data->info.ms_ios, &data->info.term_ios,
 		sizeof(data->info.ms_ios));

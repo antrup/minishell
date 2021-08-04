@@ -22,6 +22,7 @@ SRCS = ms_minishell.c \
 	   expanser/ms_exp_var.c \
 	   expanser/ms_expanser_utils.c \
 	   parser/ms_create_cmd.c \
+	   parser/ms_create_redir.c \
 	   parser/ms_parser.c \
 	   parser/ms_parser_cleaner.c \
 	   parser/ms_parser_env.c \
@@ -75,7 +76,7 @@ INCDIR = inc
 
 CC = clang
 CFLAGS = -Wall -Wextra -Werror -g
-MEM = -fsanitize=address
+#MEM = -fsanitize=address
 
 OBJS = $(addprefix ${OBJDIR}/,${SRCS:.c=.o})
 
