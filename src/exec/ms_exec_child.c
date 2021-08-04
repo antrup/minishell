@@ -6,7 +6,7 @@
 /*   By: sshakya <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:49:03 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/04 19:36:41 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/04 22:34:04 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	child_ex(t_command *cmd)
 {
 	int	test;
 
-	test = execve(cmd->cmd, cmd->argve, cmd->args);
+	test = execve(cmd->cmd, cmd->args, cmd->argve);
 	if (test == -1)
 	{
 		write(2, "minishell: ", 11);
