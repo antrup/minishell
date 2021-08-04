@@ -6,7 +6,7 @@
 /*   By: sshakya <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:49:03 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/04 18:28:34 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/04 19:09:14 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@ static void	child_ex(char *cmd, char **argve, char **argv)
 
 	test = execve(cmd, argv, argve);
 	if (test == -1)
-		printf(" Exec error\n");
+	{
+		write(2, "minishell: ", 11);
+		write(2, strerror(errno), ft_strlen(strerror(errno)));
+		write(2, "\n", 1);
+	}
 }
 
 static void	ms_exec_error(t_command *cmd)

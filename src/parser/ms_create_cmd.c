@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:44:45 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/04 17:30:46 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/04 19:02:46 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ static int	ms_redir_in(t_tlist **token, t_command *command)
 		*token = (*token)->next->next;
 		return (0);
 	}
-	//if ((*token)->next->tk.type != WORD)
-	//	return (ERR_SYN);
 	command->redirIN = 1;
 	file = ms_format_file((*token)->next->tk.value);
 	command->INfd = open(file, O_RDONLY);
@@ -42,8 +40,6 @@ static int	ms_redir_out(t_tlist **token, t_command *command)
 	char	*file;
 
 	file = NULL;
-	//if ((*token)->next->tk.type != WORD)
-	//	return (ERR_SYN);
 	if (command->error)
 	{
 		*token = (*token)->next->next;
@@ -110,9 +106,9 @@ static int	ms_cmd(t_tlist **token, t_command *command)
 	return (0);
 }
 
-static int ms_subshell(t_tlist **token, t_command *command)
+static int	ms_subshell(t_tlist **token, t_command *command)
 {
-	command->cmd = ms_format_cmd(g_shell.mypath); 
+	command->cmd = ms_format_cmd(g_shell.mypath);
 	command->args = malloc(sizeof(char *) * (ms_count_args(*token) + 3));
 	if (command->args == NULL)
 		return (errno);
