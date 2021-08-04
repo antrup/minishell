@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 14:13:50 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/03 16:37:11 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/04 13:23:53 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ void	ms_clean_tlist_cmd(t_tlist **list)
 {
 	t_tlist	*temp;
 
-	while (*list && (*list)->tk.type != OP_AND && (*list)->tk.type != P_OPEN
-		&& (*list)->tk.type != OP_OR)
+	while (*list && (*list)->tk.type != OP_AND && (*list)->tk.type != OP_OR)
 	{
 		temp = (*list)->next;
 		if ((*list)->tk.value)
@@ -25,8 +24,7 @@ void	ms_clean_tlist_cmd(t_tlist **list)
 		free(*list);
 		*list = temp;
 	}
-	if (*list && ((*list)->tk.type == OP_AND || (*list)->tk.type == OP_OR
-			|| (*list)->tk.type == P_OPEN))
+	if (*list && ((*list)->tk.type == OP_AND || (*list)->tk.type == OP_OR))
 	{
 		temp = (*list)->next;
 		free(*list);
@@ -38,7 +36,7 @@ void	ms_clean_tlist_or(t_tlist **list)
 {
 	t_tlist	*temp;
 
-	while (*list && (*list)->tk.type != OP_AND && (*list)->tk.type != P_OPEN)
+	while (*list && (*list)->tk.type != OP_AND)
 	{
 		temp = (*list)->next;
 		if ((*list)->tk.value)
@@ -46,12 +44,12 @@ void	ms_clean_tlist_or(t_tlist **list)
 		free(*list);
 		*list = temp;
 	}
-	if (*list && (*list)->tk.type == P_OPEN)
+	if (*list && ((*list)->tk.type == OP_AND || (*list)->tk.type == OP_OR))
 	{
 		temp = (*list)->next;
 		free(*list);
+		*list = temp;
 	}
-	*list = temp;
 }
 
 int	ms_clean_tlist_all(t_tlist **list)
@@ -73,7 +71,7 @@ void	ms_clean_tokens(t_tlist **tokens, t_markers op)
 {
 	if (op._or > 0 && op.ret == 0)
 		ms_clean_tlist_or(tokens);
-	else if (op._or == 0 && op._and > 0 && op.ret != 0)
+	else if (op._and > 0 && g_shell.rvar != 0)
 		ms_clean_tlist_all(tokens);
 	else
 		ms_clean_tlist_cmd(tokens);

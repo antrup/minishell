@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:52:09 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/26 23:19:26 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/04 13:00:24 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ int	ms_parser(t_tlist *tokens, t_node **thead, char **env)
 	current = tokens;
 	if (current == NULL)
 		return (0);
-	if (current->tk.type != WORD && current->tk.type != REDIR_IN
-		&& current->tk.type != REDIR_OUT && current->tk.type != REDIR_IN_A
-		&& current->tk.type != REDIR_OUT_A)
-		return (ERR_SYN);
+//	if (current->tk.type != WORD && current->tk.type != REDIR_IN
+//		&& current->tk.type != REDIR_OUT && current->tk.type != REDIR_IN_A
+//		&& current->tk.type != REDIR_OUT_A)
+//		return (ERR_SYN);
 	count = 0;
 	while (current && current->tk.type != OP_AND && current->tk.type != OP_OR)
 	{

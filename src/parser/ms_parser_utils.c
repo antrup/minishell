@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 12:02:43 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/03 17:09:08 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/04 12:44:07 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,19 +98,3 @@ int	ms_name_sizer(char	*cmd_name)
 	}
 	return (size_name);
 }
-
-int	ms_skip_parenthesis(t_tlist **token)
-{
-	if ((*token)->tk.type == P_OPEN)
-	{
-		*token = (*token)->next;
-		return (1);
-	}
-	if ((*token)->tk.type == P_CLOSE)
-	{
-		*token = (*token)->next;
-		return (1);
-	}
-	return (0);
-}
-

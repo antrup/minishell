@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:49:05 by atruphem          #+#    #+#             */
-/*   Updated: 2021/07/26 01:53:34 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/04 12:48:55 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,6 @@ int	ms_ctoken_or(t_tlist **tokens, int *i)
 		return (errno);
 	new->tk.type = OP_OR;
 	*i = *i + 2;
-	return (0);
-}
-
-int	ms_ctoken_parenthesis(char *line, t_tlist **tokens, int *i)
-{
-	t_tlist		*new;
-
-	new = ms_create_token(tokens);
-	if (!new)
-		return (errno);
-	if (line[*i] == '(')
-	{	
-		new->tk.type = P_OPEN;
-		*i = *i + 1;
-	}
-	if (line[*i] == ')')
-	{
-		new->tk.type = P_CLOSE;
-		*i = *i + 1;
-	}
 	return (0);
 }
 
@@ -119,8 +99,6 @@ int	ms_lexer(char *line, t_tlist **tokens)
 			err = ms_ctoken_and(tokens, &i);
 		else if (ms_isop_or(line[i], line[i + 1]) && !err)
 			err = ms_ctoken_or(tokens, &i);
-		else if (line[i] == '(' || line[i] == ')')
-			err = ms_ctoken_parenthesis(line, tokens, &i);
 		else
 			err = ms_ctoken_word(line, tokens, &i);
 	}
