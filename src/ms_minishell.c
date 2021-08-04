@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/04 18:39:04 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/04 22:42:41 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ static int	ms_arg_shell(t_ms *data, char **argv, char **env, int argc)
 	data->line = ms_join_argv(argv, argc);
 	ms_lexer(data->line, &data->tokens);
 	ms_minishell(data, env);
+	free(data->line);
 	return (0);
 }
 
