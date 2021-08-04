@@ -14,12 +14,15 @@ SRCS = ms_minishell.c \
 	   utils/ms_clean_cmd.c \
 	   utils/ms_clean_tokens.c \
 	   lexer/ms_lexer.c \
-	   lexer/ms_lexer_var.c \
+	   lexer/ms_ctoken_op.c \
+	   lexer/ms_ctoken_wrd.c \
 	   lexer/ms_lexer_utils.c \
 	   lexer/ms_lexer_utils_2.c \
 	   expanser/ms_expanser.c \
+	   expanser/ms_exp_var.c \
 	   expanser/ms_expanser_utils.c \
 	   parser/ms_create_cmd.c \
+	   parser/ms_create_redir.c \
 	   parser/ms_parser.c \
 	   parser/ms_parser_cleaner.c \
 	   parser/ms_parser_env.c \
@@ -31,6 +34,8 @@ SRCS = ms_minishell.c \
 	   parser/heredoc/ms_heredoc_utils.c \
 	   parser/ms_parser_utils.c \
 	   exec/ms_exec.c \
+	   exec/ms_exec_child.c \
+	   exec/ms_exec_utils.c \
 	   buildins/cd/ms_cd.c \
 	   buildins/cd/ms_export_env.c \
 	   buildins/cd/ms_cd_utils.c \
@@ -71,8 +76,7 @@ INCDIR = inc
 
 CC = clang
 CFLAGS = -Wall -Wextra -Werror -g
-MEM = -fsanitize=address
-#MEM =
+#MEM = -fsanitize=address
 
 OBJS = $(addprefix ${OBJDIR}/,${SRCS:.c=.o})
 
@@ -82,11 +86,11 @@ $(LIBFT) :
 	@make -s -C inc/libft
 
 $(NAME): ${OBJS} ${LIBFT}
-	${CC} ${CFLAGS} ${MEM} ${OBJS} ${LIBFT} -D _GNU_SOURCE -o $@ ${LIBINC}
+	${CC} ${CFLAGS} ${MEM} ${OBJS} ${LIBFT} -o $@ ${LIBINC}
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p ${@D}
-	${CC} ${CFLAGS} ${MEM} ${IRDLINE} ${TFLAG} -D _GNU_SOURCE -I./inc -c $< -o $@
+	${CC} ${CFLAGS} ${MEM} ${IRDLINE} ${TFLAG} -I./inc -c $< -o $@
 
 test: TFLAG = -D TEST=1 -D OSX=${OS}
 

@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/04 18:39:04 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/04 23:03:32 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ static int	ms_arg_shell(t_ms *data, char **argv, char **env, int argc)
 	data->line = ms_join_argv(argv, argc);
 	ms_lexer(data->line, &data->tokens);
 	ms_minishell(data, env);
+	free(data->line);
 	return (0);
 }
 
@@ -97,12 +98,8 @@ static int	ms_arg_shell(t_ms *data, char **argv, char **env, int argc)
 int	main(int argc, char **argv, char **env)
 {
 	t_ms	data;
-	
-	if (env)
-		g_shell.env = env;
-	g_shell.mypath = argv[0];
-	ms_init_env();
-	ms_init(&data);
+
+	ms_init(&data, argv, env);
 	if (argc > 1)
 		ms_arg_shell(&data, argv, env, argc);
 	else

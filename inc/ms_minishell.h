@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/04 18:57:28 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/04 23:04:32 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,17 @@ int		ms_isop_and(char c, char b);
 int		ms_isquote(char c);
 int		ms_isredirection(char c);
 int		ms_isvariable(char *str);
+
+/*
+** CREATE TOKENS
+*/
+
 int		ms_ctoken_word(char *line, t_tlist **tlist, int *i);
 int		ms_ctoken_re(char *line, t_tlist **tlist, int *i);
 int		ms_ctoken_and(t_tlist **tlist, int *i);
+int		ms_ctoken_or(t_tlist **tokens, int *i);
 int		ms_ctoken_pipe(char *line, t_tlist **tlist, int *i);
+int		ms_ctoken_parenthesis(char *line, t_tlist **tokens, int *i);
 t_tlist	*ms_create_token(t_tlist **tlist);
 
 /*
@@ -91,7 +98,7 @@ char	*ms_join_argv(char **argv, int argc);
 ** INIT
 */
 
-void	ms_init(t_ms *data);
+void	ms_init(t_ms *data, char **argv, char **env);
 void	ms_init_shell_io(t_ms *data);
 void	ms_shell_input_io(t_ms *data);
 void	ms_init_env(void);
@@ -137,10 +144,13 @@ int		ms_is_sp_variable(char *str);
 /*
 ** PARSER
 */
+
 t_node	*ms_create_cmd(t_tlist *tlist, char **env);
-char	**ms_clean_tab_path_b(char ***tab_path, char **ret);
-char	*ms_clean_tab_path(char ***tab_path, char *ret);
 char	**ms_ext_path(void);
+
+/*
+** FORMAT FILENAME
+*/
 char	*ms_format_file(char *file_name);
 char	*ms_format_cmd(char *file_name);
 char	*ms_format_tile(char *file_name);
@@ -149,17 +159,31 @@ char	*ms_format_dd(char *file_name);
 char	*ms_format_sl(char *file_name);
 char	*ms_find_path(char *file_name);
 char	*ms_find_cmd_path(char	*cmd_name, char ***t_path, int size_n);
+
+/*
+** CREATE REDIRECTIONS
+*/
+
+int	ms_redir_in(t_tlist **token, t_command *command);
+int	ms_redir_out(t_tlist **token, t_command *command);
+int	ms_redir_outa(t_tlist **token, t_command *command);
+/*
+** PARSER UTILS
+*/
+
 int		ms_name_sizer(char	*cmd_name);
 int		ms_check_buildin(char *cmd);
 int		ms_count_args(t_tlist *tlist);
 int		ms_has_slash(char *path);
 int		ms_init_parser(t_node **node, t_command **command, char **env);
+char	**ms_clean_tab_path_b(char ***tab_path, char **ret);
+char	*ms_clean_tab_path(char ***tab_path, char *ret);
 
 /*
 ** HEREDOC
 */
 
-int		ms_redir_ina(t_tlist **token, t_command *command);	
+int		ms_heredoc(t_tlist **token, t_command *command);	
 char	*ms_heredoc_join(char *buff, char *line, int *error);
 void	ms_heredoc_error(char *end);
 char	*ms_heredoc_expand(char *line);
@@ -168,6 +192,12 @@ int		ms_hasvar(char *line);
 /*
 ** EXEC
 */
+
+int		ms_exec_bd(int	bd, char **args);
+void	ms_wait_children(t_node *current, int *error);
+void	ms_close_fds(t_command *cmd, int pipIN);
+int		child(t_command *cmd, int pipIN, int pipOUT);
+int		ms_isexec_buildin(t_node *head);
 
 /*
 ** BUILDINS

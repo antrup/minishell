@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 16:29:51 by user42            #+#    #+#             */
-/*   Updated: 2021/08/03 15:00:57 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/04 23:00:06 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	ms_fork_redir(char *end)
 	return (fd[0]);
 }
 
-int	ms_redir_ina(t_tlist **token, t_command *command)
+int	ms_heredoc(t_tlist **token, t_command *command)
 {
 	char	*end;
 
