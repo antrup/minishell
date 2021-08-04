@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 14:36:33 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/04 12:41:54 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/04 18:38:34 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	ms_ctoken_word(char *line, t_tlist **tlist, int *i)
 		{	
 			y = ms_tk_quote(y, type, line);
 			if (y == -1)
-				return(1);
+				return (1);
 		}
 		y++;
 	}

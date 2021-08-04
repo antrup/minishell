@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/04 17:30:48 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/04 18:30:37 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,12 @@ int		ms_hasvar(char *line);
 /*
 ** EXEC
 */
+
+int		ms_exec_bd(int	bd, char **args);
+void	ms_wait_children(t_node *current, int *error);
+void	ms_close_fds(t_command *cmd, int pipIN);
+int		child(t_command *cmd, int pipIN, int pipOUT);
+int		ms_isexec_buildin(t_node *head);
 
 /*
 ** BUILDINS

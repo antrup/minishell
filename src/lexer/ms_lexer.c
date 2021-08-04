@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:49:05 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/04 13:34:37 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/04 18:37:32 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	ms_ctoken_parenthesis(char *line, t_tlist **tokens, int *i)
 			_open--;
 		if (_open == -1)
 		{
-			new->tk.value = ft_substr(line, *i + 1, n  - *i - 1);
+			new->tk.value = ft_substr(line, *i + 1, n - *i - 1);
 			*i = n + 1;
 			return (0);
 		}

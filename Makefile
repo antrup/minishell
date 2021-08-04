@@ -31,6 +31,8 @@ SRCS = ms_minishell.c \
 	   parser/heredoc/ms_heredoc_utils.c \
 	   parser/ms_parser_utils.c \
 	   exec/ms_exec.c \
+	   exec/ms_exec_child.c \
+	   exec/ms_exec_utils.c \
 	   buildins/cd/ms_cd.c \
 	   buildins/cd/ms_export_env.c \
 	   buildins/cd/ms_cd_utils.c \
@@ -72,7 +74,6 @@ INCDIR = inc
 CC = clang
 CFLAGS = -Wall -Wextra -Werror -g
 MEM = -fsanitize=address
-#MEM =
 
 OBJS = $(addprefix ${OBJDIR}/,${SRCS:.c=.o})
 
