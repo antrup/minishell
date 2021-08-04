@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 14:13:50 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/03 16:37:11 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/04 02:59:14 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,30 @@ void	ms_clean_tlist_cmd(t_tlist **list)
 {
 	t_tlist	*temp;
 
+	if (*list && (*list)->tk.type == OP_AND)
+	{
+		temp = (*list)->next;
+		free(*list);
+		*list = temp;
+	}
+	if (*list && (*list)->tk.type == OP_OR)
+	{
+		temp = (*list)->next;
+		free(*list);
+		*list = temp;
+	}
+	if (*list && (*list)->tk.type == P_OPEN)
+	{
+		temp = (*list)->next;
+		free(*list);
+		*list = temp;
+	}
 	while (*list && (*list)->tk.type != OP_AND && (*list)->tk.type != P_OPEN
 		&& (*list)->tk.type != OP_OR)
 	{
 		temp = (*list)->next;
 		if ((*list)->tk.value)
 			free((*list)->tk.value);
-		free(*list);
-		*list = temp;
-	}
-	if (*list && ((*list)->tk.type == OP_AND || (*list)->tk.type == OP_OR
-			|| (*list)->tk.type == P_OPEN))
-	{
-		temp = (*list)->next;
 		free(*list);
 		*list = temp;
 	}

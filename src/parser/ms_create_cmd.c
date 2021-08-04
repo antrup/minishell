@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:44:45 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/03 17:09:11 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/04 02:59:04 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,24 @@ static int	ms_cmd(t_tlist **token, t_command *command)
 
 	buildin = 0;
 	i = 0;
-	if (ms_skip_parenthesis(token))
+	/*
+	if ((*token)->tk.type == P_OPEN)
+	{
+		command->cmd = path/to/minishell/minishell;
+		command->args = ms_split_parenthesis(args);
+		*token = (*token)->next;
+	}
+	*/
+	if ((*token)->tk.type == OP_AND)
+	{
+		*token = (*token)->next;
 		return (0);
+	}
+	if ((*token)->tk.type == OP_AND)
+	{
+		*token = (*token)->next;
+		return (0);
+	}
 	if (command->cmd == NULL)
 	{
 		buildin = ms_check_buildin((*token)->tk.value);
@@ -131,8 +147,7 @@ t_node	*ms_create_cmd(t_tlist *tlist, char **env)
 			ms_redir_outa(&current, new_command);
 		else if (current->tk.type == REDIR_IN_A)
 			ms_redir_ina(&current, new_command);
-		else if (current->tk.type == WORD
-			|| (current->tk.type == P_OPEN || current->tk.type == P_CLOSE))
+		else if (current->tk.type == WORD || current->tk.type == P_OPEN)
 			ms_cmd(&current, new_command);
 		else if (current->tk.type == OP_OR)
 			current = current->next;

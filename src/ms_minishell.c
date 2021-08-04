@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/03 14:53:43 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/04 01:49:02 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int	ms_minishell(t_ms *data, char **env)
 
 	err = 0;
 	ft_memset(&op, 0, sizeof(op));
-	if (ms_check_syntax(data->tokens))
-		return (ms_clean_tlist_all(&data->tokens));
+//	if (ms_check_syntax(data->tokens))
+//		return (ms_clean_tlist_all(&data->tokens));
 	if (ms_expanser(&data->tokens))
 		return (ms_clean_tlist_all(&data->tokens));
 	ms_markers(data->tokens, &op);
@@ -49,6 +49,7 @@ int	ms_minishell(t_ms *data, char **env)
 	ms_parser(data->tokens, &data->thead, env);
 	tcsetattr(0, TCSANOW, &data->info.term_ios);
 	op.ret = ms_exec(data->thead, 0);
+	printf("%d\n", op.ret);
 	g_shell.rvar = op.ret;
 	ms_clean_cmd(&data->thead);
 	ms_clean_tokens(&data->tokens, op);
