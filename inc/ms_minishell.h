@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/04 02:44:22 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/04 13:35:19 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int		ms_isop_pipe(char c);
 int		ms_isop_and(char c, char b);
 int		ms_isquote(char c);
 int		ms_isredirection(char c);
-int		ms_isparen(char c);
 int		ms_isvariable(char *str);
 int		ms_ctoken_word(char *line, t_tlist **tlist, int *i);
 int		ms_ctoken_re(char *line, t_tlist **tlist, int *i);
@@ -133,7 +132,7 @@ char	*ms_concat(t_word *wlist, int *error);
 void	ms_clean_wlist(t_word *list);
 int		ms_var_tokens(char *var, t_tlist **tokens, t_tlist **current);
 t_word	*ms_create_part(t_word **wlist);
-int	ms_is_sp_variable(char *str);
+int		ms_is_sp_variable(char *str);
 
 /*
 ** PARSER

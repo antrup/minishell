@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 14:13:50 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/04 02:59:14 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/04 13:57:42 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,30 +16,15 @@ void	ms_clean_tlist_cmd(t_tlist **list)
 {
 	t_tlist	*temp;
 
-	if (*list && (*list)->tk.type == OP_AND)
+	while (*list && (*list)->tk.type != OP_AND && (*list)->tk.type != OP_OR)
 	{
 		temp = (*list)->next;
 		free(*list);
 		*list = temp;
 	}
-	if (*list && (*list)->tk.type == OP_OR)
+	if (*list && ((*list)->tk.type == OP_AND || (*list)->tk.type == OP_OR))
 	{
 		temp = (*list)->next;
-		free(*list);
-		*list = temp;
-	}
-	if (*list && (*list)->tk.type == P_OPEN)
-	{
-		temp = (*list)->next;
-		free(*list);
-		*list = temp;
-	}
-	while (*list && (*list)->tk.type != OP_AND && (*list)->tk.type != P_OPEN
-		&& (*list)->tk.type != OP_OR)
-	{
-		temp = (*list)->next;
-		if ((*list)->tk.value)
-			free((*list)->tk.value);
 		free(*list);
 		*list = temp;
 	}
@@ -49,7 +34,7 @@ void	ms_clean_tlist_or(t_tlist **list)
 {
 	t_tlist	*temp;
 
-	while (*list && (*list)->tk.type != OP_AND && (*list)->tk.type != P_OPEN)
+	while (*list && (*list)->tk.type != OP_AND)
 	{
 		temp = (*list)->next;
 		if ((*list)->tk.value)
@@ -57,12 +42,12 @@ void	ms_clean_tlist_or(t_tlist **list)
 		free(*list);
 		*list = temp;
 	}
-	if (*list && (*list)->tk.type == P_OPEN)
+	if (*list && ((*list)->tk.type == OP_AND || (*list)->tk.type == OP_OR))
 	{
 		temp = (*list)->next;
 		free(*list);
+		*list = temp;
 	}
-	*list = temp;
 }
 
 int	ms_clean_tlist_all(t_tlist **list)
@@ -80,11 +65,31 @@ int	ms_clean_tlist_all(t_tlist **list)
 	return (1);
 }
 
+int	ms_clean_tlist_parenthesis(t_tlist **list)
+{
+	t_tlist	*temp;
+
+	if (*list && (*list)->tk.type == P_OPEN)
+	{
+		temp = (*list)->next;
+		if ((*list)->tk.value)
+			free((*list)->tk.value);
+		free(*list);
+		*list = temp;
+	}
+	return (1);
+}
+
 void	ms_clean_tokens(t_tlist **tokens, t_markers op)
 {
+	if (*tokens && (*tokens)->tk.type == P_OPEN)
+	{
+		ms_clean_tlist_parenthesis(tokens);
+		return ;
+	}
 	if (op._or > 0 && op.ret == 0)
 		ms_clean_tlist_or(tokens);
-	else if (op._or == 0 && op._and > 0 && op.ret != 0)
+	else if (op._and > 0 && g_shell.rvar != 0)
 		ms_clean_tlist_all(tokens);
 	else
 		ms_clean_tlist_cmd(tokens);

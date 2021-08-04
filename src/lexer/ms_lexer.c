@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:49:05 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/04 02:27:44 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/04 13:34:37 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,5 @@ int	ms_lexer(char *line, t_tlist **tokens)
 		else
 			err = ms_ctoken_word(line, tokens, &i);
 	}
-	printf("%d\n", err);
 	return (err);
 }

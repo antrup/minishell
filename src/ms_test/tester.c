@@ -135,7 +135,7 @@ int	ms_minishell(t_ms *data, char **env)
 	//if (ms_check_syntax(data->tokens))
 	//	return (ms_clean_tlist_all(&data->tokens));
 	//PRINT TOKENS BEFORE EXPANSER
-	print_token(data->tokens);
+	//print_token(data->tokens);
 	if (ms_expanser(&data->tokens))
 		return (ms_clean_tlist_all(&data->tokens));
 	ms_markers(data->tokens, &op);
@@ -146,7 +146,7 @@ int	ms_minishell(t_ms *data, char **env)
 	//PRINT COMMANDS
 	print_tree(data->thead);
 	tcsetattr(0, TCSANOW, &data->info.term_ios);
-	op.ret = ms_exec(data->thead, 0);
+	//op.ret = ms_exec(data->thead, 0);
 	g_shell.rvar = op.ret;
 	ms_clean_tokens(&data->tokens, op);
 	ms_clean_cmd(&data->thead);

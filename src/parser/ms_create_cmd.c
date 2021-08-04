@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:44:45 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/04 02:59:04 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/04 13:58:46 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,24 +86,16 @@ static int	ms_cmd(t_tlist **token, t_command *command)
 
 	buildin = 0;
 	i = 0;
-	/*
-	if ((*token)->tk.type == P_OPEN)
-	{
-		command->cmd = path/to/minishell/minishell;
-		command->args = ms_split_parenthesis(args);
+	// CREATE A SUBSHELL
+	if (*token && (*token)->tk.type == P_OPEN)
+//	{
 		*token = (*token)->next;
-	}
-	*/
-	if ((*token)->tk.type == OP_AND)
-	{
-		*token = (*token)->next;
-		return (0);
-	}
-	if ((*token)->tk.type == OP_AND)
-	{
-		*token = (*token)->next;
-		return (0);
-	}
+		//return (0);
+//		command->cmd = "path/to/minishell/minishell";
+//		command->args = ft_split((*token)->tk.value, ' ');
+//		*token = (*token)->next;
+//		return (0);
+//	}
 	if (command->cmd == NULL)
 	{
 		buildin = ms_check_buildin((*token)->tk.value);
