@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/04 16:58:00 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/04 17:49:02 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int	ms_minishell(t_ms *data, char **env)
 
 	err = 0;
 	ft_memset(&op, 0, sizeof(op));
-//	if (ms_check_syntax(data->tokens))
-//		return (ms_clean_tlist_all(&data->tokens));
+	if (ms_check_syntax(data->tokens))
+		return (ms_clean_tlist_all(&data->tokens));
 	if (ms_expanser(&data->tokens))
 		return (ms_clean_tlist_all(&data->tokens));
 	ms_markers(data->tokens, &op);
