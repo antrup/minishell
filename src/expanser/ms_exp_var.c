@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 02:16:27 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/04 22:47:32 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/05 01:22:09 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	ms_add_token(t_tlist *vtoken, t_tlist **token)
 
 	temp = *token;
 	next = NULL;
-	while (temp && temp->tk.type != VAR)
+	while (temp && temp->tk.type != OP_VAR)
 		temp = temp->next;
 	isvar = temp;
 	if (isvar->previous)
@@ -50,7 +50,7 @@ static int	ms_clear_var(t_tlist **tokens)
 	temp = *tokens;
 	while (temp)
 	{
-		if (temp->tk.type == VAR && temp->tk.value == NULL)
+		if (temp->tk.type == OP_VAR && temp->tk.value == NULL)
 		{
 			next = temp->next;
 			prev = temp->previous;

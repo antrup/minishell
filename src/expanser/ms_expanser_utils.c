@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 11:38:09 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/03 13:55:33 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/05 01:17:59 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,3 +99,15 @@ char	*ms_concat(t_word *wlist, int *error)
 	}
 	return (str);
 }
+
+/*
+static int	ms_iswildcard(char *line, int y)
+{
+ 	while (line[y])
+	{
+		if (line[y] == '*')
+			return(y);
+	}
+	return(-1);
+}
+*/

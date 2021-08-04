@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:03:04 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/04 19:31:38 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/05 01:21:19 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,8 @@ enum e_token_type
 	REDIR_OUT = 5,
 	REDIR_IN_A = 6,
 	REDIR_OUT_A = 7,
-	P_OPEN = 9,
-	P_CLOSE = 10,
-	VAR = 8
+	OP_PAREN = 8,
+	OP_VAR = 9
 };
 
 typedef struct s_token

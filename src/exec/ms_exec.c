@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:19:21 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/04 18:29:10 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/05 01:16:30 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	ms_exec_cmd(t_node *head, int pipIN)
 			ms_wait_children(g_shell.data->thead, &error);
 		}
 	}
-	return (0);
+	return (error);
 }
 
 int	ms_exec(t_node *head, int pipIN)

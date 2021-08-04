@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 09:41:43 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/04 18:36:53 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/05 01:21:34 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,9 @@ int	ms_expanser(t_tlist **tokens)
 	err = 0;
 	while (token && token->tk.type != OP_AND && token->tk.type != OP_OR)
 	{
-		if (token->tk.type == WORD || token->tk.type == VAR)
+		if (token->tk.type == WORD || token->tk.type == OP_VAR)
 			err = ms_expand_tk_value(token);
-		if (token->tk.type == VAR && !err)
+		if (token->tk.type == OP_VAR && !err)
 			err = ms_var_tokens(token->tk.value, tokens, &token);
 		if (err)
 			return (1);

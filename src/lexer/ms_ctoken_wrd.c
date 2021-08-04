@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 22:43:21 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/04 22:49:51 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/05 01:20:46 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ int	ms_ctoken_word(char *line, t_tlist **tlist, int *i)
 		return (errno);
 	new->tk.type = WORD;
 	if (ms_isvariable(&line[*i]))
-		new->tk.type = VAR;
+		new->tk.type = OP_VAR;
 	if (ms_is_sp_variable(&line[*i]))
 	{
-		new->tk.type = VAR;
+		new->tk.type = OP_VAR;
 		new->tk.value = ft_substr(line, *i, 2);
 		*i = *i + 2;
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:44:45 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/04 22:58:23 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/05 01:22:38 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_node	*ms_create_cmd(t_tlist *tlist, char **env)
 			ms_heredoc(&current, new_command);
 		else if (current->tk.type == WORD)
 			ms_cmd(&current, new_command);
-		else if (current->tk.type == P_OPEN)
+		else if (current->tk.type == OP_PAREN)
 			ms_subshell(&current, new_command);
 	}
 	return (new_node);

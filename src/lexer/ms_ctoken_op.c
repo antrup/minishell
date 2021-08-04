@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 22:38:52 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/04 22:39:34 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/05 01:20:20 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	ms_ctoken_parenthesis(char *line, t_tlist **tokens, int *i)
 	new = ms_create_token(tokens);
 	if (!new)
 		return (errno);
-	new->tk.type = P_OPEN;
+	new->tk.type = OP_PAREN;
 	while (line[n])
 	{	
 		if (line[n] == '(')
