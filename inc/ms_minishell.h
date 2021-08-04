@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/04 13:35:19 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/04 17:30:48 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ char	*ms_find_cmd_path(char	*cmd_name, char ***t_path, int size_n);
 int		ms_name_sizer(char	*cmd_name);
 int		ms_check_buildin(char *cmd);
 int		ms_count_args(t_tlist *tlist);
+int		ms_has_slash(char *path);
 int		ms_init_parser(t_node **node, t_command **command, char **env);
 
 /*

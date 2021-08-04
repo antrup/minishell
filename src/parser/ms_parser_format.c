@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 11:55:38 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/01 12:15:33 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/04 17:30:56 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	*ms_format_cmd(char *file_name)
 	char	*file_path;
 	char	**tab_path;
 	int		size_name;
+	char	*pwd;
 
 	if (file_name[0] == '/')
 		return (ms_format_sl(file_name));
@@ -27,6 +28,17 @@ char	*ms_format_cmd(char *file_name)
 	else if ((file_name[0] == '.' && file_name[1] == '.'
 			&& file_name[2] == '/'))
 		return (ms_format_dd(file_name));
+	else if (ms_has_slash(file_name))
+	{
+		pwd = getenv("PWD");
+		size_name = ft_strlen(file_name) + ft_strlen(pwd) + 2;
+		file_path = malloc(sizeof(char) * size_name);
+		ft_strlcpy(file_path, pwd, ft_strlen(pwd) + 1);
+		ft_strlcpy(file_path + ft_strlen(pwd), "/",
+			2);
+		ft_strlcpy(file_path + ft_strlen(pwd) + 1, file_name,
+			ft_strlen(file_name) + 1);
+	}
 	else
 	{	
 		tab_path = ms_ext_path();

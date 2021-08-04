@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:03:04 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/03 14:47:05 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/04 16:58:30 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ typedef struct s_shell
 	pid_t		r_pid;
 	struct s_ms	*data;
 	char		**env_pt;
+	char		*mypath;
 }	t_shell;
 
 /*

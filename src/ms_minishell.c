@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/04 16:33:00 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/04 16:58:00 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 ** INIT GLOBAL VARIABLE
 */
-t_shell	g_shell = {0, 0, {0, 0}, 0, NULL, NULL};
+t_shell	g_shell = {0, 0, {0, 0}, 0, NULL, NULL, NULL};
 
 #if !TEST
 static void	ms_markers(t_tlist *tokens, t_markers *op)
@@ -98,8 +98,7 @@ int	main(int argc, char **argv, char **env)
 {
 	t_ms	data;
 
-	(void)argv;
-	(void)argc;
+	g_shell.mypath = argv[0];
 	ms_init_env();
 	ms_init(&data);
 	if (argc > 1)

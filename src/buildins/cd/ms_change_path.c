@@ -6,13 +6,13 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/29 20:46:59 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/03 15:05:15 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/04 17:25:34 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
 
-static int	ms_has_slash(char *path)
+int	ms_has_slash(char *path)
 {
 	int	i;
 

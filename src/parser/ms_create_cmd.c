@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:44:45 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/04 16:11:21 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/04 17:30:46 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,16 +86,6 @@ static int	ms_cmd(t_tlist **token, t_command *command)
 
 	buildin = 0;
 	i = 0;
-	// CREATE A SUBSHELL
-	if (*token && (*token)->tk.type == P_OPEN)
-//	{
-		*token = (*token)->next;
-		//return (0);
-//		command->cmd = "path/to/minishell/minishell";
-//		command->args = ft_split((*token)->tk.value, ' ');
-//		*token = (*token)->next;
-//		return (0);
-//	}
 	if (command->cmd == NULL)
 	{
 		buildin = ms_check_buildin((*token)->tk.value);
@@ -122,7 +112,7 @@ static int	ms_cmd(t_tlist **token, t_command *command)
 
 static int ms_subshell(t_tlist **token, t_command *command)
 {
-	command->cmd = ft_strdup("/Users/atruphem/Minishell/minishell");
+	command->cmd = ms_format_cmd(g_shell.mypath); 
 	command->args = malloc(sizeof(char *) * (ms_count_args(*token) + 3));
 	if (command->args == NULL)
 		return (errno);
@@ -132,7 +122,6 @@ static int ms_subshell(t_tlist **token, t_command *command)
 	*token = (*token)->next;
 	return (0);
 }
-		
 
 t_node	*ms_create_cmd(t_tlist *tlist, char **env)
 {
