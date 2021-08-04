@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:03:04 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/04 18:41:23 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/04 19:31:38 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct s_node
 typedef struct s_command
 {
 	char	*cmd;
+	char	*errname;
 	char	**args;
 	char	**argve;
 	int		buildin;

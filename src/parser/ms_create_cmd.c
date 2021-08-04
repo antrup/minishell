@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:44:45 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/04 19:02:46 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/04 19:38:02 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,13 @@ static int	ms_cmd(t_tlist **token, t_command *command)
 		{
 			command->buildin = buildin;
 			command->cmd = ft_strdup((*token)->tk.value);
+			command->errname = ft_strdup((*token)->tk.value);
 		}
 		else
+		{
 			command->cmd = ms_format_cmd((*token)->tk.value);
+			command->errname = ft_strdup((*token)->tk.value);
+		}
 		command->args = malloc(sizeof(char *) * (ms_count_args(*token) + 2));
 		if (command->args == NULL)
 			return (errno);
@@ -105,6 +109,10 @@ static int	ms_cmd(t_tlist **token, t_command *command)
 	}
 	return (0);
 }
+
+/*
+** TOP QUALITY
+*/
 
 static int	ms_subshell(t_tlist **token, t_command *command)
 {

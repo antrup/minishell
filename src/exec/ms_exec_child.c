@@ -6,22 +6,29 @@
 /*   By: sshakya <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:49:03 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/04 19:09:14 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/04 19:36:41 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
 
-static void	child_ex(char *cmd, char **argve, char **argv)
+static void	child_ex(t_command *cmd)
 {
 	int	test;
 
-	test = execve(cmd, argv, argve);
+	test = execve(cmd->cmd, cmd->argve, cmd->args);
 	if (test == -1)
 	{
 		write(2, "minishell: ", 11);
+		if (errno == 2)
+		{
+			write(2, cmd->errname, ft_strlen(cmd->errname));
+			write(2, ": command not found\n", 20);
+			exit (1);
+		}
 		write(2, strerror(errno), ft_strlen(strerror(errno)));
 		write(2, "\n", 1);
+		exit (1);
 	}
 }
 
@@ -59,6 +66,6 @@ int	child(t_command *cmd, int pipIN, int pipOUT)
 		ms_exec_error(cmd);
 	if (cmd->buildin)
 		return (ms_exec_bd(cmd->buildin, cmd->args));
-	child_ex(cmd->cmd, cmd->argve, cmd->args);
+	child_ex(cmd);
 	return (0);
 }

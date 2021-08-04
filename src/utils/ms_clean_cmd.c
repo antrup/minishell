@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 16:36:38 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/03 16:37:06 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/04 19:31:02 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void	ms_clean_node_cmd(t_node **node)
 
 	i = 0;
 	free((*node)->data->cmd);
+	free((*node)->data->errname);
 	if ((*node)->data->args)
 	{
 		while ((*node)->data->args[i])

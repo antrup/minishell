@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 12:02:43 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/04 13:31:35 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/04 19:30:28 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	ms_init_parser(t_node **node, t_command **command, char **env)
 	(*node)->right = NULL;
 	(*node)->data = *command;
 	(*command)->cmd = NULL;
+	(*command)->errname = NULL;
 	(*command)->buildin = 0;
 	(*command)->args = NULL;
 	(*command)->argve = env;
