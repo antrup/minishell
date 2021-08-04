@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 14:13:50 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/04 13:57:42 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/04 16:32:58 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,7 @@ int	ms_clean_tlist_parenthesis(t_tlist **list)
 void	ms_clean_tokens(t_tlist **tokens, t_markers op)
 {
 	if (*tokens && (*tokens)->tk.type == P_OPEN)
-	{
 		ms_clean_tlist_parenthesis(tokens);
-		return ;
-	}
 	if (op._or > 0 && op.ret == 0)
 		ms_clean_tlist_or(tokens);
 	else if (op._and > 0 && g_shell.rvar != 0)

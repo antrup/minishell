@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:44:45 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/04 13:58:46 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/04 16:11:21 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,20 @@ static int	ms_cmd(t_tlist **token, t_command *command)
 	return (0);
 }
 
+static int ms_subshell(t_tlist **token, t_command *command)
+{
+	command->cmd = ft_strdup("/Users/atruphem/Minishell/minishell");
+	command->args = malloc(sizeof(char *) * (ms_count_args(*token) + 3));
+	if (command->args == NULL)
+		return (errno);
+	command->args[0] = ft_strdup(command->cmd);
+	command->args[1] = ft_strdup((*token)->tk.value);
+	command->args[2] = NULL;
+	*token = (*token)->next;
+	return (0);
+}
+		
+
 t_node	*ms_create_cmd(t_tlist *tlist, char **env)
 {
 	t_node		*new_node;
@@ -139,10 +153,10 @@ t_node	*ms_create_cmd(t_tlist *tlist, char **env)
 			ms_redir_outa(&current, new_command);
 		else if (current->tk.type == REDIR_IN_A)
 			ms_redir_ina(&current, new_command);
-		else if (current->tk.type == WORD || current->tk.type == P_OPEN)
+		else if (current->tk.type == WORD)
 			ms_cmd(&current, new_command);
-		else if (current->tk.type == OP_OR)
-			current = current->next;
+		else if (current->tk.type == P_OPEN)
+			ms_subshell(&current, new_command);
 	}
 	return (new_node);
 }
