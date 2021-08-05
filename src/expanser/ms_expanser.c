@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 09:41:43 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/05 05:06:45 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/05 08:32:16 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ static int	ms_expand_tk_value(t_tlist *token)
 			err = ms_exp_var(token->tk.value, &i, &wlist);
 		else if (ms_isquote(token->tk.value[i]) == STRING_DQ && !err)
 			err = ms_exp_dqt(token->tk.value, &i, &wlist);
+		else if (ms_is_sp_variable(&(token->tk.value[i])))
+			err = ms_exp_spvar(&i, &wlist);
 		else if (!err)
 			err = ms_exp_oth(token->tk.value, &i, &wlist, -1);
 	}
