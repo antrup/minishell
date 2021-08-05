@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 11:55:38 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/05 16:12:53 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/05 21:45:33 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ char	*ms_format_file(char *file_name)
 	char	*file_path;
 	int		size;
 
+	if (file_name[0] == '\0')
+		return (ft_strdup(""));
 	if (file_name[0] == '/')
 		return (ms_format_sl(file_name));
 	else if (file_name[0] == '~' && file_name[1] == '/')
