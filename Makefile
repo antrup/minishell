@@ -60,10 +60,10 @@ UNAME = $(shell uname)
 
 ifeq (${UNAME}, Darwin)
 OS = 1
-LIBINC = -lreadline -L /Users/$(USER)/.brew/opt/readline/lib 
-IRDLINE = -I/Users/$(USER)/.brew/opt/readline/include
-#IRDLINE = -I/usr/local/opt/readline/include
-#LIBINC = -lreadline -L /usr/local/opt/readline/lib 
+#LIBINC = -lreadline -L /Users/$(USER)/.brew/opt/readline/lib 
+#IRDLINE = -I/Users/$(USER)/.brew/opt/readline/include
+IRDLINE = -I/usr/local/opt/readline/include
+LIBINC = -lreadline -L /usr/local/opt/readline/lib 
 endif
 
 ifeq (${UNAME}, Linux)
