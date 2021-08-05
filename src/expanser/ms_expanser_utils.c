@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 11:38:09 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/05 04:33:08 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/05 08:40:06 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,16 @@ t_word	*ms_create_part(t_word **wlist)
 		current->next = new;
 	}
 	return (new);
+}
+
+int	ms_exp_spvar(int *i, t_word **wlist)
+{
+	t_word	*new;
+
+	*i = *i + 2;
+	new = ms_create_part(wlist);
+	new->part = ft_itoa(g_shell.rvar);
+	return (0);
 }
 
 int	ms_exp_var(char *word, int *i, t_word **wlist)

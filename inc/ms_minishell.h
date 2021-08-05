@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/05 05:03:24 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/05 08:42:14 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ void	ms_clean_wlist(t_word *list);
 int		ms_var_tokens(char *var, t_tlist **tokens, t_tlist **current);
 t_word	*ms_create_part(t_word **wlist);
 int		ms_is_sp_variable(char *str);
+int		ms_exp_spvar(int *i, t_word **wlist);
 
 /*
 ** PARSER

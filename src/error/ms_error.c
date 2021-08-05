@@ -6,7 +6,7 @@
 /*   By: sshakya <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 14:51:16 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/03 23:54:13 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/05 08:06:24 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	ms_errmsg(int id, char *str)
 		ft_putstr_fd("unmatched - ' \" ' \n", 2);
 	if (id == ERR_SQUT)
 		ft_putstr_fd("unmatched - ' ' ' \n", 2);
+	if (id == ERR_PAREN)
+		ft_putstr_fd("missing - ' ) ' \n", 2);
 	if (str)
 	{
 		ft_putstr_fd(str, 2);
@@ -63,6 +65,8 @@ void	ms_error_token(t_token *token)
 		ms_errmsg(ERR_SYN, " `<<'\n");
 	if (token->type == REDIR_OUT_A)
 		ms_errmsg(ERR_SYN, " `>>'\n");
+	if (token->type == OP_PAREN)
+		ms_errmsg(ERR_SYN, " `('\n");
 	return ;
 }
 

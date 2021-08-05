@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/05 01:34:46 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/05 08:48:26 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,15 @@ int	ms_minishell(t_ms *data, char **env)
 	err = 0;
 	ft_memset(&op, 0, sizeof(op));
 	if (ms_check_syntax(data->tokens))
+	{	
+		g_shell.rvar = 258;
 		return (ms_clean_tlist_all(&data->tokens));
+	}
 	if (ms_expanser(&data->tokens))
+	{
+		g_shell.rvar = 258;
 		return (ms_clean_tlist_all(&data->tokens));
+	}
 	ms_markers(data->tokens, &op);
 	ms_shell_input_io(data);
 	ms_parser(data->tokens, &data->thead, env);
@@ -70,8 +76,9 @@ static int	ms_interactive(t_ms *data, char **env)
 		ms_init_shell_io(data);
 		data->line = readline("Myshell: ");
 		if (ms_lexer(data->line, &data->tokens))
-			return (ms_clean_tlist_all(&data->tokens));
-		ms_minishell(data, env);
+			ms_clean_tlist_all(&data->tokens);
+		else
+			ms_minishell(data, env);
 		add_history(data->line);
 	}
 	return (0);
@@ -104,5 +111,5 @@ int	main(int argc, char **argv, char **env)
 		ms_arg_shell(&data, argv, env, argc);
 	else
 		ms_interactive(&data, env);
-	return (0);
+	return (g_shell.rvar);
 }

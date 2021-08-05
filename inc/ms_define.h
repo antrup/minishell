@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 17:32:12 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/05 03:19:20 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/05 07:55:28 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@
 # define ERR_REDIR_IN 9
 # define ERR_CD -10
 # define ERR_MEM -11
+# define ERR_PAREN -12
 
 # define KEY_NONE 0
 # define KEY_CTRL_C 3

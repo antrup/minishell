@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 14:41:40 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/05 01:24:21 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/05 08:05:44 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ int	ms_check_op(t_tlist *current)
 			&& current->next->tk.type != REDIR_OUT
 			&& current->next->tk.type != REDIR_IN_A
 			&& current->next->tk.type != REDIR_OUT_A
-			&& current->next->tk.type != OP_VAR)
+			&& current->next->tk.type != OP_VAR
+			&& current->next->tk.type != OP_PAREN)
 		{
 			ms_error_token(&(current->next->tk));
 			return (1);
@@ -58,12 +59,12 @@ int	ms_check_op(t_tlist *current)
 
 static int	ms_check_po2(t_tlist *current)
 {
-	if (current->next->tk.type != WORD
-		&& current->next->tk.type != REDIR_IN
-		&& current->next->tk.type != REDIR_OUT
-		&& current->next->tk.type != REDIR_IN_A
-		&& current->next->tk.type != REDIR_OUT_A
-		&& current->next->tk.type != OP_VAR)
+	if (current->next->tk.type == WORD
+		|| current->next->tk.type == REDIR_IN
+		|| current->next->tk.type == REDIR_OUT
+		|| current->next->tk.type == REDIR_IN_A
+		|| current->next->tk.type == REDIR_OUT_A
+		|| current->next->tk.type == OP_VAR)
 	{
 		ms_error_token(&(current->next->tk));
 		return (1);
@@ -89,7 +90,8 @@ int	ms_check_po(t_tlist *current)
 				return (1);
 			}
 		}
-		return (ms_check_po2(current));
+		if (current->next)
+			return (ms_check_po2(current));
 	}
 	return (0);
 }	
