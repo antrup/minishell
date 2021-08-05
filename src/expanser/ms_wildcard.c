@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 02:42:55 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/05 04:57:02 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/05 05:34:57 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ static char	*ms_part(char *line, int *i, int count)
 		}
 		x++;
 	}
-	return (NULL);
+	*i = x;
+	return (ft_substr(line, start, x - start));
 }
 
 static int	ms_create_sterm(t_wcard **head, char *line, int *i, int count)
@@ -137,8 +138,11 @@ static int ms_make_ftokens(t_word **files)
 	if (dp != NULL)
 	{
 		ep = readdir(dp);
-		while (ep)
+		while (ep != NULL)
+		{
 			ms_create_files(files, ep->d_name);
+			ep = readdir(dp);
+		}
 		(void)closedir(dp);
 	}
 	else
@@ -148,31 +152,40 @@ static int ms_make_ftokens(t_word **files)
 
 static int print_test(t_wcard *wcard, t_word *files)
 {
+	t_wcard *temp;
+	t_word *temp1;
+
+	printf("WILDCARDS\n");
 	while (wcard)
 	{
+		temp = wcard->next;
 		if (wcard->type == OP_WCARD)
-			printf("*\t");
+			printf("*\n");
 		else
-			printf("%s\t", wcard->str);
-		wcard = wcard->next;
+			printf("%s\n", wcard->str);
+		free(wcard);
+		wcard = temp;
 	}
-
+	printf("\n");
+	printf("FILES\n");
 	while (files)
 	{
-		printf("%s\t", files->part);
-		files = files->next;
+		temp1 = files->next;
+		printf("%s\n", files->part);
+		free(files);
+		files = temp1;
 	}
+	printf("\n");
 	return (0);
 }
 
-int	ms_wildcard(t_tlist **head, t_tlist *token)
+int	ms_wildcard(t_tlist *token)
 {
 	t_wcard	*wcard;
 	t_word	*files;
 
 	wcard = NULL;
 	files = NULL;
-	(void)head;
 	ms_make_wtokens(token->tk.value, &wcard);
 	ms_make_ftokens(&files);
 	print_test(wcard, files);

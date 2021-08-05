@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 09:41:43 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/05 04:57:54 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/05 05:06:45 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,10 @@ static int	ms_iswildcard(char *line)
  	while (line[y])
 	{
 		if (line[y] == '*')
-			return(y);
+			return (1);
 		y++;
 	}
-	return(-1);
+	return (0);
 }
 
 int	ms_expanser(t_tlist **tokens)
@@ -131,7 +131,7 @@ int	ms_expanser(t_tlist **tokens)
 	while (token && token->tk.type != OP_AND && token->tk.type != OP_OR)
 	{
 		if (token->tk.type == WORD && ms_iswildcard(token->tk.value))
-			err = ms_wildcard(tokens, token);
+			err = ms_wildcard(token);
 		if (token->tk.type == WORD || token->tk.type == OP_VAR)
 			err = ms_expand_tk_value(token);
 		if (token->tk.type == OP_VAR && !err)
