@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 22:38:52 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/05 01:20:20 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/05 07:52:30 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ int	ms_ctoken_parenthesis(char *line, t_tlist **tokens, int *i)
 		}
 		n++;
 	}
-	return (0);
+	ms_errmsg(ERR_PAREN, NULL);
+	return (1);
 }
 
 int	ms_ctoken_pipe(char *line, t_tlist **tokens, int *i)
