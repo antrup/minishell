@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 14:41:40 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/05 07:22:53 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/05 08:05:44 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ int	ms_check_op(t_tlist *current)
 			&& current->next->tk.type != REDIR_OUT
 			&& current->next->tk.type != REDIR_IN_A
 			&& current->next->tk.type != REDIR_OUT_A
-			&& current->next->tk.type != OP_VAR)
+			&& current->next->tk.type != OP_VAR
+			&& current->next->tk.type != OP_PAREN)
 		{
 			ms_error_token(&(current->next->tk));
 			return (1);
