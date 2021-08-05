@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:19:21 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/05 01:16:30 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/05 07:30:15 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static int	ms_exec_pipe(t_node *head, int pipIN)
 	if (pid == 0)
 		return (child(head->left->data, pipIN, pip[1]));
 	close(pip[1]);
+	ms_close_fds(head->left->data, pipIN);
 	if (error)
 		return (error);
 	error = ms_exec(head->right, pip[0]);
