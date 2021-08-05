@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/05 08:42:14 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/05 18:57:40 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,7 +235,13 @@ char	*ms_get_home_dir(void);
 ** WILDCARD
 */
 
-int	ms_wildcard(t_tlist *token);
+int		ms_wildcard(t_tlist **token, t_tlist **head);
+int		ms_create_sterm(t_wcard **head, char *line, int *i, int count);
+int		ms_create_wcard(t_wcard **head, int *i, int *count);
+int		ms_create_files(t_wcard **head, char *file);
+void	ms_clean_wildcard(t_wcard *wcard, t_wcard *files);
+int		ms_find_matches(t_wcard *wcard, t_wcard *files);
+int		ms_iswildcard(char *line);
 
 /*
 ** DEBUG -- TEST                                                |~

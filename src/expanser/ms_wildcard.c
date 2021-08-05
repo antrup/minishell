@@ -6,87 +6,11 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 02:42:55 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/05 05:34:57 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/05 19:05:27 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
-
-static char	*ms_part(char *line, int *i, int count)
-{
-	int		n;
-	int		x;
-	int		start;
-	char	*ret;
-
-	x = 0;
-	n = 0;
-	start = 0;
-	ret = NULL;
-	while (line[x])
-	{
-		if (line[x] == '*')
-			n++;
-		if (count && line[x] == '*' && n == count)
-			start = x + 1;
-		if (line[x] == '*' && n > count)
-		{
-			*i = x;
-			return (ft_substr(line, start, x - start));
-		}
-		x++;
-	}
-	*i = x;
-	return (ft_substr(line, start, x - start));
-}
-
-static int	ms_create_sterm(t_wcard **head, char *line, int *i, int count)
-{
-	t_wcard	*new;
-	t_wcard *temp;
-
-	temp = *head;
-	new = malloc(sizeof(t_wcard));
-	if (!new)
-		return (errno);
-	new->type = OP_STERM;
-	new->str = ms_part(line, i, count);
-	new->next = NULL;
-	if (*head == NULL)
-		*head = new;
-	else
-	{
-		while (temp->next)
-			temp = temp->next;
-		temp->next = new;
-	}
-	return (0);
-}
-
-static int ms_create_wcard(t_wcard **head, int *i, int *count)
-{
-	t_wcard	*new;
-	t_wcard *temp;
-
-	temp = *head;
-	new = malloc(sizeof(t_wcard));
-	if (!new)
-		return (errno);
-	*count += 1;
-	*i += 1;
-	new->type = OP_WCARD;
-	new->str = NULL;
-	new->next = NULL;
-	if (*head == NULL)
-		*head = new;
-	else
-	{
-		while (temp->next)
-			temp = temp->next;
-		temp->next = new;
-	}
-	return (0);
-}
 
 static int ms_make_wtokens(char *line, t_wcard **wc)
 {
@@ -107,29 +31,7 @@ static int ms_make_wtokens(char *line, t_wcard **wc)
 	return (err);
 }
 
-static int	ms_create_files(t_word **head, char *file)
-{
-	t_word	*new;
-	t_word *temp;
-
-	temp = *head;
-	new = malloc(sizeof(t_wcard));
-	if (!new)
-		return (errno);
-	new->part = ft_strdup(file);
-	new->next = NULL;
-	if (*head == NULL)
-		*head = new;
-	else
-	{
-		while (temp->next)
-			temp = temp->next;
-		temp->next = new;
-	}
-	return (0);
-}
-
-static int ms_make_ftokens(t_word **files)
+static int ms_make_ftokens(t_wcard **files)
 {
 	DIR	*dp;
 	struct dirent *ep;
@@ -149,11 +51,11 @@ static int ms_make_ftokens(t_word **files)
 		return (errno);
 	return (0);
 }
-
-static int print_test(t_wcard *wcard, t_word *files)
+/*
+static int print_test(t_wcard *wcard, t_wcard *files)
 {
 	t_wcard *temp;
-	t_word *temp1;
+	t_wcard *temp1;
 
 	printf("WILDCARDS\n");
 	while (wcard)
@@ -163,7 +65,6 @@ static int print_test(t_wcard *wcard, t_word *files)
 			printf("*\n");
 		else
 			printf("%s\n", wcard->str);
-		free(wcard);
 		wcard = temp;
 	}
 	printf("\n");
@@ -171,23 +72,99 @@ static int print_test(t_wcard *wcard, t_word *files)
 	while (files)
 	{
 		temp1 = files->next;
-		printf("%s\n", files->part);
-		free(files);
+		printf("%s\t", files->str);
+		if (files->ismatch == 1)
+			printf("ismatch\n");
+		else
+			printf("nomatch\n");
 		files = temp1;
 	}
 	printf("\n");
 	return (0);
 }
+*/
+static int	ms_ctoken_matches(t_tlist **wtoken, t_wcard *files)
+{
+	t_tlist	*buff;
 
-int	ms_wildcard(t_tlist *token)
+	while (files)
+	{
+		if (files->ismatch == 1)
+		{
+			buff = ms_create_token(wtoken);
+			if (buff == NULL)
+				return (errno);
+			buff->tk.value = ft_strdup(files->str);
+			if (buff->tk.value == NULL)
+				return (errno);
+			buff->tk.type = WORD;
+		}
+		files = files->next;
+	}
+	return (0);
+}
+
+static int	ms_cmatch_list(t_tlist **head, t_wcard *files)
+{
+	t_tlist	*iswild;
+	t_tlist	*matches;
+	t_tlist	*next;
+
+	iswild = *head;
+	matches = NULL;
+	next = NULL;
+	while (iswild)
+	{
+		if (iswild->tk.type == WORD && ms_iswildcard(iswild->tk.value))
+			break ;
+		iswild = iswild->next;
+	}
+	ms_ctoken_matches(&matches, files);
+	if (!matches)
+		return (-1);
+	if (iswild->previous)
+	{
+		iswild->previous->next = matches;
+		matches->previous = iswild->previous;
+	}
+	else
+		*head = matches;
+	if (iswild)
+		next = iswild->next;
+	if (next)
+		next->previous = matches;
+	while (matches->next)
+		matches = matches->next;
+	matches->next = next;
+	return (0);
+}
+
+int	ms_wildcard(t_tlist **token, t_tlist **head)
 {
 	t_wcard	*wcard;
-	t_word	*files;
+	t_wcard	*files;
+	t_tlist	*match;
+	int		err;
 
 	wcard = NULL;
 	files = NULL;
-	ms_make_wtokens(token->tk.value, &wcard);
-	ms_make_ftokens(&files);
-	print_test(wcard, files);
+	match = NULL;
+	err = 0;
+	err = ms_make_wtokens((*token)->tk.value, &wcard);
+	if (err)
+		return (err);
+	err = ms_make_ftokens(&files);
+	if (err)
+		return (err);
+	err = ms_find_matches(wcard, files);
+	err = ms_cmatch_list(head, files);
+	//print_test(wcard, files);
+	ms_clean_wildcard(wcard, files);
+	if (match)
+	{
+		free((*token)->tk.value);
+		free(*token);
+		*token = match;
+	}
 	return (0);
 }	

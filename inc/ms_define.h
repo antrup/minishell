@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 17:32:12 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/05 07:55:28 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/05 13:23:57 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@
 # define OP_WCARD 1
 # define OP_STERM 2
 # define OP_FAIL_ 0
+# define OP_MATCH 1
 
 /*
 ** CD BUILDIN CONSTANTS

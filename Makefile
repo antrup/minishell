@@ -21,6 +21,8 @@ SRCS = ms_minishell.c \
 	   expanser/ms_expanser.c \
 	   expanser/ms_exp_var.c \
 	   expanser/ms_wildcard.c \
+	   expanser/ms_wildcard_utils.c \
+	   expanser/ms_wildcard_matches.c \
 	   expanser/ms_expanser_utils.c \
 	   parser/ms_create_cmd.c \
 	   parser/ms_create_redir.c \

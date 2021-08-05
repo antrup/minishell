@@ -6,7 +6,7 @@
 /*   By: sshakya <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 03:37:54 by sshakya           #+#    #+#             */
-/*   Updated: 2021/05/19 04:51:54 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/05 19:13:25 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	if (n == 0)
 		return (0);
-	while (*s1 == *s2 && n && *s1)
+	while (*s1 && n && *s1 == *s2)
 	{
 		s1++;
 		s2++;
