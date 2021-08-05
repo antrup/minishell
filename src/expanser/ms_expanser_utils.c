@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 11:38:09 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/05 08:40:06 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/05 16:01:22 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char	*ms_concat(t_word *wlist, int *error)
 	current = wlist;
 	flag = 0;
 	if (current == NULL)
-		return (NULL);
+		return (ft_strdup(""));
 	if (!current->next)
 	{
 		str = ft_strdup(wlist->part);
