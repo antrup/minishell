@@ -6,7 +6,7 @@
 /*   By: sshakya <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 14:51:16 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/05 08:06:24 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/05 21:40:37 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,21 +52,21 @@ void	ms_error_token(t_token *token)
 		free (str);
 	}
 	if (token->type == OP_PIPE)
-		ms_errmsg(ERR_SYN, " `|'\n");
+		ms_errmsg(ERR_SYN, " `|'");
 	if (token->type == OP_AND)
-		ms_errmsg(ERR_SYN, " `&&'\n");
+		ms_errmsg(ERR_SYN, " `&&'");
 	if (token->type == OP_OR)
-		ms_errmsg(ERR_SYN, " `||'\n");
+		ms_errmsg(ERR_SYN, " `||'");
 	if (token->type == REDIR_IN)
-		ms_errmsg(ERR_SYN, " `<'\n");
+		ms_errmsg(ERR_SYN, " `<'");
 	if (token->type == REDIR_OUT)
-		ms_errmsg(ERR_SYN, " `>'\n");
+		ms_errmsg(ERR_SYN, " `>'");
 	if (token->type == REDIR_IN_A)
-		ms_errmsg(ERR_SYN, " `<<'\n");
+		ms_errmsg(ERR_SYN, " `<<'");
 	if (token->type == REDIR_OUT_A)
-		ms_errmsg(ERR_SYN, " `>>'\n");
+		ms_errmsg(ERR_SYN, " `>>'");
 	if (token->type == OP_PAREN)
-		ms_errmsg(ERR_SYN, " `('\n");
+		ms_errmsg(ERR_SYN, " `('");
 	return ;
 }
 
