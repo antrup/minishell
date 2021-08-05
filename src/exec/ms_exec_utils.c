@@ -6,7 +6,7 @@
 /*   By: sshakya <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:46:44 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/04 18:30:02 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/05 21:25:32 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,18 @@ void	ms_close_fds(t_command *cmd, int pipIN)
 
 void	ms_wait_children(t_node *current, int *error)
 {
+	int	status;
+
 	if (current->type == NO_CMD)
 	{
-		waitpid(current->pid, error, 0);
+		waitpid(current->pid, &status, 0);
+		*error = WEXITSTATUS(status);
 		return ;
 	}
 	else
 	{
-		waitpid(current->left->pid, NULL, 0);
-		ms_wait_children(current->right, error);
+		waitpid(current->left->pid, error, 0);
+		ms_wait_children(current->right, NULL);
 		return ;
 	}
 }
