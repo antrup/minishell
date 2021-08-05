@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/04 23:04:32 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/05 04:51:18 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include <string.h>
 # include <termios.h>
 # include <sys/wait.h>
+# include <dirent.h>
 /*
 ** MINISHELL HEADERS
 */
@@ -228,6 +229,12 @@ void	ms_slash_join(char *path, char *target, char *str);
 int		ms_error_nav(char *path1, char *path2, int error);
 int		ms_navigate_home(char *target);
 char	*ms_get_home_dir(void);
+
+/*
+** WILDCARD
+*/
+
+int	ms_wildcard(t_tlist **head, t_tlist *token);
 
 /*
 ** DEBUG -- TEST                                                |~

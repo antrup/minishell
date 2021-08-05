@@ -20,6 +20,7 @@ SRCS = ms_minishell.c \
 	   lexer/ms_lexer_utils_2.c \
 	   expanser/ms_expanser.c \
 	   expanser/ms_exp_var.c \
+	   expanser/ms_wildcard.c \
 	   expanser/ms_expanser_utils.c \
 	   parser/ms_create_cmd.c \
 	   parser/ms_create_redir.c \

@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 17:32:12 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/04 18:44:13 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/05 03:19:20 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,14 @@
 # define KEY_NONE 0
 # define KEY_CTRL_C 3
 # define KEY_CTRL_D 4 
+
+/*
+** WILDCARD
+*/
+
+# define OP_WCARD 1
+# define OP_STERM 2
+# define OP_FAIL_ 0
 
 /*
 ** CD BUILDIN CONSTANTS
