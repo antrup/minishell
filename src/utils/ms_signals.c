@@ -6,7 +6,7 @@
 /*   By: Satcheen SHAKYA <sshakya@student.42.f      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 12:02:43 by Satcheen          #+#    #+#             */
-/*   Updated: 2021/08/06 20:05:46 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/07 00:02:40 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	ms_exit_main(void)
 	exit (1);
 }
 
-void	ms_exit(int sig)
+void	ms_exit_sig(int sig)
 {
 	int	i;
 

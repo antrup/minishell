@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/06 18:15:19 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/07 00:03:45 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void	ms_errmsg(int id, char *str);
 */
 
 void	ms_newline(int sig);
-void	ms_exit(int sig);
+void	ms_exit_sig(int sig);
 /*
 ** EXPANSER
 */
@@ -230,6 +230,7 @@ void	ms_slash_join(char *path, char *target, char *str);
 int		ms_error_nav(char *path1, char *path2, int error);
 int		ms_navigate_home(char *target);
 char	*ms_get_home_dir(void);
+int		ms_exit(char **args);
 
 /*
 ** WILDCARD

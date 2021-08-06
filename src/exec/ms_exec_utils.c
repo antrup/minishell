@@ -6,7 +6,7 @@
 /*   By: sshakya <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:46:44 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/06 19:34:23 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/07 00:00:31 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,7 @@ int	ms_exec_bd(int	bd, char **args)
 	if (bd == BI_UNSET)
 		return (ms_unset(&(args[1])));
 	if (bd == BI_EXIT)
-	{
-		ms_clean(g_shell.data);
-		exit(0);
-	}
+		return (ms_exit(&(args[1])));
 	if (bd == BI_ENV)
 		return (ms_env());
 	return (0);

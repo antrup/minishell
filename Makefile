@@ -51,6 +51,7 @@ SRCS = ms_minishell.c \
 	   buildins/ms_export.c \
 	   buildins/ms_unset.c \
 	   buildins/ms_env.c \
+	   buildins/ms_exit.c \
 	   buildins/ms_env_utils.c \
 	   error/ms_check_syntax.c \
 	   error/ms_error.c

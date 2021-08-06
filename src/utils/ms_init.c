@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:14:09 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/06 18:16:50 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/07 00:03:20 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	ms_init(t_ms *data, char **argv, char **env)
 	ft_memcpy(&data->info.ms_input, &data->info.term_ios,
 		sizeof(data->info.ms_ios));
 	signal(SIGINT, &ms_newline);
-	signal(SIGQUIT, &ms_exit);
+	signal(SIGQUIT, &ms_exit_sig);
 	return (0);
 }
 
