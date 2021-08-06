@@ -2,6 +2,37 @@
 
 #if TEST
 
+int print_wildcard_test(t_wcard *wcard, t_wcard *files)
+{
+	t_wcard *temp;
+	t_wcard *temp1;
+
+	printf("WILDCARDS\n");
+	while (wcard)
+	{
+		temp = wcard->next;
+		if (wcard->type == OP_WCARD)
+			printf("*\n");
+		else
+			printf("%s\n", wcard->str);
+		wcard = temp;
+	}
+	printf("\n");
+	printf("FILES\n");
+	while (files)
+	{
+		temp1 = files->next;
+		printf("%s\t", files->str);
+		if (files->ismatch == 1)
+			printf("ismatch\n");
+		else
+			printf("nomatch\n");
+		files = temp1;
+	}
+	printf("\n");
+	return (0);
+}
+
 void	print_environ()
 {
 	int		i;
@@ -135,11 +166,11 @@ int	ms_minishell(t_ms *data, char **env)
 	err = 0;
 	ft_memset(&op, 0, sizeof(op));
 	if (ms_check_syntax(data->tokens))
-		return (ms_clean_tlist_all(&data->tokens));
+		return (ms_clean_tlist_all(&data->tokens, ERR_SYN));
 	//PRINT TOKENS BEFORE EXPANSER
 	//print_token(data->tokens);
 	if (ms_expanser(&data->tokens))
-		return (ms_clean_tlist_all(&data->tokens));
+		return (ms_clean_tlist_all(&data->tokens, ERR_SYN));
 	ms_markers(data->tokens, &op);
 	//PRINTF TOKENS AFTER EXPANSER
 	print_token(data->tokens);

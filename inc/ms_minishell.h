@@ -250,5 +250,6 @@ int		ms_iswildcard(char *line);
 void	print_token(t_tlist *tokens);
 void	print_tree(t_node *thead);
 void	print_environ(void);
+int		print_wildcard_test(t_wcard *wcard, t_wcard *files);
 
 #endif

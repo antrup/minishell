@@ -17,7 +17,7 @@ int	ms_iswildcard(char *line)
 	int	y;
 
 	y = 0;
- 	while (line[y])
+	while (line[y])
 	{
 		if (line[y] == '*')
 			return (1);
@@ -57,7 +57,7 @@ static char	*ms_part(char *line, int *i, int count)
 int	ms_create_sterm(t_wcard **head, char *line, int *i, int count)
 {
 	t_wcard	*new;
-	t_wcard *temp;
+	t_wcard	*temp;
 
 	temp = *head;
 	new = malloc(sizeof(t_wcard));
@@ -80,10 +80,10 @@ int	ms_create_sterm(t_wcard **head, char *line, int *i, int count)
 	return (0);
 }
 
-int ms_create_wcard(t_wcard **head, int *i, int *count)
+int	ms_create_wcard(t_wcard **head, int *i, int *count)
 {
 	t_wcard	*new;
-	t_wcard *temp;
+	t_wcard	*temp;
 
 	temp = *head;
 	new = malloc(sizeof(t_wcard));
@@ -111,7 +111,7 @@ int ms_create_wcard(t_wcard **head, int *i, int *count)
 int	ms_create_files(t_wcard **head, char *file)
 {
 	t_wcard	*new;
-	t_wcard *temp;
+	t_wcard	*temp;
 
 	temp = *head;
 	new = malloc(sizeof(t_wcard));
@@ -139,8 +139,8 @@ int	ms_create_files(t_wcard **head, char *file)
 
 void	ms_clean_wildcard(t_wcard *wcard, t_wcard *files)
 {
-	t_wcard *temp1;
-	t_wcard *temp2;
+	t_wcard	*temp1;
+	t_wcard	*temp2;
 
 	while (wcard)
 	{
