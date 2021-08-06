@@ -6,7 +6,7 @@
 /*   By: sshakya <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:49:03 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/06 17:25:27 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/06 18:42:29 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ static void	child_redir(t_command *cmd, int pipIN, int pipOUT)
 	if (cmd->redirOUT)
 	{
 		dup2(cmd->OUTfd, 1);
-		if (pipOUT)
+		if (pipOUT != 1)
 			close(pipOUT);
 	}
-	else if (pipOUT)
+	else if (pipOUT != 1)
 	{	
 		dup2(pipOUT, 1);
 		close(pipOUT);
