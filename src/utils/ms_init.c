@@ -6,13 +6,28 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:14:09 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/04 23:03:17 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/06 18:07:27 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
 
-void	ms_init_env(void)
+static int	ms_exp_min_env(char *pwd, char **pwd_env)
+{
+	ft_strlcpy(pwd_env[0], "PWD=", 5);
+	ft_strlcpy(pwd_env[0] + 4, pwd, ft_strlen(pwd) + 1);
+	ms_export(pwd_env);
+	free(pwd_env[0]);
+	pwd_env[0] = malloc(sizeof(char) * 10);
+	if (!pwd_env[0])
+		return (1);
+	ft_strlcpy(pwd_env[0], "PATH=/bin", 10);
+	ms_export(pwd_env);
+	free(pwd_env[0]);
+	return (0);
+}
+
+int	ms_init_env(void)
 {
 	char	*pwd;
 	char	**pwd_env;
@@ -22,29 +37,20 @@ void	ms_init_env(void)
 		environ = NULL;
 		pwd = malloc(sizeof(char) * 1000);
 		if (!pwd)
-			return ;
+			return (1);
 		if (!getcwd(pwd, 1000))
-			return ;
+			return (1);
 		pwd_env = malloc(sizeof(char *) * 2);
 		if (!pwd_env)
-			return ;
+			return (1);
 		pwd_env[0] = malloc(sizeof(char) * (ft_strlen(pwd) + 5));
 		if (!pwd_env[0])
 			return ;
 		pwd_env[1] = NULL;
-		ft_strlcpy(pwd_env[0], "PWD=", 5);
-		ft_strlcpy(pwd_env[0] + 4, pwd, ft_strlen(pwd) + 1);
-		ms_export(pwd_env);
-		g_shell.env_pt = NULL;
-		free(pwd_env[0]);
-		pwd_env[0] = malloc(sizeof(char) * 10);
-		if (!pwd_env[0])
-			return ;
-		ft_strlcpy(pwd_env[0], "PATH=/bin", 10);
-		ms_export(pwd_env);
-		free(pwd_env[0]);
 		free(pwd_env);
+		return (ms_exp_min_env(pwd, pwd_env));
 	}
+	return (0);
 }
 
 void	ms_init(t_ms *data, char **argv, char **env)

@@ -6,7 +6,7 @@
 /*   By: sshakya <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:46:44 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/05 21:59:36 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/06 17:26:12 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ms_wait_children(t_node *current, int *error)
 	if (current->type == NO_CMD)
 	{
 		waitpid(current->pid, &status, 0);
-		if (WIFEXITED(status)) 
+		if (WIFEXITED(status))
 			*error = WEXITSTATUS(status);
 		else
 			*error = 1;

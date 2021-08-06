@@ -6,28 +6,29 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:44:45 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/05 01:22:38 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/06 17:36:35 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
 
+static void	ms_buildin(t_tlist **token, t_command *command)
+{
+	command->buildin = buildin;
+	command->cmd = ft_strdup((*token)->tk.value);
+	command->errname = ft_strdup((*token)->tk.value);
+	return ;
+}
+
 static int	ms_cmd(t_tlist **token, t_command *command)
 {
-	int		buildin;
 	int		i;
 
-	buildin = 0;
 	i = 0;
 	if (command->cmd == NULL)
 	{
-		buildin = ms_check_buildin((*token)->tk.value);
-		if (buildin)
-		{
-			command->buildin = buildin;
-			command->cmd = ft_strdup((*token)->tk.value);
-			command->errname = ft_strdup((*token)->tk.value);
-		}
+		if (ms_check_buildin((*token)->tk.value))
+			ms_buildin(token, command);
 		else
 		{
 			command->cmd = ms_format_cmd((*token)->tk.value);
@@ -46,10 +47,6 @@ static int	ms_cmd(t_tlist **token, t_command *command)
 	}
 	return (0);
 }
-
-/*
-** TOP QUALITY
-*/
 
 static int	ms_subshell(t_tlist **token, t_command *command)
 {

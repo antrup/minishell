@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:03:04 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/05 16:44:21 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/06 18:09:46 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ typedef struct s_markers
 	int	_or;
 	int	ret;
 }	t_markers;
-
 
 typedef struct s_wcard
 {

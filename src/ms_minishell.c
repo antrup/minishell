@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/06 07:21:54 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/06 18:05:33 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ int	main(int argc, char **argv, char **env)
 {
 	t_ms	data;
 
-	ms_init(&data, argv, env);
+	if (ms_init(&data, argv, env))
+		return (1);
 	if (argc > 1)
 		ms_arg_shell(&data, argv, env, argc);
 	else

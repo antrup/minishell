@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 11:59:31 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/04 18:50:07 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/06 17:44:34 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,34 +53,33 @@ char	*ms_format_ds(char *file_name)
 /*
 ** DOUBLE DOT
 */
-char	*ms_format_dd(char *file_name)
+char	*ms_format_dd(char *name)
 {
 	char	*pwd;
-	char	*file_path;
-	int		size;
+	char	*path;
 	int		n;
 
 	n = 0;
-	pwd = ms_find_path(file_name);
-	size = ft_strlen(file_name) + ft_strlen(pwd) + 2;
-	file_path = malloc(sizeof(char) * size);
-	while (*file_name == '.' && *(file_name + 1) == '.' && *(file_name + 2) == '/')
+	pwd = ms_find_path(name);
+	path = malloc(sizeof(char) * (ft_strlen(name) + ft_strlen(pwd) + 2));
+	while (*name == '.' && *(name + 1) == '.'
+		&& *(name + 2) == '/')
 	{
-		file_name = file_name + 3;
+		name = name + 3;
 		n++;
 	}
-	if (n == 1 && ft_strlen(file_name - 3) == 3)
+	if (n == 1 && ft_strlen(name - 3) == 3)
 		return (NULL);
-	ft_strlcpy(file_path, pwd, ft_strlen(pwd) + 1);
-	if (!(file_path[0] == '/' && file_path[1] == '\0'))
+	ft_strlcpy(path, pwd, ft_strlen(pwd) + 1);
+	if (!(path[0] == '/' && path[1] == '\0'))
 	{	
-		ft_strlcpy(file_path + ft_strlen(pwd), "/", 2);
-		ft_strlcpy(file_path + ft_strlen(pwd) + 1, file_name, ft_strlen(file_name) + 1);
+		ft_strlcpy(path + ft_strlen(pwd), "/", 2);
+		ft_strlcpy(path + ft_strlen(pwd) + 1, name, ft_strlen(name) + 1);
 	}
 	else
-		ft_strlcpy(file_path + ft_strlen(pwd), file_name, ft_strlen(file_name) + 1);
+		ft_strlcpy(path + ft_strlen(pwd), name, ft_strlen(name) + 1);
 	free(pwd);
-	return (file_path);
+	return (path);
 }
 
 /*

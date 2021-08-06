@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 09:41:43 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/05 18:57:30 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/06 17:30:37 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,24 +89,22 @@ static int	ms_expand_tk_value(t_tlist *token)
 	wlist = NULL;
 	while (token->tk.value[i] && !err)
 	{
-		if (ms_isquote(token->tk.value[i]) == STRING_SQ && !err)
+		if (ms_isquote(token->tk.value[i]) == STRING_SQ)
 			err = ms_exp_sqt(token->tk.value, &i, &wlist);
-		else if (ms_isvariable(&(token->tk.value[i])) && !err)
+		else if (ms_isvariable(&(token->tk.value[i])))
 			err = ms_exp_var(token->tk.value, &i, &wlist);
-		else if (ms_isquote(token->tk.value[i]) == STRING_DQ && !err)
+		else if (ms_isquote(token->tk.value[i]) == STRING_DQ)
 			err = ms_exp_dqt(token->tk.value, &i, &wlist);
 		else if (ms_is_sp_variable(&(token->tk.value[i])))
 			err = ms_exp_spvar(&i, &wlist);
-		else if (!err)
+		else if
 			err = ms_exp_oth(token->tk.value, &i, &wlist, -1);
 	}
 	free(token->tk.value);
 	token->tk.value = ms_concat(wlist, &err);
 	if (wlist)
 		ms_clean_wlist(wlist);
-	if (err)
-		return (1);
-	return (0);
+	return (err);
 }
 
 int	ms_expanser(t_tlist **tokens)

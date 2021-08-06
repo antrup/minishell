@@ -6,7 +6,7 @@
 /*   By: sshakya <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:49:03 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/06 16:06:45 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/06 17:25:27 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	ms_exec_error(t_command *cmd)
 	exit (1);
 }
 
-int	child(t_command *cmd, int pipIN, int pipOUT)
+static void	child_redir(t_command *cmd, int pipIN, int pipOUT)
 {
 	if (cmd->redirOUT)
 	{
@@ -66,6 +66,12 @@ int	child(t_command *cmd, int pipIN, int pipOUT)
 		dup2(pipIN, 0);
 		close(pipIN);
 	}
+	return ;
+}
+
+int	child(t_command *cmd, int pipIN, int pipOUT)
+{
+	child_redir(cmd, pipIN, pipOUT);
 	if (cmd->error)
 		ms_exec_error(cmd);
 	if (cmd->buildin)

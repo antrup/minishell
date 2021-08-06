@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/06 07:19:22 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/06 18:09:32 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ char	*ms_join_argv(char **argv, int argc);
 void	ms_init(t_ms *data, char **argv, char **env);
 void	ms_init_shell_io(t_ms *data);
 void	ms_shell_input_io(t_ms *data);
-void	ms_init_env(void);
+int		ms_init_env(void);
 
 /*
 ** CLEAN
@@ -166,9 +166,9 @@ char	*ms_find_cmd_path(char	*cmd_name, char ***t_path, int size_n);
 ** CREATE REDIRECTIONS
 */
 
-int	ms_redir_in(t_tlist **token, t_command *command);
-int	ms_redir_out(t_tlist **token, t_command *command);
-int	ms_redir_outa(t_tlist **token, t_command *command);
+int		ms_redir_in(t_tlist **token, t_command *command);
+int		ms_redir_out(t_tlist **token, t_command *command);
+int		ms_redir_outa(t_tlist **token, t_command *command);
 /*
 ** PARSER UTILS
 */
