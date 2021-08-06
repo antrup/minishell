@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/06 18:09:32 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/06 18:15:19 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	*ms_join_argv(char **argv, int argc);
 ** INIT
 */
 
-void	ms_init(t_ms *data, char **argv, char **env);
+int		ms_init(t_ms *data, char **argv, char **env);
 void	ms_init_shell_io(t_ms *data);
 void	ms_shell_input_io(t_ms *data);
 int		ms_init_env(void);

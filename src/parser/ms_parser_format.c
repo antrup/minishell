@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 11:55:38 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/06 18:10:15 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/06 18:20:51 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*ms_format_slash(char *name)
 	file_path = malloc(sizeof(char) * size_name);
 	ft_strlcpy(file_path, pwd, ft_strlen(pwd) + 1);
 	ft_strlcpy(file_path + ft_strlen(pwd), "/", 2);
-	ft_strlcpy(file_path + ft_strlen(pwd) + 1, file_name, ft_strlen(name) + 1);
+	ft_strlcpy(file_path + ft_strlen(pwd) + 1, name, ft_strlen(name) + 1);
 	return (file_path);
 }
 
@@ -43,10 +43,6 @@ static char	*ms_format_cmd_path(char *file_name)
 
 char	*ms_format_cmd(char *file_name)
 {
-	char	*file_path;
-	char	**tab_path;
-	int		size_name;
-
 	if (file_name[0] == '\0')
 		return (ft_strdup(""));
 	if (file_name[0] == '/')
@@ -82,10 +78,6 @@ static char	*ms_format_file_naked(char *file_name)
 
 char	*ms_format_file(char *file_name)
 {
-	char	*pwd;
-	char	*file_path;
-	int		size;
-
 	if (file_name[0] == '\0')
 		return (ft_strdup(""));
 	if (file_name[0] == '/')

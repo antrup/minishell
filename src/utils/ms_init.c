@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:14:09 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/06 18:07:27 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/06 18:16:50 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ms_init_env(void)
 			return (1);
 		pwd_env[0] = malloc(sizeof(char) * (ft_strlen(pwd) + 5));
 		if (!pwd_env[0])
-			return ;
+			return (1);
 		pwd_env[1] = NULL;
 		free(pwd_env);
 		return (ms_exp_min_env(pwd, pwd_env));
@@ -53,24 +53,27 @@ int	ms_init_env(void)
 	return (0);
 }
 
-void	ms_init(t_ms *data, char **argv, char **env)
+int	ms_init(t_ms *data, char **argv, char **env)
 {
 	if (env)
 		g_shell.env = env;
-	ms_init_env();
+	if (ms_init_env())
+		return (1);
 	ft_memset(data, 0, sizeof(t_ms));
 	data->tokens = NULL;
 	data->line = NULL;
 	data->thead = NULL;
 	g_shell.data = data;
 	g_shell.mypath = argv[0];
-	tcgetattr(0, &data->info.term_ios);
+	if (tcgetattr(0, &data->info.term_ios) == -1)
+		return (1);
 	ft_memcpy(&data->info.ms_ios, &data->info.term_ios,
 		sizeof(data->info.ms_ios));
 	ft_memcpy(&data->info.ms_input, &data->info.term_ios,
 		sizeof(data->info.ms_ios));
 	signal(SIGINT, &ms_newline);
 	signal(SIGQUIT, &ms_exit);
+	return (0);
 }
 
 void	ms_init_shell_io(t_ms *data)

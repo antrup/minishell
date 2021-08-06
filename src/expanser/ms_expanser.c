@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 09:41:43 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/06 17:30:37 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/06 18:18:14 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static int	ms_expand_tk_value(t_tlist *token)
 			err = ms_exp_dqt(token->tk.value, &i, &wlist);
 		else if (ms_is_sp_variable(&(token->tk.value[i])))
 			err = ms_exp_spvar(&i, &wlist);
-		else if
+		else 
 			err = ms_exp_oth(token->tk.value, &i, &wlist, -1);
 	}
 	free(token->tk.value);

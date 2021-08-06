@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:44:45 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/06 17:36:35 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/06 18:19:15 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	ms_buildin(t_tlist **token, t_command *command)
 {
-	command->buildin = buildin;
+	command->buildin = 1;
 	command->cmd = ft_strdup((*token)->tk.value);
 	command->errname = ft_strdup((*token)->tk.value);
 	return ;
