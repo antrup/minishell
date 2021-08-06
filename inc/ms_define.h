@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 17:32:12 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/05 13:23:57 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/06 07:23:52 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 # define MS_DEFINE_H
 
 //# define environ g_shell.env
+
+/*
+** GLOBAL CONSTANTS
+*/
+
+# define STDIN 0
+# define STDOUT 1
+# define STDERR 2
 
 /*
 ** TOKEN TYPES
@@ -38,9 +46,10 @@
 # define BI_UNSET 5
 # define BI_ENV 6
 # define BI_EXIT 7
-/** ERRORS
+/*
+** ERRORS
 */
-# define ERR_SYN -1
+# define ERR_SYN 258
 # define ERR_TK -2
 # define ERR_DQUT -3
 # define ERR_SQUT -4
@@ -52,7 +61,9 @@
 # define ERR_CD -10
 # define ERR_MEM -11
 # define ERR_PAREN -12
-
+/*
+** KEYS
+*/
 # define KEY_NONE 0
 # define KEY_CTRL_C 3
 # define KEY_CTRL_D 4 

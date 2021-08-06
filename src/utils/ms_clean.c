@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 00:17:37 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/04 23:12:03 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/06 07:24:31 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ms_clean_wlist(t_word *list)
 void	ms_clean(t_ms *data)
 {
 	if (data->tokens)
-		ms_clean_tlist_all(&data->tokens);
+		ms_clean_tlist_all(&data->tokens, 0);
 	if (data->thead)
 		ms_clean_cmd(&data->thead);
 	if (data->line)

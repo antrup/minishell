@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/05 18:57:40 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/06 07:19:22 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	ms_clean(t_ms *data);
 void	ms_clean_cmd(t_node **head);
 void	ms_clean_tlist_cmd(t_tlist **list);
 void	ms_clean_tlist_or(t_tlist **list);
-int		ms_clean_tlist_all(t_tlist **list);
+int		ms_clean_tlist_all(t_tlist **list, int err);
 void	ms_clean_tk_or(t_tlist **list);
 void	ms_clean_environ(void);
 void	ms_clean_tokens(t_tlist **tokens, t_markers op);

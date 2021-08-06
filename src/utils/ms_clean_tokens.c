@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 14:13:50 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/05 08:15:38 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/06 07:18:56 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ms_clean_tlist_or(t_tlist **list)
 	}
 }
 
-int	ms_clean_tlist_all(t_tlist **list)
+int	ms_clean_tlist_all(t_tlist **list, int err)
 {
 	t_tlist	*temp;
 
@@ -66,7 +66,8 @@ int	ms_clean_tlist_all(t_tlist **list)
 		free(*list);
 		*list = temp;
 	}
-	return (1);
+	g_shell.rvar = err;
+	return (err);
 }
 
 int	ms_clean_tlist_parenthesis(t_tlist **list)
@@ -91,7 +92,7 @@ void	ms_clean_tokens(t_tlist **tokens, t_markers op)
 	if (op._or > 0 && op.ret == 0)
 		ms_clean_tlist_or(tokens);
 	else if (op._and > 0 && g_shell.rvar != 0)
-		ms_clean_tlist_all(tokens);
+		ms_clean_tlist_all(tokens, g_shell.rvar);
 	else
 		ms_clean_tlist_cmd(tokens);
 }

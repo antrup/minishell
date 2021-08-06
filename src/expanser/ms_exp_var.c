@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 02:16:27 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/05 01:22:09 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/06 07:25:30 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	ms_var_tokens(char *var, t_tlist **tokens, t_tlist **current)
 			err = ms_ctoken_word(var, &vtoken, &i);
 	}
 	if (err)
-		return (ms_clean_tlist_all(&vtoken));
+		return (ms_clean_tlist_all(&vtoken, 0));
 	ms_add_token(vtoken, tokens);
 	*current = vtoken;
 	return (0);
