@@ -2,6 +2,19 @@
 
 #if TEST
 
+
+void	print_environ()
+{
+	int		i;
+
+	i = 0;
+	while (environ[i])
+	{
+		printf("index : %d - %s \n", i, environ[i]);
+		i++;
+	}
+}
+
 int print_wildcard_test(t_wcard *wcard, t_wcard *files)
 {
 	t_wcard *temp;
@@ -32,19 +45,6 @@ int print_wildcard_test(t_wcard *wcard, t_wcard *files)
 	printf("\n");
 	return (0);
 }
-
-void	print_environ()
-{
-	int		i;
-
-	i = 0;
-	while (environ[i])
-	{
-		printf("index : %d - %s \n", i, environ[i]);
-		i++;
-	}
-}
-
 void	print_tree(t_node *thead)
 {
 	t_node		*current;
@@ -179,7 +179,7 @@ int	ms_minishell(t_ms *data, char **env)
 	//PRINT COMMANDS
 	print_tree(data->thead);
 	tcsetattr(0, TCSANOW, &data->info.term_ios);
-	//op.ret = ms_exec(data->thead, 0);
+	op.ret = ms_exec(data->thead, 0);
 	g_shell.rvar = op.ret;
 	ms_clean_tokens(&data->tokens, op);
 	ms_clean_cmd(&data->thead);

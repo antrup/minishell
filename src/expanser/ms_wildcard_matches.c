@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 17:21:58 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/05 18:37:47 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/06 21:04:00 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	ms_ismatch(t_wcard *files, t_wcard *wcard, int show_hidden)
 
 	temp = files->str;
 	flag = 0;
-	if (!show_hidden && files->str[0] == '.')
+	if ((!show_hidden && files->str[0] == '.'))
 		return (0);
 	while (temp && temp[0] != '\0')
 	{	

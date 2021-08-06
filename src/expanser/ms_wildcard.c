@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 02:42:55 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/05 19:05:27 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/06 21:47:27 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,12 @@ static int	ms_make_wtokens(char *line, t_wcard **wc)
 	while (line[i] && !err)
 	{
 		if (line[i] == '*')
+		{	
+			while (line[i] == '*')
+				i++;
+			i--;
 			err = ms_create_wcard(wc, &i, &count);
+		}
 		else
 			err = ms_create_sterm(wc, line, &i, count);
 	}
@@ -116,6 +121,45 @@ static int	ms_cmatch_list(t_tlist **head, t_wcard *files)
 	return (0);
 }
 
+static int	ms_strcmp(char *s1, char *s2)
+{
+	int		i;
+
+	i = 0;
+	while (s2[i] != '\0' && s1[i] != '\0')
+	{
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+		i++;
+	}
+	return (s1[i] - s2[i]);
+}
+
+static void	ms_sort_files(t_wcard *file)
+{
+	int		i;
+	char	*temp;
+	int		is_sorted;
+
+	is_sorted = 0;
+	while (!is_sorted)
+	{
+		is_sorted = 1;
+		i = 0;
+		while (file->next != NULL)
+		{
+			if (ms_strcmp(file->str, file->next->str) > 0)
+			{
+				temp = file->str;
+				file->str = file->next->str;
+				file->next->str = temp;
+				is_sorted = 0;
+			}
+			file = file->next;
+		}
+	}
+}
+
 int	ms_wildcard(t_tlist **token, t_tlist **head)
 {
 	t_wcard	*wcard;
@@ -131,6 +175,7 @@ int	ms_wildcard(t_tlist **token, t_tlist **head)
 	if (err)
 		return (err);
 	err = ms_make_ftokens(&files);
+	ms_sort_files(files);
 	if (err)
 		return (err);
 	err = ms_find_matches(wcard, files);
