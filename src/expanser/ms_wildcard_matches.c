@@ -62,23 +62,18 @@ static int	ms_ishidden(char *file)
 int	ms_find_matches(t_wcard *wcard, t_wcard *files)
 {
 	t_wcard	*twcard;
-	int		match_all;
-	int		show_hidden;
 
-	match_all = ms_showall(wcard);
-	show_hidden = ms_show_hidden(wcard);
 	while (files)
 	{
 		twcard = wcard;
 		while (twcard)
 		{
-			if (twcard->type == OP_WCARD && !match_all)
+			if (twcard->type == OP_WCARD && !ms_showall(wcard))
 				twcard = twcard->next;
-			if (!twcard && !match_all)
+			if (!twcard && !ms_showall(wcard))
 				break ;
-			if ((match_all == 1
-					&& !ms_ishidden(files->str))
-				|| ms_ismatch(files, twcard, show_hidden))
+			if ((ms_showall(wcard) && !ms_ishidden(files->str))
+				|| ms_ismatch(files, twcard, ms_show_hidden(wcard)))
 				files->ismatch = 1;
 			else
 			{

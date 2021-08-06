@@ -73,22 +73,30 @@ static int	ms_ctoken_matches(t_tlist **wtoken, t_wcard *files)
 	return (0);
 }
 
+static t_tlist	*ms_iswild(t_tlist **head)
+{
+	t_tlist	*iswild;
+
+	iswild = *head;
+	while (iswild)
+	{
+		if (iswild->tk.type == WORD && ms_iswildcard(iswild->tk.value))
+			return (iswild);
+		iswild = iswild->next;
+	}
+	return (NULL);
+}
+
 static int	ms_cmatch_list(t_tlist **head, t_wcard *files)
 {
 	t_tlist	*iswild;
 	t_tlist	*matches;
 	t_tlist	*next;
 
-	iswild = *head;
 	matches = NULL;
 	next = NULL;
-	while (iswild)
-	{
-		if (iswild->tk.type == WORD && ms_iswildcard(iswild->tk.value))
-			break ;
-		iswild = iswild->next;
-	}
 	ms_ctoken_matches(&matches, files);
+	iswild = ms_iswild(head);
 	if (!matches)
 		return (-1);
 	if (iswild->previous)
@@ -127,7 +135,6 @@ int	ms_wildcard(t_tlist **token, t_tlist **head)
 		return (err);
 	err = ms_find_matches(wcard, files);
 	err = ms_cmatch_list(head, files);
-	//print_wildcard_test(wcard, files);
 	ms_clean_wildcard(wcard, files);
 	if (match)
 	{
