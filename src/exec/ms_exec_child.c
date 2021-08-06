@@ -6,7 +6,7 @@
 /*   By: sshakya <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:49:03 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/05 16:10:04 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/06 16:06:45 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,10 @@ int	child(t_command *cmd, int pipIN, int pipOUT)
 			close(pipOUT);
 	}
 	else if (pipOUT)
+	{	
 		dup2(pipOUT, 1);
-	if (pipOUT)
-		dup2(pipOUT, 1);
+		close(pipOUT);
+	}
 	if (cmd->redirIN)
 	{	
 		dup2(cmd->INfd, 0);
@@ -61,7 +62,10 @@ int	child(t_command *cmd, int pipIN, int pipOUT)
 			close(pipIN);
 	}
 	else if (pipIN)
+	{	
 		dup2(pipIN, 0);
+		close(pipIN);
+	}
 	if (cmd->error)
 		ms_exec_error(cmd);
 	if (cmd->buildin)
