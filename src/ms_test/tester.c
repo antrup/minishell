@@ -135,11 +135,11 @@ int	ms_minishell(t_ms *data, char **env)
 	err = 0;
 	ft_memset(&op, 0, sizeof(op));
 	if (ms_check_syntax(data->tokens))
-		return (ms_clean_tlist_all(&data->tokens));
+		return (ms_clean_tlist_all(&data->tokens, ERR_SYN));
 	//PRINT TOKENS BEFORE EXPANSER
 	//print_token(data->tokens);
 	if (ms_expanser(&data->tokens))
-		return (ms_clean_tlist_all(&data->tokens));
+		return (ms_clean_tlist_all(&data->tokens, ERR_SYN));
 	ms_markers(data->tokens, &op);
 	//PRINTF TOKENS AFTER EXPANSER
 	print_token(data->tokens);

@@ -37,17 +37,22 @@ static int	ms_ismatch(t_wcard *files, t_wcard *wcard)
 int	ms_find_matches(t_wcard *wcard, t_wcard *files)
 {
 	t_wcard	*twcard;
+	int		match_all;
 
+	match_all = 0;
+	if (wcard->type == OP_WCARD
+		&& wcard->next == NULL && wcard->prev == NULL)
+		match_all = 1;
 	while (files)
 	{
 		twcard = wcard;
 		while (twcard)
 		{
-			if (twcard->type == OP_WCARD)
+			if (twcard->type == OP_WCARD && !match_all)
 				twcard = twcard->next;
-			if (!twcard)
+			if (!twcard && !match_all)
 				break ;
-			if (ms_ismatch(files, twcard))
+			if (match_all == 1 || ms_ismatch(files, twcard))
 				files->ismatch = 1;
 			else
 			{
