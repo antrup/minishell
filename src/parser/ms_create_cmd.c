@@ -6,15 +6,15 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:44:45 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/06 18:19:15 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/06 19:40:06 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
 
-static void	ms_buildin(t_tlist **token, t_command *command)
+static void	ms_buildin(t_tlist **token, t_command *command, int build)
 {
-	command->buildin = 1;
+	command->buildin = build;
 	command->cmd = ft_strdup((*token)->tk.value);
 	command->errname = ft_strdup((*token)->tk.value);
 	return ;
@@ -23,12 +23,14 @@ static void	ms_buildin(t_tlist **token, t_command *command)
 static int	ms_cmd(t_tlist **token, t_command *command)
 {
 	int		i;
+	int		build;
 
 	i = 0;
 	if (command->cmd == NULL)
 	{
-		if (ms_check_buildin((*token)->tk.value))
-			ms_buildin(token, command);
+			build =  ms_check_buildin((*token)->tk.value);
+		if (build)	
+			ms_buildin(token, command, build);
 		else
 		{
 			command->cmd = ms_format_cmd((*token)->tk.value);

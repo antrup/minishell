@@ -6,7 +6,7 @@
 /*   By: Satcheen SHAKYA <sshakya@student.42.f      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 12:02:43 by Satcheen          #+#    #+#             */
-/*   Updated: 2021/08/04 23:12:59 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/06 19:28:13 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	ms_exit_main(void)
 	tcsetattr(0, TCSANOW, &g_shell.data->info.term_ios);
 	ms_clean(g_shell.data);
 	rl_clear_history();
-	exit (0);
+	exit (1);
 }
 
 void	ms_exit(int sig)

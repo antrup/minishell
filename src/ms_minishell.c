@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/06 18:05:33 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/06 19:32:07 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,21 @@ int	ms_minishell(t_ms *data, char **env)
 
 static int	ms_interactive(t_ms *data, char **env)
 {
-	(void)env;
+	int err;
+
+	err = 0;
 	while (1)
 	{
 		data->thead = NULL;
 		ms_init_shell_io(data);
 		data->line = readline("Myshell: ");
-		if (ms_lexer(data->line, &data->tokens))
+		if (!data->line)
+			return (1);
+		err = ms_lexer(data->line, &data->tokens);
+		if (err == ERR_SYN)
 			ms_clean_tlist_all(&data->tokens, ERR_SYN);
+		else if (err)
+			return (ms_clean_tlist_all(&data->tokens, err));
 		else
 			ms_minishell(data, env);
 		add_history(data->line);
@@ -105,6 +112,7 @@ int	main(int argc, char **argv, char **env)
 	if (argc > 1)
 		ms_arg_shell(&data, argv, env, argc);
 	else
-		ms_interactive(&data, env);
+		if (ms_interactive(&data, env))
+			return (1);
 	return (g_shell.rvar);
 }
