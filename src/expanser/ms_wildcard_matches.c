@@ -76,8 +76,9 @@ int	ms_find_matches(t_wcard *wcard, t_wcard *files)
 				twcard = twcard->next;
 			if (!twcard && !match_all)
 				break ;
-			if ((match_all == 1 &&
-				!ms_ishidden(files->str)) || ms_ismatch(files, twcard, show_hidden))
+			if ((match_all == 1
+					&& !ms_ishidden(files->str))
+				|| ms_ismatch(files, twcard, show_hidden))
 				files->ismatch = 1;
 			else
 			{

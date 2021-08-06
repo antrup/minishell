@@ -12,7 +12,7 @@
 
 #include "ms_minishell.h"
 
-static int ms_make_wtokens(char *line, t_wcard **wc)
+static int	ms_make_wtokens(char *line, t_wcard **wc)
 {
 	int		count;
 	int		err;
@@ -31,10 +31,10 @@ static int ms_make_wtokens(char *line, t_wcard **wc)
 	return (err);
 }
 
-static int ms_make_ftokens(t_wcard **files)
+static int	ms_make_ftokens(t_wcard **files)
 {
-	DIR	*dp;
-	struct dirent *ep;
+	DIR				*dp;
+	struct dirent	*ep;
 
 	dp = opendir ("./");
 	if (dp != NULL)
@@ -51,38 +51,7 @@ static int ms_make_ftokens(t_wcard **files)
 		return (errno);
 	return (0);
 }
-/*
-static int print_test(t_wcard *wcard, t_wcard *files)
-{
-	t_wcard *temp;
-	t_wcard *temp1;
 
-	printf("WILDCARDS\n");
-	while (wcard)
-	{
-		temp = wcard->next;
-		if (wcard->type == OP_WCARD)
-			printf("*\n");
-		else
-			printf("%s\n", wcard->str);
-		wcard = temp;
-	}
-	printf("\n");
-	printf("FILES\n");
-	while (files)
-	{
-		temp1 = files->next;
-		printf("%s\t", files->str);
-		if (files->ismatch == 1)
-			printf("ismatch\n");
-		else
-			printf("nomatch\n");
-		files = temp1;
-	}
-	printf("\n");
-	return (0);
-}
-*/
 static int	ms_ctoken_matches(t_tlist **wtoken, t_wcard *files)
 {
 	t_tlist	*buff;
@@ -158,7 +127,7 @@ int	ms_wildcard(t_tlist **token, t_tlist **head)
 		return (err);
 	err = ms_find_matches(wcard, files);
 	err = ms_cmatch_list(head, files);
-	//print_test(wcard, files);
+	//print_wildcard_test(wcard, files);
 	ms_clean_wildcard(wcard, files);
 	if (match)
 	{

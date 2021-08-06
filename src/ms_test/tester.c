@@ -2,6 +2,37 @@
 
 #if TEST
 
+int print_wildcard_test(t_wcard *wcard, t_wcard *files)
+{
+	t_wcard *temp;
+	t_wcard *temp1;
+
+	printf("WILDCARDS\n");
+	while (wcard)
+	{
+		temp = wcard->next;
+		if (wcard->type == OP_WCARD)
+			printf("*\n");
+		else
+			printf("%s\n", wcard->str);
+		wcard = temp;
+	}
+	printf("\n");
+	printf("FILES\n");
+	while (files)
+	{
+		temp1 = files->next;
+		printf("%s\t", files->str);
+		if (files->ismatch == 1)
+			printf("ismatch\n");
+		else
+			printf("nomatch\n");
+		files = temp1;
+	}
+	printf("\n");
+	return (0);
+}
+
 void	print_environ()
 {
 	int		i;
