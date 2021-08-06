@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/22 11:21:30 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/03 22:35:58 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/06 14:02:40 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ int	ms_echo_option(int *i, char **args)
 
 	n_opt = 0;
 	stop = 0;
-	if (!args[0])
-		return (0);
 	while (!stop && !ft_strncmp(args[*i], "-n", 2))
 	{
 		n_opt = 1;
@@ -49,7 +47,10 @@ int	ms_echo(char **args)
 	int		i;
 
 	i = 0;
-	n_opt = ms_echo_option(&i, args);
+	if (!args[0])
+		n_opt = 0;
+	else
+		n_opt = ms_echo_option(&i, args);
 	while (args[i])
 	{
 		write(1, args[i], ft_strlen(args[i]));
