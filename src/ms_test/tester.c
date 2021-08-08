@@ -2,7 +2,6 @@
 
 #if TEST
 
-
 void	print_environ()
 {
 	int		i;
