@@ -15,6 +15,7 @@ SRCS = ms_minishell.c \
 	   utils/ms_clean_tokens.c \
 	   lexer/ms_lexer.c \
 	   lexer/ms_ctoken_op.c \
+	   lexer/ms_ctoken_op2.c \
 	   lexer/ms_ctoken_wrd.c \
 	   lexer/ms_lexer_utils.c \
 	   lexer/ms_lexer_utils_2.c \
