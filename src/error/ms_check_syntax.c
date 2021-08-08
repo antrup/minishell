@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 14:41:40 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/05 08:05:44 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/08 12:57:04 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,7 @@ int	ms_check_syntax(t_tlist *tokens)
 	current = tokens;
 	if (current == NULL)
 		return (1);
-	if (current->tk.type != WORD && current->tk.type != REDIR_IN
-		&& current->tk.type != REDIR_OUT && current->tk.type != REDIR_IN_A
-		&& current->tk.type != REDIR_OUT_A && current->tk.type != OP_VAR
-		&& current->tk.type != OP_PAREN)
+	if (ms_check_first_tk(current))
 	{
 		ms_error_token(&(current->tk));
 		return (1);

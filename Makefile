@@ -56,6 +56,7 @@ SRCS = ms_minishell.c \
 	   buildins/ms_exit.c \
 	   buildins/ms_env_utils.c \
 	   error/ms_check_syntax.c \
+	   error/ms_check_syntax_utils.c \
 	   error/ms_error.c
 
 #TO BE REMOVED - TEST

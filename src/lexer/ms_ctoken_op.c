@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 22:38:52 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/05 07:52:30 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/08 13:14:28 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,18 @@ int	ms_ctoken_or(t_tlist **tokens, int *i)
 	return (0);
 }
 
+static int	ms_check_parenthesis(char *line)
+{
+	int	len;
+
+	if (!line || line[0] == '\0')
+		return (1);
+	len = ft_strlen(line);
+	if (line[0] == '(' && line[len - 1] == ')')
+		return (1);
+	return (0);
+}
+
 int	ms_ctoken_parenthesis(char *line, t_tlist **tokens, int *i)
 {
 	t_tlist		*new;
@@ -57,6 +69,11 @@ int	ms_ctoken_parenthesis(char *line, t_tlist **tokens, int *i)
 		if (_open == -1)
 		{
 			new->tk.value = ft_substr(line, *i + 1, n - *i - 1);
+			if (ms_check_parenthesis(new->tk.value))
+			{
+				ms_errmsg(ERR_SYN, new->tk.value);
+				return (1);
+			}
 			*i = n + 1;
 			return (0);
 		}
