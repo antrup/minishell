@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/06 19:32:07 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/08 11:51:27 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	ms_minishell(t_ms *data, char **env)
 
 static int	ms_interactive(t_ms *data, char **env)
 {
-	int err;
+	int	err;
 
 	err = 0;
 	while (1)

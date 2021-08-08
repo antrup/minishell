@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 11:38:09 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/08 11:39:03 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/08 11:48:58 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,43 +76,4 @@ int	ms_exp_var(char *word, int *i, t_word **wlist)
 	ft_strlcpy(new->part, getenv(var), ft_strlen(getenv(var)) + 1);
 	free(var);
 	return (0);
-}
-
-char	*ms_concat(t_word *wlist, int *error)
-{
-	char		*temp;
-	char		*str;
-	t_word		*current;
-	int			flag;
-
-	current = wlist;
-	flag = 0;
-	if (current == NULL)
-		return (ft_strdup(""));
-	if (!current->next)
-	{
-		str = ft_strdup(wlist->part);
-		if (!str && wlist->part != NULL)
-			*error = errno;
-		return (str);
-	}
-	else
-	{
-		str = current->part;
-		while (current->next)
-		{
-			temp = ft_strjoin(str, current->next->part);
-			if (!temp)
-			{
-				*error = errno;
-				return (NULL);
-			}
-			if (flag)
-				free(str);
-			str = temp;
-			flag = 1;
-			current = current->next;
-		}
-	}
-	return (str);
 }
