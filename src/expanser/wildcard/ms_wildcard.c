@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 02:42:55 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/08 11:16:50 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/08 12:47:42 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	ms_make_ftokens(t_wcard **files)
 	return (0);
 }
 
-static int	ms_cmatch_list(t_tlist **head, t_wcard *files)
+static int	ms_cmatch_list(t_tlist **head, t_tlist **current, t_wcard *files)
 {
 	t_tlist	*iswild;
 	t_tlist	*matches;
@@ -91,6 +91,7 @@ static int	ms_cmatch_list(t_tlist **head, t_wcard *files)
 	{
 		free(iswild->tk.value);
 		free(iswild);
+		*current = matches;
 	}
 	return (0);
 }
@@ -114,7 +115,7 @@ int	ms_wildcard(t_tlist **token, t_tlist **head)
 	err = ms_find_matches(wcard, files);
 	if (err)
 		return (err);
-	err = ms_cmatch_list(head, files);
+	err = ms_cmatch_list(head, token, files);
 	if (err)
 		return (err);
 	ms_clean_wildcard(wcard, files);
