@@ -86,8 +86,8 @@ int	ms_heredoc(t_tlist **token, t_command *command)
 		return (ERR_SYN);
 	*token = (*token)->next;
 	end = (*token)->tk.value;
-	command->redirIN = 1;
-	command->INfd = ms_fork_redir(end);
+	command->redir_in = 1;
+	command->in_fd = ms_fork_redir(end);
 	*token = (*token)->next;
 	return (0);
 }

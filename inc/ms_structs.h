@@ -101,11 +101,11 @@ typedef struct s_command
 	char	**args;
 	char	**argve;
 	int		buildin;
-	int		redirIN;
-	int		redirOUT;
-	int		INfd;
-	int		OUTfd;
-	int		OUTerror;
+	int		redir_in;
+	int		redir_out;
+	int		in_fd;
+	int		out_fd;
+	int		out_error;
 	int		error;
 	char	*error_file_name;
 }	t_command;

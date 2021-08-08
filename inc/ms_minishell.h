@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/08 13:39:41 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/08 14:32:50 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include <termios.h>
 # include <sys/wait.h>
 # include <dirent.h>
+
 /*
 ** MINISHELL HEADERS
 */
@@ -234,12 +235,11 @@ int		ms_error_nav(char *path1, char *path2, int error);
 int		ms_navigate_home(char *target);
 char	*ms_get_home_dir(void);
 int		ms_exit(char **args);
-void    ms_add_to_envpt(char **ptr);
+void	ms_add_to_envpt(char **ptr);
 
 /*
 ** WILDCARD
 */
-
 int		ms_wildcard(t_tlist **token, t_tlist **head);
 int		ms_create_sterm(t_wcard **head, char *line, int *i, int count);
 int		ms_create_wcard(t_wcard **head, int *i, int *count);
