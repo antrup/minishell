@@ -6,11 +6,18 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 10:52:09 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/04 18:47:43 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/08 13:12:28 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
+
+static void	ms_clean_new_tree(t_node **head)
+{
+	free((*head)->left);
+	free(*head);
+	*head = NULL;
+}
 
 t_node	*ms_new_tree(t_tlist *tokens, int count, char **env)
 {
@@ -36,11 +43,7 @@ t_node	*ms_new_tree(t_tlist *tokens, int count, char **env)
 		head->right = ms_new_tree(current, count, env);
 	}
 	if (head->right == NULL)
-	{
-		free(head->left);
-		free(head);
-		head = NULL;
-	}
+		ms_clean_new_tree(&head);
 	return (head);
 }
 

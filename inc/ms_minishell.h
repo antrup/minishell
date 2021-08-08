@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/08 12:53:04 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/08 13:02:16 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int		ms_isvariable(char *str);
 ** CREATE TOKENS
 */
 
-int		ms_ctoken_word(char *line, t_tlist **tlist, int *i);
+int		ms_ctoken_word(char *line, t_tlist **tlist, int *i, int y);
 int		ms_ctoken_re(char *line, t_tlist **tlist, int *i);
 int		ms_ctoken_and(t_tlist **tlist, int *i);
 int		ms_ctoken_or(t_tlist **tokens, int *i);

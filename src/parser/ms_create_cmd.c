@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/20 13:44:45 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/06 21:46:27 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/08 13:07:56 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@ static void	ms_buildin(t_tlist **token, t_command *command, int build)
 {
 	command->buildin = build;
 	command->cmd = ft_strdup((*token)->tk.value);
+	command->errname = ft_strdup((*token)->tk.value);
+	return ;
+}
+
+static void	ms_no_buildin(t_tlist **token, t_command *command)
+{
+	command->cmd = ms_format_cmd((*token)->tk.value);
 	command->errname = ft_strdup((*token)->tk.value);
 	return ;
 }
@@ -32,10 +39,7 @@ static int	ms_cmd(t_tlist **token, t_command *command)
 		if (build)
 			ms_buildin(token, command, build);
 		else
-		{
-			command->cmd = ms_format_cmd((*token)->tk.value);
-			command->errname = ft_strdup((*token)->tk.value);
-		}
+			ms_no_buildin(token, command);
 		command->args = malloc(sizeof(char *) * (ms_count_args(*token) + 2));
 		if (command->args == NULL)
 			return (errno);

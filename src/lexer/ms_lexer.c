@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:49:05 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/06 19:28:23 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/08 13:01:49 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ms_lexer(char *line, t_tlist **tokens)
 		else if (line[i] == '(')
 			err = ms_ctoken_parenthesis(line, tokens, &i);
 		else
-			err = ms_ctoken_word(line, tokens, &i);
+			err = ms_ctoken_word(line, tokens, &i, 0);
 	}
 	return (err);
 }

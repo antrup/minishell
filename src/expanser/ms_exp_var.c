@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 02:16:27 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/08 11:35:00 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/08 13:03:14 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static int	ms_ctoken_var(char *var, t_tlist **vtoken)
 		else if (ms_isop_and(var[i], var[i + 1]))
 			err = ms_ctoken_and(vtoken, &i);
 		else if (!err)
-			err = ms_ctoken_word(var, vtoken, &i);
+			err = ms_ctoken_word(var, vtoken, &i, 0);
 	}
 	return (err);
 }
