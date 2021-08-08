@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/08 11:20:18 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/08 12:53:04 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,8 @@ void	ms_clean_tokens(t_tlist **tokens, t_markers op);
 int		ms_check_syntax(t_tlist *tokens);
 void	ms_error_token(t_token *token);
 void	ms_errmsg(int id, char *str);
+int		ms_errmsg_paren(int ret);
+
 /*
 ** SIGNAL HANDLERS
 */
@@ -231,6 +233,7 @@ int		ms_error_nav(char *path1, char *path2, int error);
 int		ms_navigate_home(char *target);
 char	*ms_get_home_dir(void);
 int		ms_exit(char **args);
+void    ms_add_to_envpt(char **ptr);
 
 /*
 ** WILDCARD

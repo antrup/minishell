@@ -48,6 +48,7 @@ SRCS = ms_minishell.c \
 	   buildins/cd/ms_get_directory.c \
 	   buildins/cd/ms_add_target_dir.c \
 	   buildins/ms_echo.c \
+	   buildins/ms_export_utils.c \
 	   buildins/ms_pwd.c \
 	   buildins/ms_export.c \
 	   buildins/ms_unset.c \
@@ -55,7 +56,8 @@ SRCS = ms_minishell.c \
 	   buildins/ms_exit.c \
 	   buildins/ms_env_utils.c \
 	   error/ms_check_syntax.c \
-	   error/ms_error.c
+	   error/ms_error.c \
+	   error/ms_error2.c
 
 #TO BE REMOVED - TEST
 SRCS += ms_test/tester.c
@@ -64,10 +66,10 @@ UNAME = $(shell uname)
 
 ifeq (${UNAME}, Darwin)
 OS = 1
-LIBINC = -lreadline -L /Users/$(USER)/.brew/opt/readline/lib 
-IRDLINE = -I/Users/$(USER)/.brew/opt/readline/include
-#IRDLINE = -I/usr/local/opt/readline/include
-#LIBINC = -lreadline -L /usr/local/opt/readline/lib 
+#LIBINC = -lreadline -L /Users/$(USER)/.brew/opt/readline/lib 
+#IRDLINE = -I/Users/$(USER)/.brew/opt/readline/include
+IRDLINE = -I/usr/local/opt/readline/include
+LIBINC = -lreadline -L /usr/local/opt/readline/lib 
 endif
 
 ifeq (${UNAME}, Linux)

@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:14:09 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/07 00:03:20 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/08 12:47:56 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	ms_init_env(void)
 	char	*pwd;
 	char	**pwd_env;
 
+	g_shell.env_pt = NULL;
 	if (!getenv("PWD"))
 	{
 		environ = NULL;

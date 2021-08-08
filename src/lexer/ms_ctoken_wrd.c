@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 22:43:21 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/05 08:28:35 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/08 12:16:23 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ms_ctoken_word(char *line, t_tlist **tlist, int *i)
 		{	
 			y = ms_tk_quote(y, type, line);
 			if (y == -1)
-				return (1);
+				return (ERR_SYN);
 		}
 		y++;
 	}
