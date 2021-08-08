@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 11:38:09 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/06 20:49:32 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/08 11:39:03 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,16 @@ int	ms_exp_spvar(int *i, t_word **wlist)
 	return (0);
 }
 
+static int	ms_null_var(t_word *new, char *var)
+{
+	free(var);
+	new->part = malloc(sizeof(char) * 1);
+	if (!new->part)
+		return (errno);
+	ft_strlcpy(new->part, "", 1);
+	return (0);
+}
+
 int	ms_exp_var(char *word, int *i, t_word **wlist)
 {
 	t_word	*new;
@@ -59,14 +69,7 @@ int	ms_exp_var(char *word, int *i, t_word **wlist)
 	if (!new)
 		return (errno);
 	if (getenv(var) == NULL)
-	{
-		free(var);
-		new->part = malloc(sizeof(char) * 1);
-		if (!new->part)
-			return (errno);
-		ft_strlcpy(new->part, "", 1);
-		return (0);
-	}
+		return (ms_null_var(new, var));
 	new->part = malloc(sizeof(char) * (ft_strlen(getenv(var)) + 1));
 	if (!new->part)
 		return (errno);
