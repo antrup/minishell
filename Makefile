@@ -20,9 +20,10 @@ SRCS = ms_minishell.c \
 	   lexer/ms_lexer_utils_2.c \
 	   expanser/ms_expanser.c \
 	   expanser/ms_exp_var.c \
-	   expanser/ms_wildcard.c \
-	   expanser/ms_wildcard_utils.c \
-	   expanser/ms_wildcard_matches.c \
+	   expanser/wildcard/ms_wildcard.c \
+	   expanser/wildcard/ms_wildcard_utils.c \
+	   expanser/wildcard/ms_wildcard_utils2.c \
+	   expanser/wildcard/ms_wildcard_matches.c \
 	   expanser/ms_expanser_utils.c \
 	   parser/ms_create_cmd.c \
 	   parser/ms_create_redir.c \
@@ -80,7 +81,7 @@ INCDIR = inc
 
 CC = clang
 CFLAGS = -Wall -Wextra -Werror -g
-MEM = -fsanitize=address
+#MEM = -fsanitize=address
 
 OBJS = $(addprefix ${OBJDIR}/,${SRCS:.c=.o})
 

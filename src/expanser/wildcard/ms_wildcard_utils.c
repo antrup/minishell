@@ -6,25 +6,11 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 04:14:29 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/05 17:52:13 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/08 11:16:54 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
-
-int	ms_iswildcard(char *line)
-{
-	int	y;
-
-	y = 0;
-	while (line[y])
-	{
-		if (line[y] == '*')
-			return (1);
-		y++;
-	}
-	return (0);
-}
 
 static char	*ms_part(char *line, int *i, int count)
 {
