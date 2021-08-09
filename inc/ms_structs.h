@@ -6,12 +6,13 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:03:04 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/06 18:09:46 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/08 13:34:47 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MS_STRUCTS_H
 # define MS_STRUCTS_H
+
 /*
 ** TOKENS
 */
@@ -100,11 +101,11 @@ typedef struct s_command
 	char	**args;
 	char	**argve;
 	int		buildin;
-	int		redirIN;
-	int		redirOUT;
-	int		INfd;
-	int		OUTfd;
-	int		OUTerror;
+	int		redir_in;
+	int		redir_out;
+	int		in_fd;
+	int		out_fd;
+	int		out_error;
 	int		error;
 	char	*error_file_name;
 }	t_command;

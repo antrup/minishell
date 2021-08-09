@@ -76,10 +76,10 @@ int	ms_init_parser(t_node **node, t_command **command, char **env)
 	(*command)->buildin = 0;
 	(*command)->args = NULL;
 	(*command)->argve = env;
-	(*command)->redirIN = 0;
-	(*command)->redirOUT = 0;
-	(*command)->INfd = 0;
-	(*command)->OUTfd = 1;
+	(*command)->redir_in = 0;
+	(*command)->redir_out = 0;
+	(*command)->in_fd = 0;
+	(*command)->out_fd = 1;
 	(*command)->error = 0;
 	(*command)->error_file_name = NULL;
 	return (0);

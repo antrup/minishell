@@ -68,10 +68,10 @@ void	print_tree(t_node *thead)
 					i++;
 				}
 			}
-			if (current->data->redirIN)
-				printf("RedirIN fd = %d \n", current->data->INfd);
-			if (current->data->redirOUT)
-				printf("RedirOUT fd = %d \n", current->data->OUTfd);
+			if (current->data->redir_in)
+				printf("RedirIN fd = %d \n", current->data->in_fd);
+			if (current->data->redir_out)
+				printf("RedirOUT fd = %d \n", current->data->out_fd);
 		}
 		current = NULL;
 	}

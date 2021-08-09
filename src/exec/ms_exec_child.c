@@ -50,9 +50,9 @@ static void	ms_exec_error(t_command *cmd)
 
 static void	child_redir(t_command *cmd, int pipIN, int pipOUT)
 {
-	if (cmd->redirOUT)
+	if (cmd->redir_out)
 	{
-		dup2(cmd->OUTfd, 1);
+		dup2(cmd->out_fd, 1);
 		if (pipOUT != 1)
 			close(pipOUT);
 	}
@@ -61,9 +61,9 @@ static void	child_redir(t_command *cmd, int pipIN, int pipOUT)
 		dup2(pipOUT, 1);
 		close(pipOUT);
 	}
-	if (cmd->redirIN)
+	if (cmd->redir_in)
 	{	
-		dup2(cmd->INfd, 0);
+		dup2(cmd->in_fd, 0);
 		if (pipIN)
 			close(pipIN);
 	}

@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 17:32:12 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/06 19:28:34 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/08 14:31:29 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # define REDIR_OUT 5
 # define REDIR_IN_A 6
 # define REDIR_OUT_A 7
+
 /*
 ** BUILT IN FUNCTIONS
 */
@@ -46,6 +47,7 @@
 # define BI_UNSET 5
 # define BI_ENV 6
 # define BI_EXIT 7
+
 /*
 ** ERRORS
 */
@@ -61,6 +63,7 @@
 # define ERR_CD -10
 # define ERR_MEM -11
 # define ERR_PAREN -12
+
 /*
 ** KEYS
 */

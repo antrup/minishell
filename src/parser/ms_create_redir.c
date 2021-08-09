@@ -22,11 +22,11 @@ int	ms_redir_in(t_tlist **token, t_command *command)
 		*token = (*token)->next->next;
 		return (0);
 	}
-	command->redirIN = 1;
+	command->redir_in = 1;
 	file = ms_format_file((*token)->next->tk.value);
-	command->INfd = open(file, O_RDONLY);
+	command->in_fd = open(file, O_RDONLY);
 	free(file);
-	if (command->INfd < 0)
+	if (command->in_fd < 0)
 	{	
 		command->error = errno;
 		command->error_file_name = (*token)->next->tk.value;
@@ -45,11 +45,11 @@ int	ms_redir_out(t_tlist **token, t_command *command)
 		*token = (*token)->next->next;
 		return (0);
 	}
-	command->redirOUT = 1;
+	command->redir_out = 1;
 	file = ms_format_file((*token)->next->tk.value);
-	command->OUTfd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	command->out_fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	free(file);
-	if (command->OUTfd < 0)
+	if (command->out_fd < 0)
 	{	
 		command->error = errno;
 		command->error_file_name = (*token)->next->tk.value;
@@ -65,11 +65,11 @@ int	ms_redir_outa(t_tlist **token, t_command *command)
 	file = NULL;
 	if ((*token)->next->tk.type != WORD)
 		return (ERR_SYN);
-	command->redirOUT = 1;
+	command->redir_out = 1;
 	file = ms_format_file((*token)->next->tk.value);
-	command->INfd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	command->in_fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	free(file);
-	if (command->INfd < 0)
+	if (command->in_fd < 0)
 		return (ERR_OPEN);
 	*token = (*token)->next->next;
 	return (0);

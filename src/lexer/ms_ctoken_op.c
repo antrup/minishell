@@ -6,35 +6,11 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 22:38:52 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/08 13:14:28 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/08 14:22:58 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
-
-int	ms_ctoken_and(t_tlist **tokens, int *i)
-{
-	t_tlist		*new;
-
-	new = ms_create_token(tokens);
-	if (!new)
-		return (errno);
-	new->tk.type = OP_AND;
-	*i = *i + 2;
-	return (0);
-}
-
-int	ms_ctoken_or(t_tlist **tokens, int *i)
-{
-	t_tlist		*new;
-
-	new = ms_create_token(tokens);
-	if (!new)
-		return (errno);
-	new->tk.type = OP_OR;
-	*i = *i + 2;
-	return (0);
-}
 
 static int	ms_check_parenthesis(char *line)
 {
@@ -45,6 +21,18 @@ static int	ms_check_parenthesis(char *line)
 	len = ft_strlen(line);
 	if (line[0] == '(' && line[len - 1] == ')')
 		return (1);
+	return (0);
+}
+
+static int	ms_set_parentoken(char *line, int *i, t_tlist *new, int n)
+{
+	new->tk.value = ft_substr(line, *i + 1, n - *i - 1);
+	if (ms_check_parenthesis(new->tk.value))
+	{
+		ms_errmsg(ERR_SYN, new->tk.value);
+		return (ERR_SYN);
+	}
+	*i = n + 1;
 	return (0);
 }
 
@@ -67,20 +55,10 @@ int	ms_ctoken_parenthesis(char *line, t_tlist **tokens, int *i)
 		if (line[n] == ')')
 			_open--;
 		if (_open == -1)
-		{
-			new->tk.value = ft_substr(line, *i + 1, n - *i - 1);
-			if (ms_check_parenthesis(new->tk.value))
-			{
-				ms_errmsg(ERR_SYN, new->tk.value);
-				return (1);
-			}
-			*i = n + 1;
-			return (0);
-		}
+			return (ms_set_parentoken(line, i, new, n));
 		n++;
 	}
-	ms_errmsg(ERR_PAREN, NULL);
-	return (1);
+	return (ms_errmsg_paren(ERR_SYN));
 }
 
 int	ms_ctoken_pipe(char *line, t_tlist **tokens, int *i)

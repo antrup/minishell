@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/08 12:55:55 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/08 14:32:50 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include <termios.h>
 # include <sys/wait.h>
 # include <dirent.h>
+
 /*
 ** MINISHELL HEADERS
 */
@@ -80,7 +81,7 @@ int		ms_isvariable(char *str);
 ** CREATE TOKENS
 */
 
-int		ms_ctoken_word(char *line, t_tlist **tlist, int *i);
+int		ms_ctoken_word(char *line, t_tlist **tlist, int *i, int y);
 int		ms_ctoken_re(char *line, t_tlist **tlist, int *i);
 int		ms_ctoken_and(t_tlist **tlist, int *i);
 int		ms_ctoken_or(t_tlist **tokens, int *i);
@@ -123,7 +124,9 @@ void	ms_clean_tokens(t_tlist **tokens, t_markers op);
 int		ms_check_syntax(t_tlist *tokens);
 void	ms_error_token(t_token *token);
 void	ms_errmsg(int id, char *str);
+int		ms_errmsg_paren(int ret);
 int		ms_check_first_tk(t_tlist *current);
+
 /*
 ** SIGNAL HANDLERS
 */
@@ -232,11 +235,11 @@ int		ms_error_nav(char *path1, char *path2, int error);
 int		ms_navigate_home(char *target);
 char	*ms_get_home_dir(void);
 int		ms_exit(char **args);
+void	ms_add_to_envpt(char **ptr);
 
 /*
 ** WILDCARD
 */
-
 int		ms_wildcard(t_tlist **token, t_tlist **head);
 int		ms_create_sterm(t_wcard **head, char *line, int *i, int count);
 int		ms_create_wcard(t_wcard **head, int *i, int *count);

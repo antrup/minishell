@@ -42,10 +42,10 @@ int	ms_exec_bd(int	bd, char **args)
 
 void	ms_close_fds(t_command *cmd, int pipIN)
 {
-	if (cmd->INfd && cmd->redirIN)
-		close(cmd->INfd);
-	if (cmd->redirOUT)
-		close(cmd->OUTfd);
+	if (cmd->in_fd && cmd->redir_in)
+		close(cmd->in_fd);
+	if (cmd->redir_out)
+		close(cmd->out_fd);
 	if (pipIN)
 		close(pipIN);
 }
