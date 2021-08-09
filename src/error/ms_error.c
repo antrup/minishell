@@ -6,7 +6,7 @@
 /*   By: sshakya <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 14:51:16 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/08 13:13:52 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/09 10:34:28 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	ms_errmsg(int id, char *str)
 		ft_putstr_fd("unmatched - ' ' ' \n", 2);
 	if (id == ERR_PAREN)
 		ft_putstr_fd("missing - ' ) ' \n", 2);
+	if (id == ERR_EMPTY_PAREN)
+		ft_putstr_fd("syntax error in expression", 2);
 	if (str)
 	{
 		ft_putstr_fd(str, 2);
@@ -29,7 +31,7 @@ void	ms_errmsg(int id, char *str)
 	}
 }
 
-static char	*ms_error_word(t_token *token)
+static void	ms_error_word(t_token *token)
 {
 	char	*errstr;
 	char	*temp;
@@ -37,18 +39,8 @@ static char	*ms_error_word(t_token *token)
 	temp = ft_strjoin(" `", token->value);
 	errstr = ft_strjoin(temp, "'");
 	free (temp);
-	return (errstr);
-}
-
-static void	ms_error_token2(t_token *token)
-{
-	if (token->type == REDIR_IN_A)
-		ms_errmsg(ERR_SYN, " `<<'");
-	if (token->type == REDIR_OUT_A)
-		ms_errmsg(ERR_SYN, " `>>'");
-	if (token->type == OP_PAREN)
-		ms_errmsg(ERR_SYN, " `('");
-	return ;
+	ms_errmsg(ERR_SYN, errstr);
+	free(errstr);
 }
 
 void	ms_error_token(t_token *token)
@@ -57,11 +49,7 @@ void	ms_error_token(t_token *token)
 
 	str = NULL;
 	if (token->type == WORD)
-	{
-		str = ms_error_word(token);
-		ms_errmsg(ERR_SYN, str);
-		free (str);
-	}
+		ms_error_word(token);
 	if (token->type == OP_PIPE)
 		ms_errmsg(ERR_SYN, " `|'");
 	if (token->type == OP_AND)
@@ -72,8 +60,19 @@ void	ms_error_token(t_token *token)
 		ms_errmsg(ERR_SYN, " `<'");
 	if (token->type == REDIR_OUT)
 		ms_errmsg(ERR_SYN, " `>'");
-	ms_error_token2(token);
+	if (token->type == REDIR_IN_A)
+		ms_errmsg(ERR_SYN, " `<<'");
+	if (token->type == REDIR_OUT_A)
+		ms_errmsg(ERR_SYN, " `>>'");
+	if (token->type == OP_PAREN)
+		ms_errmsg(ERR_SYN, " `('");
 	return ;
+}
+
+int	ms_errmsg_paren(int ret)
+{
+	ft_putstr_fd("missing - ' ) ' \n", 2);
+	return (ret);
 }
 
 void	ms_error(t_ms *data, int id)

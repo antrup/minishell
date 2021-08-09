@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 22:38:52 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/08 14:22:58 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/09 10:34:58 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static int	ms_set_parentoken(char *line, int *i, t_tlist *new, int n)
 	new->tk.value = ft_substr(line, *i + 1, n - *i - 1);
 	if (ms_check_parenthesis(new->tk.value))
 	{
-		ms_errmsg(ERR_SYN, new->tk.value);
-		return (ERR_SYN);
+		ms_errmsg(ERR_EMPTY_PAREN, "(redundant parenthesis)");
+		return (ERR_EMPTY_PAREN);
 	}
 	*i = n + 1;
 	return (0);

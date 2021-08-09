@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:06:59 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/08 14:33:31 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/09 10:29:07 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,8 @@ static int	ms_interactive(t_ms *data, char **env)
 		if (!data->line)
 			return (1);
 		err = ms_lexer(data->line, &data->tokens);
-		if (err == ERR_SYN)
-			ms_clean_tlist_all(&data->tokens, ERR_SYN);
-		else if (err)
-			return (ms_clean_tlist_all(&data->tokens, err));
+		if (err)
+			ms_clean_tlist_all(&data->tokens, err);
 		else
 			ms_minishell(data, env);
 		add_history(data->line);
