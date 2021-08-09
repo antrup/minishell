@@ -6,7 +6,7 @@
 /*   By: Satcheen SHAKYA <sshakya@student.42.f      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 12:02:43 by Satcheen          #+#    #+#             */
-/*   Updated: 2021/08/07 00:02:40 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/09 23:54:24 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	ms_exit_sig(int sig)
 
 	i = EOF;
 	(void)sig;
+	if (rl_line_buffer[0] != '\0')
+		return ;
 	if (g_shell.data->thead != NULL)
 	{
 		write(1, "Quit (core dumped)\n", 19);
