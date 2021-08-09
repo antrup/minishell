@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:55:30 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/08 12:46:47 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/09 12:07:56 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	ms_create_env_var(char	*arg)
 	index = ms_copy_env();
 	environ[index] = ft_strdup(arg);
 	ms_add_to_envpt(&(environ[index]));
+	g_shell.env_f = 1;
 }
 
 void	ms_replace_env_var(char *var, char *arg)

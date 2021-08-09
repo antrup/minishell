@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 00:17:37 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/06 07:24:31 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/09 12:08:33 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	ms_clean_environ(void)
 		}
 		free(g_shell.env_pt);
 	}
-	free(environ);
+	if (g_shell.env_f)
+		free(environ);
 }
 
 void	ms_clean_wlist(t_word *list)
