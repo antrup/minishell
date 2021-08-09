@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 18:03:04 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/09 12:06:14 by toni             ###   ########.fr       */
+/*   Updated: 2021/08/09 12:14:48 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ typedef struct s_shell
 	char		**env_pt;
 	char		*mypath;
 	char		**env;
-	int		env_f;
+	int			env_f;
 }	t_shell;
 
 /*
