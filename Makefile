@@ -61,9 +61,6 @@ SRCS = ms_minishell.c \
 	   error/ms_check_syntax.c \
 	   error/ms_check_syntax_utils.c
 
-#TO BE REMOVED - TEST
-SRCS += ms_test/tester.c
-
 UNAME = $(shell uname)
 
 ifeq (${UNAME}, Darwin)
@@ -84,7 +81,7 @@ OBJDIR = objs
 INCDIR = inc
 
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 #MEM = -fsanitize=address
 
 OBJS = $(addprefix ${OBJDIR}/,${SRCS:.c=.o})
@@ -100,10 +97,6 @@ $(NAME): ${OBJS} ${LIBFT}
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p ${@D}
 	${CC} ${CFLAGS} ${MEM} ${IRDLINE} ${TFLAG} -I./inc -c $< -o $@
-
-test: TFLAG = -D TEST=1 -D OSX=${OS}
-
-test: fclean ${NAME}
 
 re: fclean all
 
