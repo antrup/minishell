@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:14:09 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/10 18:56:37 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/10 19:03:23 by atruphem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int	ms_init(t_ms *data, char **argv, char **env)
 		g_shell.env = env;
 	if (ms_init_env())
 		return (1);
-	rl_catch_signals = 0;
 	ft_memset(data, 0, sizeof(t_ms));
 	data->tokens = NULL;
 	data->line = NULL;
@@ -80,6 +79,7 @@ int	ms_init(t_ms *data, char **argv, char **env)
 
 void	ms_init_shell_io(t_ms *data)
 {
+	rl_catch_signals = 0;
 	data->info.ms_ios.c_cc[VEOF] = KEY_NONE;
 	data->info.ms_ios.c_cc[VQUIT] = KEY_CTRL_D;
 	data->info.ms_ios.c_lflag &= ~(ECHOCTL);
@@ -90,6 +90,7 @@ void	ms_init_shell_io(t_ms *data)
 
 void	ms_shell_input_io(t_ms *data)
 {
+	rl_catch_signals = 1;
 	data->info.ms_input.c_cc[VINTR] = KEY_NONE;
 	data->info.ms_input.c_cc[VQUIT] = KEY_CTRL_C;
 	tcsetattr(0, TCSANOW, &data->info.ms_input);
