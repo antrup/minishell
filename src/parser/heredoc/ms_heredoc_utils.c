@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 09:43:51 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/09 09:43:54 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/09 23:59:00 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,5 @@ void	ms_heredoc_error(char *end)
 	i = ms_strlen(end);
 	write (0, "minishell: warning: found end-of-file (wanted `", 47);
 	write (0, end, i);
-	write (0, "')\n", 3);
+	write (0, "')", 2);
 }
