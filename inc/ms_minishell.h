@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/14 09:56:19 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/14 17:33:59 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,6 @@
 /*
 ** TEST
 */
-# ifndef TEST
-#  define TEST 0
-# endif
 # ifndef OSX
 #  define OSX 0
 # endif
