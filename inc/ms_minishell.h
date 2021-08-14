@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:07:10 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/14 09:48:40 by sshakya          ###   ########.fr       */
+/*   Updated: 2021/08/14 09:56:19 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,14 +251,5 @@ t_tlist	*ms_insert_matches(t_tlist **head, t_tlist *matches, t_tlist *iswild);
 t_tlist	*ms_iswild(t_tlist **head);
 int		ms_ctoken_matches(t_tlist **wtoken, t_wcard *files);
 void	ms_sort_files(t_wcard *file);
-
-/*
-** DEBUG -- TEST
-*/
-
-void	print_token(t_tlist *tokens);
-void	print_tree(t_node *thead);
-void	print_environ(void);
-int		print_wildcard_test(t_wcard *wcard, t_wcard *files);
 
 #endif

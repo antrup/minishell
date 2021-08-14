@@ -6,7 +6,7 @@
 /*   By: sshakya <sshakya@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 17:21:58 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/06 21:04:00 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/14 09:52:49 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ static int	ms_ismatch(t_wcard *files, t_wcard *wcard, int show_hidden)
 		return (0);
 	while (temp && temp[0] != '\0')
 	{	
-		if (!wcard->prev && strncmp(temp, wcard->str, ft_strlen(wcard->str)))
+		if (!wcard->prev && ft_strncmp(temp, wcard->str, ft_strlen(wcard->str)))
 			return (0);
-		if (!strncmp(temp, wcard->str, ft_strlen(wcard->str)))
+		if (!ft_strncmp(temp, wcard->str, ft_strlen(wcard->str)))
 		{
 			if (!wcard->next && *(temp + ft_strlen(wcard->str)) != '\0')
 				return (0);
