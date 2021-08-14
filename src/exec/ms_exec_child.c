@@ -6,13 +6,13 @@
 /*   By: sshakya <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 17:49:03 by sshakya           #+#    #+#             */
-/*   Updated: 2021/08/06 21:40:22 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/14 09:46:51 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ms_minishell.h"
 
-static void	child_ex(t_command *cmd)
+static void	ms_child_ex(t_command *cmd)
 {
 	int	test;
 
@@ -48,7 +48,7 @@ static void	ms_exec_error(t_command *cmd)
 	exit (1);
 }
 
-static void	child_redir(t_command *cmd, int pipIN, int pipOUT)
+static void	ms_child_redir(t_command *cmd, int pipIN, int pipOUT)
 {
 	if (cmd->redir_out)
 	{
@@ -75,13 +75,13 @@ static void	child_redir(t_command *cmd, int pipIN, int pipOUT)
 	return ;
 }
 
-int	child(t_command *cmd, int pipIN, int pipOUT)
+int	ms_child(t_command *cmd, int pipIN, int pipOUT)
 {
-	child_redir(cmd, pipIN, pipOUT);
+	ms_child_redir(cmd, pipIN, pipOUT);
 	if (cmd->error)
 		ms_exec_error(cmd);
 	if (cmd->buildin)
 		return (ms_exec_bd(cmd->buildin, cmd->args));
-	child_ex(cmd);
+	ms_child_ex(cmd);
 	return (0);
 }

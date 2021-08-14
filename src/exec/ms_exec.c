@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:19:21 by atruphem          #+#    #+#             */
-/*   Updated: 2021/08/06 20:03:31 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/08/14 09:47:42 by sshakya          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	ms_exec_pipe(t_node *head, int pipIN)
 	if (pid == 0)
 	{
 		close(pip[0]);
-		return (child(head->left->data, pipIN, pip[1]));
+		return (ms_child(head->left->data, pipIN, pip[1]));
 	}
 	close(pip[1]);
 	ms_close_fds(head->left->data, pipIN);
@@ -60,7 +60,7 @@ static int	ms_exec_cmd(t_node *head, int pipIN)
 			if (pid == -1)
 				return (errno);
 			if (pid == 0)
-				return (child(head->data, pipIN, 1));
+				return (ms_child(head->data, pipIN, 1));
 			if (pipIN)
 				close(pipIN);
 			ms_wait_children(g_shell.data->thead, &error);
